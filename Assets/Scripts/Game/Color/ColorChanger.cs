@@ -1,25 +1,38 @@
+//色に数字を割り当てて足し算の合計で変えす色を変える
+//if文で片方の色がNoneならをのまま返す
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// 色コード定義
 /// </summary>
-public struct GameColor
+public enum GameColor
 {
-    public static Color32 gameColor_;
+    None,
+    Red,
+    Blue,
+    Yellow,
+    Purple,
+    Green,
+    Orange
 }
 
 /// <summary>
-/// ゲーム中に使用する色定義
+/// 色変換クラス
 /// </summary>
-public struct UseColor
-{
-    public static GameColor red_;
-    public static GameColor blue_;
-    public static GameColor yellow_;
-}
-
 public class ColorChanger : MonoBehaviour
 {
-    
+    /// <summary>
+    /// 色変換関数
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public static GameColor Mix(GameColor a, GameColor b) => (a, b) switch
+    {
+        (GameColor.Red, GameColor.Blue) or (GameColor.Blue, GameColor.Red) => GameColor.Purple,
+        (GameColor.Blue, GameColor.Yellow) or (GameColor.Yellow, GameColor.Blue) => GameColor.Green,
+        (GameColor.Red, GameColor.Yellow) or (GameColor.Yellow, GameColor.Red) => GameColor.Orange,
+        _ => GameColor.None,
+    };
+
 }
