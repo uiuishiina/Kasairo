@@ -16,6 +16,7 @@ namespace Assets.Scripts.StaticObject
     /// <summary>
     /// InputManagerクラス
     /// </summary>
+    [RequireComponent(typeof(PlayerInput))]
     public class StaticInputManager : StaticObject<StaticInputManager>
     {
         /* ========== 変数 ========== */

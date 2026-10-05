@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
-
+[RequireComponent(typeof(Rigidbody))]
 public class MoveController : MonoBehaviour
 {
     [Header("移動設定")]
@@ -14,6 +14,7 @@ public class MoveController : MonoBehaviour
     //-----Component取得-----
     Rigidbody rb;
 
+    [SerializeField] private Transform Body;
 
     void Start()
     {
@@ -47,9 +48,7 @@ public class MoveController : MonoBehaviour
         if (move != Vector3.zero)
         {
             //回転
-            var targetRotation = CalculateRotation(input);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, RotaSpeed * Time.fixedDeltaTime));
-
+            Body.rotation = CalculateRotation(input);
         }
     }
 
@@ -72,8 +71,10 @@ public class MoveController : MonoBehaviour
     {
         //Vector3に変換
         var dir = new Vector3(input.x, 0, input.y);
+
+        var targetRotation = Quaternion.LookRotation(dir, Vector3.up);
         //回転
-        return Quaternion.LookRotation(dir, Vector3.up);
+        return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * Time.fixedDeltaTime);
     }
 
 }

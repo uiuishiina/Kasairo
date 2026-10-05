@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
-
 public class PlayerInputController : MonoBehaviour
 {
     [Header("入力設定")]
