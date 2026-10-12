@@ -5,20 +5,42 @@ using Assets.Scripts.StaticObject;
 
 namespace Assets.Scripts.Audio
 {
-    public class AudioManager : StaticObject<AudioManager>
+    public class AudioManager : MonoBehaviour//StaticObject<AudioManager>....テスト用(実際はStaticObjectを継承する)
     {
-        [SerializeField] AudioMixer AudioMixer;//全体の音量調整
+        public static AudioManager Instance_;
 
-        [SerializeField] AudioSource BGMAudioSource;//BGMの再生
+        [SerializeField] AudioSource BGMAudioSource;//BGM再生用
 
-        [SerializeField] AudioSource SEAudioSource;//SEの再生
+        [SerializeField] AudioSource SEAudioSource;//SE再生用
 
+        [SerializeField] AudioMixer AudioMixer;
 
-        [SerializeField] float BGMVolume;
+        [SerializeField, Header("現在の音量データが入っているScriptableObject")] private VolumeDeta VolumeDeta;
 
-        [SerializeField] float SEVolume;
+        private void Awake()
+        {
 
-        [SerializeField] float MasterVolume;
+            //テスト用(実際はStaticObjectを継承する)
+            if (Instance_ == null)
+            {
+                Instance_ = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        private void Start()
+        {
+            SetMasterVolume(VolumeDeta.MasterVolume);
+            SetBGMVolume(VolumeDeta.BGMVolume);
+            SetSEVolume(VolumeDeta.SEVolume);
+        }
+
+        //-------------------------------音楽再生---------------------------------//
 
         /// <summary>
         /// SEの再生
@@ -30,13 +52,23 @@ namespace Assets.Scripts.Audio
 
             SEAudioSource.PlayOneShot(clip);
         }
+
         /// <summary>
         /// BGMの再生
         /// </summary>
         /// <param name="clip">再生する曲</param>
-        public void PlayBGM(AudioClip clip)
+        /// <param name="awake">ゲーム開始時にならすか</param>
+        /// <param name="loop">ループ再生するか</param>
+        public void PlayBGM(AudioClip clip, bool awake, bool loop)
         {
+            //再生する曲が設定されていない場合抜ける
+            if (clip == null) return;
+            //同じ曲が再生中なら抜ける
+            if (BGMAudioSource.clip == clip && BGMAudioSource.isPlaying) return;
+
             BGMAudioSource.clip = clip;
+            BGMAudioSource.playOnAwake = awake;//trueなら開始時にならす
+            BGMAudioSource.loop = loop;//trueならループ再生する
             BGMAudioSource.Play();
         }
         /// <summary>
@@ -46,27 +78,69 @@ namespace Assets.Scripts.Audio
         {
             BGMAudioSource.Stop();
         }
-        /// <summary>
-        /// SEの音量調整,Sliderから操作
-        /// </summary>
-        public void ChangeSEVolume()
-        {
 
+
+        //--------------------------------音量設定---------------------------------//
+
+        /// <summary>
+        /// マスター音量の設定
+        /// </summary>
+        /// <param name="volume">音量</param>
+        public void SetMasterVolume(float volume)
+        {
+            volume = Mathf.Clamp(volume, 0.001f, 1f);
+
+            VolumeDeta.MasterVolume = volume;
+
+            AudioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
         }
         /// <summary>
-        /// BGMの音量調整,Sliderから操作
+        /// BGM音量の設定
         /// </summary>
-        public void ChangeBGMVolume()
+        /// <param name="volume">音量</param>
+        public void SetBGMVolume(float volume)
         {
+            volume = Mathf.Clamp(volume, 0.001f, 1f);
 
+            VolumeDeta.BGMVolume = volume;
+
+            AudioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
         }
         /// <summary>
-        /// Masterの音量調整,Sliderから操作
+        /// SE音量の設定
         /// </summary>
-        public void ChangeMasterVolume()
+        /// <param name="volume">音量</param>
+        public void SetSEVolume(float volume)
         {
+            volume = Mathf.Clamp(volume, 0.001f, 1f);
 
+            VolumeDeta.SEVolume = volume;
+
+            AudioMixer.SetFloat("SE", Mathf.Log10(volume) * 20);
         }
-
+        /// <summary>
+        /// 現在のマスター音量を取得
+        /// </summary>
+        /// <returns></returns>
+        public float GetMasterVolume()
+        {
+            return VolumeDeta.MasterVolume;
+        }
+        /// <summary>
+        /// 現在のBGM音量を取得
+        /// </summary>
+        /// <returns></returns>
+        public float GetBGMVolume()
+        {
+            return VolumeDeta.BGMVolume;
+        }
+        /// <summary>
+        /// 現在のSE音量を取得
+        /// </summary>
+        /// <returns></returns>
+        public float GetSEVolume()
+        {
+            return VolumeDeta.SEVolume;
+        }
     }
 }
