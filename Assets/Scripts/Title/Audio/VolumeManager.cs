@@ -18,10 +18,12 @@ public class VolumeManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // 現在の音量をスライダーに反映させる
         MasterSlider.value = AudioManager.Instance_.GetMasterVolume();
         BGMSlider.value = AudioManager.Instance_.GetBGMVolume();
         SESlider.value = AudioManager.Instance_.GetSEVolume();
 
+        // スライダーの値が変更されたときに音量を変更するリスナーを追加
         MasterSlider.onValueChanged.AddListener(AudioManager.Instance_.SetMasterVolume);
         BGMSlider.onValueChanged.AddListener(AudioManager.Instance_.SetBGMVolume);
         SESlider.onValueChanged.AddListener(AudioManager.Instance_.SetSEVolume);

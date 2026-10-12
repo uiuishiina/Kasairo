@@ -35,6 +35,7 @@ namespace Assets.Scripts.Audio
 
         private void Start()
         {
+            //現在設定されている音量をAudioMixerに反映させる
             SetMasterVolume(VolumeDeta.MasterVolume);
             SetBGMVolume(VolumeDeta.BGMVolume);
             SetSEVolume(VolumeDeta.SEVolume);
