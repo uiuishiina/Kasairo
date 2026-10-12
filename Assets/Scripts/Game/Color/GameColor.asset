@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df676c08dedcbb4f946265cd2843932, type: 3}
   m_Name: GameColor
   m_EditorClassIdentifier: Assembly-CSharp::GameColor
-  NoneColor: {r: 0, g: 0, b: 0, a: 0}
-  RedColor: {r: 0, g: 0, b: 0, a: 0}
-  BlueColor: {r: 0, g: 0, b: 0, a: 0}
-  PurpleColor: {r: 0, g: 0, b: 0, a: 0}
-  YellowColor: {r: 0, g: 0, b: 0, a: 0}
-  OrangeColor: {r: 0, g: 0, b: 0, a: 0}
-  GreenColor: {r: 0, g: 0, b: 0, a: 0}
+  NoneColor: {r: 1, g: 1, b: 1, a: 0}
+  RedColor: {r: 1, g: 0, b: 0, a: 0}
+  BlueColor: {r: 0, g: 0, b: 1, a: 0}
+  PurpleColor: {r: 1, g: 0, b: 1, a: 0}
+  YellowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  OrangeColor: {r: 1, g: 0.6470588, b: 0, a: 1}
+  GreenColor: {r: 0, g: 1, b: 0, a: 0}
   BlackColor: {r: 0, g: 0, b: 0, a: 0}

@@ -1,7 +1,4 @@
 //色に数字を割り当てて足し算の合計で変えす色を変える
-//if文で片方の色がNoneならをのまま返す
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -9,13 +6,22 @@ using UnityEngine;
 /// </summary>
 public class ColorChanger : MonoBehaviour
 {
-    
     /// <summary>
     /// 
     /// </summary>
     /// <param name="data"></param>
-    public void f(GameColor data)
+    static public ColorState MixedColor(ColorState a, ColorState b, ColorState c = ColorState.None)
     {
-        var col = data[ColorState.Purple];
+
+        var col = a | b | c;
+
+        if (col >= ColorState.Black) col = ColorState.Black;
+
+        return col;
+    }
+
+    static public ColorState ClearNone()
+    {
+        return ColorState.None;
     }
 }
