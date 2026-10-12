@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
+using Assets.Utility.Time;
 
 namespace Assets.Scripts.Game.Player
 {
@@ -36,18 +37,12 @@ namespace Assets.Scripts.Game.Player
         //InputAction
         private InputAction MoveAction;
 
-        //InputSystem管理Script
-        private StaticInputManager StaticInputManager_;
-
         //-----Component取得-----
         Rigidbody rb;
 
         void Start()
         {
             rb = GetComponent<Rigidbody>();
-
-            StaticInputManager_ = StaticInputManager.Instance_;
-
 
             //InputActionの取得
             MoveAction = StaticInputManager.Instance_.GetInputAction(
@@ -60,9 +55,13 @@ namespace Assets.Scripts.Game.Player
             if (MoveAction != null)
             {
                 InputVer = MoveAction.ReadValue<Vector2>();
-
-                Move(InputVer);
             }
+        }
+
+        private void FixedUpdate()
+        {
+            //動作処理
+            Move(InputVer);
         }
 
         /// <summary>
@@ -87,18 +86,18 @@ namespace Assets.Scripts.Game.Player
         /// <summary>
         /// 移動量計算
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">PlayerInputの入力値</param>
+        /// <returns>入力値をVectro3に変換したものに移送速度とGameTimeクラスにあるFixedDeltaTimeを掛けた値</returns>
         private Vector3 CalculateMove(Vector2 input)
         {
-            return new Vector3(input.x, 0, input.y) * Speed * Time.fixedDeltaTime;
+            return new Vector3(input.x, 0, input.y) * Speed * GameTime.FixedDeltaTime;
         }
 
         /// <summary>
-        /// 回転先を計算
+        /// Y軸の回転量を計算
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">PlayerInputの入力値</param>
+        /// <returns>Quaternion.Slerpで計算した回転量</returns>
         private Quaternion CalculateRotation(Vector2 input)
         {
             //Vector3に変換
@@ -108,7 +107,7 @@ namespace Assets.Scripts.Game.Player
             var targetRotation = Quaternion.LookRotation(dir, Vector3.up);
 
             //回転
-            return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * Time.fixedDeltaTime);
+            return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
         }
     }
 }
