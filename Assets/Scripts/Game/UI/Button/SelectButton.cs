@@ -6,6 +6,9 @@ namespace Assets.Scripts.Game.UI.Button
 
     public class SelectButton : MonoBehaviour
     {
+        /// <summary>
+        /// Canvasにつける
+        /// </summary>
 
         public void ActiveButton()
         {
@@ -23,7 +26,6 @@ namespace Assets.Scripts.Game.UI.Button
                     // 3. 最初に見つかった有効なボタンを選択して処理を終了
                     EventSystem.current.SetSelectedGameObject(button.gameObject);
 
-                    Debug.Log($"[{gameObject.name}] {button.gameObject.name} を自動選択しました。");
                     return;
                 }
             }

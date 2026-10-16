@@ -3,6 +3,10 @@ using R3;
 
  namespace Assets.Scripts.Game.UI.Button
 {
+    /// <summary>
+    /// Canvasにつける
+    /// </summary>
+ 
     public class CanvasVisibilityTrigger : MonoBehaviour
     {
         //表示されたときを通知するSubject
