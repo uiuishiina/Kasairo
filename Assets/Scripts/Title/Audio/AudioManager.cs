@@ -14,12 +14,12 @@ namespace Assets.Scripts.Audio
 
         [SerializeField] AudioSource BGMAudioSource;//BGM再生用
 
-        [SerializeField] AudioMixer AudioMixer;
+        [SerializeField] AudioMixer AudioMixer;//AudioMixerの参照(全体の音量を制御できる)
 
-        [SerializeField, Header("現在の音量データが入っているScriptableObject")] private VolumeDeta VolumeDeta;
-        private Queue<int> SEAudioSourceIndexQueue = new Queue<int>();
+        [SerializeField, Header("現在の音量データと曲が入っているScriptableObject")] private VolumeDeta VolumeDeta;//現在の音量データと曲が入っているScriptableObject
+        private Queue<int> SEAudioSourceIndexQueue = new Queue<int>();//SE再生用AudioSourceのインデックスを格納するキュー
 
-        private SEIndex[] SESource;
+        [SerializeField]private SEIndex[] SESource;//SE再生用AudioSourceとインデックス
 
 
         private void Awake()
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Audio
                 SESource[index].SEAudioSources.PlayOneShot(clip.Clip, clip.Volume);
                 //SE再生が終わるまで待機
                 await UniTask.WaitUntil(() => !SESource[index].SEAudioSources.isPlaying);
-                //SE再生が終わったらAudioSourceのインデックスをキューに戻す(非同期処理でSEが再生終了した時に呼び出す)
+                //SE再生が終わったらAudioSourceのインデックスをキューに戻す
                 SEAudioSourceIndexQueue.Enqueue(SESource[index].Index);
             }
         }
