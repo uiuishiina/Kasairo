@@ -8,6 +8,8 @@ namespace Assets.Utility.Time
     public static class GameTime
     {
         public static float DeltaTime => UnityEngine.Time.deltaTime;
+
+        public static float FixedDeltaTime => UnityEngine.Time.fixedDeltaTime;
     }
 
     /// <summary>
