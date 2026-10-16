@@ -9,6 +9,7 @@ namespace Assets.Scripts.Game.Player
     /// Playerの入力処理と移動・回転処理が組まれていて、これを付けると自動的にRigidBodyがゲームオブジェクトに付く
     /// </summary>
     /// RequireComponentで必要なコンポーネントが付くようにしてある
+    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerInputController : MonoBehaviour
     {
@@ -108,6 +109,14 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if(col.gameObject.TryGetComponent<OtherObject>(out var Object))
+            {
+                Object.ObjectAction();
+            }
         }
     }
 }
