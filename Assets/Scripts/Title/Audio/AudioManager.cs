@@ -1,7 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections.Generic;
 using Assets.Scripts.StaticObject;
+using NUnit.Framework;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace Assets.Scripts.Audio
 {
@@ -11,11 +14,13 @@ namespace Assets.Scripts.Audio
 
         [SerializeField] AudioSource BGMAudioSource;//BGM再生用
 
-        [SerializeField] AudioSource SEAudioSource;//SE再生用
-
         [SerializeField] AudioMixer AudioMixer;
 
         [SerializeField, Header("現在の音量データが入っているScriptableObject")] private VolumeDeta VolumeDeta;
+        private Queue<int> SEAudioSourceIndexQueue = new Queue<int>();
+
+        private SEIndex[] SESource;
+
 
         private void Awake()
         {
@@ -39,6 +44,15 @@ namespace Assets.Scripts.Audio
             SetMasterVolume(VolumeDeta.MasterVolume);
             SetBGMVolume(VolumeDeta.BGMVolume);
             SetSEVolume(VolumeDeta.SEVolume);
+
+            //キューの初期化
+            SEAudioSourceIndexQueue.Clear();
+            //AudioSourceのインデックスをキューに格納
+            for (int i = 0; i < SESource.Length; i++)
+            {
+                SESource[i].Index = i;
+                SEAudioSourceIndexQueue.Enqueue(i);
+            }
         }
 
         //-------------------------------音楽再生---------------------------------//
@@ -46,12 +60,22 @@ namespace Assets.Scripts.Audio
         /// <summary>
         /// SEの再生
         /// </summary>
-        /// <param name="clip">再生する曲</param>
-        public void PlaySE(AudioClip clip)
+        public async Task PlaySE(SoundDeta clip)
         {
             if (clip == null) return;
-
-            SEAudioSource.PlayOneShot(clip);
+            
+            if(!SEAudioSourceIndexQueue.TryDequeue(out int index))
+            {
+                return;
+            }
+            else
+            {
+                SESource[index].SEAudioSources.PlayOneShot(clip.Clip, clip.Volume);
+                //SE再生が終わるまで待機
+                await UniTask.WaitUntil(() => !SESource[index].SEAudioSources.isPlaying);
+                //SE再生が終わったらAudioSourceのインデックスをキューに戻す(非同期処理でSEが再生終了した時に呼び出す)
+                SEAudioSourceIndexQueue.Enqueue(SESource[index].Index);
+            }
         }
 
         /// <summary>

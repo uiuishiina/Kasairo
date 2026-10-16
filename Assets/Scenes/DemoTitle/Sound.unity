@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   BGMAudioSource: {fileID: 1138750728}
-  SEAudioSource: {fileID: 1184616889}
   AudioMixer: {fileID: 24100000, guid: b60cc0ef7dc2f4a4887ad7655929c3e2, type: 2}
   VolumeDeta: {fileID: 11400000, guid: fa17978e91f6d23468ba709c48a5a8f8, type: 2}
 --- !u!1 &1028928888
@@ -308,7 +307,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -400,6 +399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184616888}
   - component: {fileID: 1184616889}
+  - component: {fileID: 1184616890}
   m_Layer: 0
   m_Name: SEAudioSource
   m_TagString: Untagged
@@ -434,7 +434,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7552343608654888538, guid: b60cc0ef7dc2f4a4887ad7655929c3e2, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -519,6 +519,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1184616890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184616887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16020d05ea7906a4db245fcc148a3ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SEIndex
+  SEAudioSources: {fileID: 1184616889}
+  Index: 0
 --- !u!1 &1766948615
 GameObject:
   m_ObjectHideFlags: 0
