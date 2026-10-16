@@ -19,7 +19,7 @@ public class GameColor : ScriptableObject
     [SerializeField] private Color BlackColor = new Color { };
 
     /// <summary>
-    /// 
+    /// インスペクタで設定した色とScriptableObjectのbit定義を紐づけ
     /// </summary>
     /// <param name="index">ColorStateがbit定義,=>Colorが実際の色</param>
     /// <returns></returns>
