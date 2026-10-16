@@ -1,19 +1,29 @@
-//  色のビットと実際の色を紐づけ
 using UnityEngine;
 
+/// <summary>
+/// 色のbit定義と実際の色を紐づけ
+/// </summary>
 [CreateAssetMenu(fileName = "GameColor", menuName = "Scriptable Objects/GameColor")]
 public class GameColor : ScriptableObject
 {
-    public Color NoneColor = new Color { };
-    public Color RedColor = new Color { };
-    public Color BlueColor = new Color { };
-    public Color PurpleColor = new Color { };
-    public Color YellowColor = new Color { };
-    public Color OrangeColor = new Color { };
-    public Color GreenColor = new Color { };
-    public Color BlackColor = new Color { };
+    /// <summary>
+    /// インスペクタから色を変える
+    /// </summary>
+    [SerializeField] private Color NoneColor = new Color { };
+    [SerializeField] private Color RedColor = new Color { };
+    [SerializeField] private Color BlueColor = new Color { };
+    [SerializeField] private Color PurpleColor = new Color { };
+    [SerializeField] private Color YellowColor = new Color { };
+    [SerializeField] private Color OrangeColor = new Color { };
+    [SerializeField] private Color GreenColor = new Color { };
+    [SerializeField] private Color BlackColor = new Color { };
 
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index">ColorStateがbit定義,=>Colorが実際の色</param>
+    /// <returns></returns>
+    /// <exception cref="System.ArgumentOutOfRangeException">範囲外の引数による例外</exception>
     public Color this[ColorState index]
     {
         get => index switch

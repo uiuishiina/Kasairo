@@ -1,4 +1,6 @@
-//  色のビット定義
+/// <summary>
+/// 色のbit定義
+/// </summary>
 [System.Flags]
 public enum ColorState
 {
