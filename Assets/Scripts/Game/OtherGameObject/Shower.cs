@@ -1,3 +1,4 @@
+using Assets.Scripts.Game.Player;
 using UnityEngine;
 /// <summary>
 /// シャワーのクラス
