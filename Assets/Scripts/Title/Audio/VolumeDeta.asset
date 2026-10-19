@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692ebf7661640f74ea8e42d221e933eb, type: 3}
   m_Name: VolumeDeta
   m_EditorClassIdentifier: Assembly-CSharp::VolumeDeta
-  MasterVolume: 0.5
-  SEVolume: 0.5
-  BGMVolume: 0.5
+  MasterVolume: 0.3587274
+  BGMVolume: 0.011
+  SEVolume: 0.31905845
