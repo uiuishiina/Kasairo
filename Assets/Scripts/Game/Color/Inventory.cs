@@ -1,7 +1,9 @@
-//  衣服類のインベントリ
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 衣服類のインベントリ
+/// </summary>
 public class Inventory : MonoBehaviour
 {
     /// <summary>
@@ -23,7 +25,7 @@ public class Inventory : MonoBehaviour
     }
     
     /// <summary>
-    /// queueに衣服類を追加(先だし後入れ）
+    /// queueに衣服類を追加(先だし後入れ）＋
     /// </summary>
     /// <param name="clothes">衣服類のobj</param>
     /// <returns>追加できたか</returns>
@@ -38,7 +40,7 @@ public class Inventory : MonoBehaviour
     /// queueの衣服類を取り出す
     /// </summary>
     /// <returns>queueの先頭の衣服類obj</returns>
-    public GameObject DequeueInventory()
+    public bool DequeueInventory()
     {
         return inventory.Dequeue();
     }

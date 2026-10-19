@@ -1,7 +1,6 @@
 /// <summary>
 /// F‚Ìbit’è‹`
 /// </summary>
-[System.Flags]
 public enum ColorState
 {
     None = 0,

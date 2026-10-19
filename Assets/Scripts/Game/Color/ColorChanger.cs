@@ -1,8 +1,7 @@
-//  色に数字を割り当ててbit演算で色を返す
 using UnityEngine;
 
 /// <summary>
-/// 色変換クラス
+/// 色変換クラス(Bit演算で）
 /// </summary>
 public class ColorChanger : MonoBehaviour
 {
