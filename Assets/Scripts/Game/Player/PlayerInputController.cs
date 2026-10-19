@@ -58,9 +58,25 @@ namespace Assets.Scripts.Game.Player
 
         void Attack(InputAction.CallbackContext cont)
         {
-            if(cont.started)
+            if(cont.performed)
             {
+                Ray ray = new Ray(Body.position, Body.forward);
 
+                RaycastHit hit;
+
+                if(Physics.Raycast(ray,out hit,5.0f))
+                {
+                    GameObject obj = hit.collider.gameObject;
+
+                    if(obj.TryGetComponent<MachineObject>(out var Machine))
+                    {
+                        Machine.ObjectAction(this);
+                    }
+                    else if (obj.TryGetComponent<OtherObject>(out var Other))
+                    {
+                        Other.ObjectAction();
+                    }
+                }
             }
         }
 
@@ -123,18 +139,6 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
-        }
-
-        void OnCollisionEnter(Collision col)
-        {
-            if(col.gameObject.TryGetComponent<MachineObject>(out var Machine))
-            {
-                Machine.ObjectAction(this);
-            }
-            else if(col.gameObject.TryGetComponent<OtherObject>(out var Other))
-            {
-                Other.ObjectAction();
-            }
         }
     }
 }
