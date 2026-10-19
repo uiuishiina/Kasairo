@@ -2,7 +2,7 @@ using UnityEngine;
 /// <summary>
 /// ô‘ó‹@‚ÌƒNƒ‰ƒX
 /// </summary>
-public class WashingMachine: OtherObject
+public class WashingMachine: MachineObject
 {
     public override void ObjectAction()
     {

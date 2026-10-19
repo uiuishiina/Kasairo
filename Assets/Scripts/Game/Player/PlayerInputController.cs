@@ -37,6 +37,7 @@ namespace Assets.Scripts.Game.Player
 
         //InputAction
         private InputAction MoveAction;
+        private InputAction AttackAction;
 
         //-----Component取得-----
         Rigidbody rb;
@@ -48,6 +49,19 @@ namespace Assets.Scripts.Game.Player
             //InputActionの取得
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
+
+            AttackAction=StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Attack");
+
+            AttackAction.performed += Attack;
+        }
+
+        void Attack(InputAction.CallbackContext cont)
+        {
+            if(cont.started)
+            {
+
+            }
         }
 
         void Update()
@@ -113,9 +127,13 @@ namespace Assets.Scripts.Game.Player
 
         void OnCollisionEnter(Collision col)
         {
-            if(col.gameObject.TryGetComponent<OtherObject>(out var Object))
+            if(col.gameObject.TryGetComponent<MachineObject>(out var Machine))
             {
-                Object.ObjectAction();
+                Machine.ObjectAction(this);
+            }
+            else if(col.gameObject.TryGetComponent<OtherObject>(out var Other))
+            {
+                Other.ObjectAction();
             }
         }
     }
