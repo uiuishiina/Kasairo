@@ -34,14 +34,53 @@ namespace Assets.Scripts.StageSelect
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            TryGetComponent<Button>(out OptionOpenButton);
-            OptionOpenButton.onClick.AddListener(OpenOption);
-
-            if (OptionBox == null) Debug.LogError("オプションの塊が無い");
+            //nullチェックたち
+            if (!OptionBox) Debug.LogError("OptionBoxが未割当");
+            if (!GameStartButton) Debug.LogError("GameStartButtonが未割当");
+            if (!OptionOpenButton) Debug.LogError("OptionOpenButtonが未割当");
+            if (!OptionCloseButton) Debug.LogError("OptionCloseButtonが未割当");
+            if (!GoTitleButton) Debug.LogError("GoTitleButtonが未割当");
 
             OptionBox.SetActive(false);
+        }
 
-            
+        /// <summary>
+        /// SetActive true
+        /// </summary>
+        private void OnEnable()
+        {
+            //いずれかがnullなら飛ばす
+            if(!GameStartButton || !OptionOpenButton || !OptionCloseButton || !GoTitleButton)
+                return;
+
+            //Eventの追加
+            GameStartButton.onClick.AddListener(GameStart);
+            OptionOpenButton.onClick.AddListener(OpenOption);
+            OptionCloseButton.onClick.AddListener(CloseOption);
+            GoTitleButton.onClick.AddListener(GoTitle);
+        }
+        /// <summary>
+        /// SetActive false
+        /// </summary>
+        private void OnDisable()
+        {
+            //いずれかがnullなら飛ばす
+            if (!GameStartButton || !OptionOpenButton || !OptionCloseButton || !GoTitleButton)
+                return;
+
+            //Eventの削除
+            GameStartButton.onClick.RemoveAllListeners();
+            OptionOpenButton.onClick.RemoveAllListeners();
+            OptionCloseButton.onClick.RemoveAllListeners();
+            GoTitleButton.onClick.RemoveAllListeners();
+        }
+
+        /// <summary>
+        /// ゲーム開始　名前を取得してシーンをロード
+        /// </summary>
+        void GameStart()
+        {
+            Debug.Log("未実装 GameStart ");
         }
 
         /// <summary>
@@ -57,7 +96,12 @@ namespace Assets.Scripts.StageSelect
         /// </summary>
         void CloseOption()
         {
+            OptionBox.SetActive(false);
+        }
 
+        void GoTitle()
+        {
+            Debug.Log("未実装 GoTitle ");
         }
     }
 }
