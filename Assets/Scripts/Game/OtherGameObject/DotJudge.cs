@@ -4,7 +4,6 @@ using UnityEngine;
 /// </summary>
 public interface DotJudge
 {
-    public const float a = 1.0f;
     //‘O•û‚É‚¢‚é‚©‚Ç‚¤‚©‚ÌŠî€’l
     const float Front = 0.0f;
     /// <summary>

@@ -10,9 +10,4 @@ public class OtherObject : MonoBehaviour
     {
         Debug.Log("âΩÇ…êGÇÍÇΩ?");
     }
-
-    public virtual void ObjectAction(PlayerInputController player)
-    {
-        Debug.Log("âΩÇ…êGÇÍÇΩ?");
-    }
 }

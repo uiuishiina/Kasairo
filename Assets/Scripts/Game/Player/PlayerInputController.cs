@@ -11,7 +11,7 @@ namespace Assets.Scripts.Game.Player
     /// RequireComponentで必要なコンポーネントが付くようにしてある
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerInputController : MonoBehaviour
+    public class PlayerInputController : MonoBehaviour,DotJudge
     {
         //回転するための体
         [Tooltip("回転するための体")]
@@ -68,11 +68,11 @@ namespace Assets.Scripts.Game.Player
                 {
                     GameObject obj = hit.collider.gameObject;
 
-                    if(obj.TryGetComponent<MachineObject>(out var Machine))
-                    {
-                        Machine.ObjectAction(this);
-                    }
-                    else if (obj.TryGetComponent<OtherObject>(out var Other))
+                    if (obj==null) return;
+
+                    float dot = Dot(obj.transform.position,Body);
+                    
+                    if (obj.TryGetComponent<OtherObject>(out var Other)&&dot > DotJudge.Front)
                     {
                         Other.ObjectAction();
                     }
@@ -139,6 +139,15 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
+        }
+
+        float Dot(Vector3 targetpos, Transform fromtransform)
+        {
+            Vector3 pos = (targetpos - fromtransform.position).normalized;
+
+            float dot = Vector3.Dot(fromtransform.forward, pos);
+
+            return dot;
         }
     }
 }
