@@ -1,15 +1,11 @@
 ﻿using Assets.Scripts.Game.UI.Button;
-using Cysharp.Threading.Tasks.Linq;
-using Cysharp.Threading.Tasks.Triggers;
 using R3;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.Game.UI.Button
 {
     /// <summary>
-    /// EventSystemにつける
+    /// GameManagerかEventSystemにつける
     /// </summary>
 
     public class CanvasUIManager : MonoBehaviour
@@ -33,7 +29,7 @@ namespace Assets.Scripts.Game.UI.Button
                     continue;
                 }
                 var trigger = canv.GetComponent<CanvasVisibilityTrigger>();
-                var select = canv.GetComponent<SelectButton>();
+                var select = canv.GetComponent<CanvasButtonSelector>();
 
                 //表示されたときの処理
                 trigger.OnBecameVisibleAsObservable
@@ -47,10 +43,9 @@ namespace Assets.Scripts.Game.UI.Button
             }
         }
 
-/*        public void OnInvisible(bool a)
+        public void OnInvisible(bool a)
         {
-            canvas1.SetActive(false);
-            canvas.SetActive(true);
-        }*/
+            Debug.Log(a ? "100" : "200");
+        }
     }
 }

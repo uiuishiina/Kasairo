@@ -1,75 +1,74 @@
-﻿using System;
+﻿
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.InputSystem.LowLevel;
 
-namespace Assets.Scripts.Game.UI.Button {
+namespace Assets.Scripts.StaticObject
+{
     public enum DeviceState
     {
-        None,Mouse, Keybord, Pad
+        None,
+        Gamepad,
+        KeyboardMouse
     }
 
-    public class InputDeviceManager : StaticObject.StaticObject<InputDeviceManager>
+    public class InputDeviceManager:StaticObject.StaticObject<InputDeviceManager>
     {
-        public DeviceState DeviceState { get; private set; } = DeviceState.None;
-
-        private InputDevice CurrentDevice;
-
-        private InputDevice lastDevice;
+        public DeviceState CurrentState { get; private set; } = DeviceState.None;
 
         public event Action<DeviceState> OnDeviceStateChanged;
 
-        protected override void OnEnableObject() {
-
-            InputSystem.onDeviceChange += OnDeviceChange;
+      
+        protected override void OnEnableObject()
+        {
+            InputSystem.onEvent += OnInputEvent;
         }
 
         protected override void OnDisableObject()
         {
-            InputSystem.onDeviceChange -= OnDeviceChange;
+            InputSystem.onEvent -= OnInputEvent;
         }
 
-        private void OnDeviceChange(InputDevice device,InputDeviceChange ce)
+        private void OnInputEvent(InputEventPtr eventPtr,InputDevice device)
         {
             if (device == null)
-                return; 
+                return;
 
-            if (CurrentDevice == device)
+            // 状態イベント以外は無視
+            if (!eventPtr.IsA<StateEvent>() &&
+                !eventPtr.IsA<DeltaStateEvent>())
+                return;
+
+            // キーボード・マウス・ゲームパッドだけを対象にする
+            DeviceState newState;
+
+            if (device is Keyboard || device is Mouse)
+            {
+                newState = DeviceState.KeyboardMouse;
+            }
+            else if (device is Gamepad)
+            {
+                newState = DeviceState.Gamepad;
+            }
+            else
             {
                 return;
             }
 
-            CurrentDevice = device;
+            // 同じグループなら通知しない
+            if (CurrentState == newState)
+                return;
 
-            // マウス・キーボード・ゲームパッドの入力を記録
+            CurrentState = newState;
 
-            if (device is Mouse)
-            {
-                SetDevice(DeviceState.Mouse);
-                lastDevice = device;
-
-                Debug.Log(device.deviceId);
-            }
-            else if (device is Keyboard)
-            {
-                SetDevice(DeviceState.Keybord);
-                lastDevice = device;
-            }
-            else if (device is Gamepad)
-            {
-                SetDevice(DeviceState.Mouse);
-                lastDevice = device;
-            }
-            //Debug.Log($"操作中の Device: {device.displayName}");
+            Debug.Log($"操作デバイス切り替え: {CurrentState}");
+            OnDeviceStateChanged?.Invoke(CurrentState);
         }
 
-        void SetDevice(DeviceState device)
+        public void SetState(DeviceState state)
         {
-            DeviceState = device;
-            OnDeviceStateChanged?.Invoke(DeviceState);
+            CurrentState = state;
         }
-
     }
 }
-
-

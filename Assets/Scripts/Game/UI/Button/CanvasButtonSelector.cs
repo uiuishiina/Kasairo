@@ -3,13 +3,11 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Game.UI.Button
 {
-
-    public class SelectButton : MonoBehaviour
+    /// <summary>
+    /// Canvasにつける
+    /// </summary>
+    public class CanvasButtonSelector : MonoBehaviour
     {
-        /// <summary>
-        /// Canvasにつける
-        /// </summary>
-
         public void ActiveButton()
         {
             //ActiveなButtonを参照
