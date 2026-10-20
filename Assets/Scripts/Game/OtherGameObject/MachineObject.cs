@@ -8,12 +8,12 @@ public class MachineObject : OtherObject
     //機械を使ったときのクールタイム
     [SerializeField]
     protected float CoolTime = 10.0f;
-
-    private float time = 0;
+    [SerializeField]
+    protected float time = 0;
 
     protected bool iscool()
     {
-        return time >= 0;
+        return time > 0;
     }
 
     protected void cool()
@@ -21,11 +21,23 @@ public class MachineObject : OtherObject
         if(!iscool())
         {
             time = CoolTime;
+            Debug.Log(this + "の準備OK!");
+        }
+        else
+        {
+            Debug.Log("まだ早いわ、せっかちやな～");
         }
     }
 
     private void Update()
     {
-        time -= GameTime.DeltaTime;
+        if(time <= 0)
+        {
+            time = 0;
+        }
+        else
+        {
+            time -= GameTime.DeltaTime;
+        }
     }
 }
