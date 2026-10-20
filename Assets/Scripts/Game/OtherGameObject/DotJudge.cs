@@ -12,11 +12,11 @@ public interface DotJudge
     /// <param name="targetpos">‘ÎÛ•¨‚ÌÀ•W</param>
     /// <param name="fromtransform">Šî€‚Æ‚·‚é•¨‚ÌÀ•W</param>
     /// <returns>‚Ç‚Ì•ûŒü‚É‚¢‚é‚©</returns>
-    float Dot(Vector3 targetpos,Transform fromtransform)
+    float Dot(Transform targettransform,Transform fromtransform)
     {
-        Vector3 pos = (targetpos - fromtransform.position).normalized;
+        Vector3 pos = (fromtransform.position - targettransform.position).normalized;
 
-        float dot = Vector3.Dot(fromtransform.forward,pos);
+        float dot = Vector3.Dot(targettransform.forward,pos);
 
         return dot;
     }

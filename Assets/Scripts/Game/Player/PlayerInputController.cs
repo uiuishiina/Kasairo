@@ -70,11 +70,13 @@ namespace Assets.Scripts.Game.Player
 
                     if (obj==null) return;
 
-                    float dot = Dot(obj.transform.position,Body);
-                    
+                    float dot = Dot(obj.transform,Body);
+
+                    Debug.Log(dot);
+
                     if (obj.TryGetComponent<OtherObject>(out var Other)&&dot > DotJudge.Front)
                     {
-                        Other.ObjectAction();
+                        //Other.ObjectAction();
                     }
                 }
             }
@@ -141,11 +143,11 @@ namespace Assets.Scripts.Game.Player
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
         }
 
-        float Dot(Vector3 targetpos, Transform fromtransform)
+        float Dot(Transform targettransform, Transform fromtransform)
         {
-            Vector3 pos = (targetpos - fromtransform.position).normalized;
+            Vector3 pos = (fromtransform.position - targettransform.position).normalized;
 
-            float dot = Vector3.Dot(fromtransform.forward, pos);
+            float dot = Vector3.Dot(targettransform.forward, pos);
 
             return dot;
         }
