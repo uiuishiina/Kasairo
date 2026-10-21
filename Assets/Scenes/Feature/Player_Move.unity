@@ -627,6 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SewingMachine
   CoolTime: 10
+  time: 0
 --- !u!1001 &1541674369
 PrefabInstance:
   m_ObjectHideFlags: 0

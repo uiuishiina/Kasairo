@@ -33,14 +33,29 @@ namespace Assets.Scripts.Game.Player
         //入力値の参照
         public Vector2 GetInputVer => InputVer;
 
-        //-----Component取得-----
-
         //InputAction
         private InputAction MoveAction;
-        private InputAction AttackAction;
 
         //-----Component取得-----
         Rigidbody rb;
+
+        PlayerAttackInput AttackInput;
+
+        void Awake()
+        {
+            // AttackInputのコンストラクタ
+            AttackInput = new PlayerAttackInput(Body);
+        }
+
+        void OnEnable()
+        {
+            AttackInput.Subscribe();
+        }
+
+        void OnDisable()
+        {
+            AttackInput.Cancel();
+        }
 
         void Start()
         {
@@ -49,39 +64,7 @@ namespace Assets.Scripts.Game.Player
             //InputActionの取得
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
-
-            AttackAction=StaticInputManager.Instance_.GetInputAction(
-                          MapName.Player, "Attack");
-
-            AttackAction.performed += Attack;
         }
-
-        void Attack(InputAction.CallbackContext cont)
-        {
-            if(cont.performed)
-            {
-                Ray ray = new Ray(Body.position, Body.forward);
-
-                RaycastHit hit;
-
-                if(Physics.Raycast(ray,out hit,5.0f))
-                {
-                    GameObject obj = hit.collider.gameObject;
-
-                    if (obj==null) return;
-
-                    float dot = Dot(obj.transform,Body);
-
-                    Debug.Log(dot);
-
-                    if (obj.TryGetComponent<OtherObject>(out var Other)&&dot > DotJudge.Front)
-                    {
-                        //Other.ObjectAction();
-                    }
-                }
-            }
-        }
-
         void Update()
         {
             //移動入力取得
@@ -141,15 +124,6 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
-        }
-
-        float Dot(Transform targettransform, Transform fromtransform)
-        {
-            Vector3 pos = (fromtransform.position - targettransform.position).normalized;
-
-            float dot = Vector3.Dot(targettransform.forward, pos);
-
-            return dot;
         }
     }
 }
