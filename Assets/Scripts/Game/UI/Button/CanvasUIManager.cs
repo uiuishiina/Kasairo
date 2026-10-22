@@ -10,22 +10,21 @@ namespace Assets.Scripts.Game.UI.Button
 
     public class CanvasUIManager : MonoBehaviour
     {
-        [SerializeField] private GameObject[] canvas;
-        //[SerializeField] private GameObject canvas1;
+        [SerializeField] private GameObject[] Canvas;
 
         private void Start()
         {
-            if (canvas == null || canvas.Length == 0)
+            if (Canvas == null || Canvas.Length == 0)
             {
                 Debug.LogError("表示されるCanvasがありません");
                 return;
             }
 
-            foreach (var canv in canvas)
+            foreach (var canv in Canvas)
             {
                 if (canv == null)
                 {
-                    Debug.LogWarning("配列に未設定のCanvasがあります");
+                    Debug.LogError("配列に未設定のCanvasがあります");
                     continue;
                 }
                 var trigger = canv.GetComponent<CanvasVisibilityTrigger>();

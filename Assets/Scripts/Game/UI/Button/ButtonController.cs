@@ -42,6 +42,18 @@ namespace Assets.Scripts.Game.UI.Button
             base.DoStateTransition(state, instant);
         }
 
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            base.OnPointerClick(eventData);
+            Debug.Log("MouseClick決定");
+        }
+
+        public override void OnSubmit(BaseEventData eventData)
+        {
+            base.OnSubmit(eventData);
+            Debug.Log("Submit決定");
+        }
+
         /// <summary>
         /// マウスカーソルがButtonに入ったとき
         /// </summary>
