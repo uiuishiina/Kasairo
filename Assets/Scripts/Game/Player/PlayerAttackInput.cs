@@ -1,7 +1,9 @@
 using Assets.Scripts.StaticObject;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+/// <summary>
+/// playerがミシンなどのオブジェクトに触れたときの処理だけがあるクラス
+/// </summary>
 public class PlayerAttackInput : DotJudge
 {
     //InputAction

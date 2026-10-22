@@ -7,5 +7,7 @@ public class WashingMachine: MachineObject
     public override void ObjectAction()
     {
         Debug.Log("ô‘ó‹@‚ÉG‚ê‚½!");
+
+        cool();
     }
 }

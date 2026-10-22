@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 using Assets.Scripts.StaticObject;
 using Assets.Utility.Time;
 
@@ -26,7 +27,6 @@ namespace Assets.Scripts.Game.Player
         [SerializeField] private float RotaSpeed = 10.0f;
 
         [Header("入力設定")]
-
         //入力値の取得  
         Vector2 InputVer;
 
@@ -41,10 +41,13 @@ namespace Assets.Scripts.Game.Player
 
         PlayerAttackInput AttackInput;
 
+        PlayerSpeedModifier SpeedModifier;
         void Awake()
         {
             // AttackInputのコンストラクタ
             AttackInput = new PlayerAttackInput(Body);
+
+            SpeedModifier = new PlayerSpeedModifier();
         }
 
         void OnEnable()
@@ -106,7 +109,7 @@ namespace Assets.Scripts.Game.Player
         /// <returns>入力値をVectro3に変換したものに移送速度とGameTimeクラスにあるFixedDeltaTimeを掛けた値</returns>
         private Vector3 CalculateMove(Vector2 input)
         {
-            return new Vector3(input.x, 0, input.y) * Speed * GameTime.FixedDeltaTime;
+            return new Vector3(input.x, 0, input.y) * (Speed * SpeedModifier.MoveSpeedPercent) * GameTime.FixedDeltaTime;
         }
 
         /// <summary>
@@ -124,6 +127,20 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
+        }
+        /// <summary>
+        /// PlayerSpeedModifier内のEnterWaterを処理させる関数
+        /// </summary>
+        public void EnterWaterDebuff()
+        {
+            SpeedModifier.EnterWater();
+        }
+        /// <summary>
+        /// PlayerSpeedModifier内のExitWaterを処理させる関数
+        /// </summary>
+        public void ExitWaterDebuff(int lingertime)
+        {
+            SpeedModifier.ExitWater(lingertime);
         }
     }
 }
