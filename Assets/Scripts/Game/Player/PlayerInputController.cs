@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 using Assets.Scripts.StaticObject;
 using Assets.Utility.Time;
 
@@ -41,11 +40,18 @@ namespace Assets.Scripts.Game.Player
 
         PlayerAttackInput AttackInput;
 
+        PlayerJumpInput JumpInput;
+
         PlayerSpeedModifier SpeedModifier;
+
         void Awake()
         {
+            rb = GetComponent<Rigidbody>();
+
             // AttackInputのコンストラクタ
             AttackInput = new PlayerAttackInput(Body);
+
+            JumpInput = new PlayerJumpInput(Body,this,rb);
 
             SpeedModifier = new PlayerSpeedModifier();
         }
@@ -53,17 +59,17 @@ namespace Assets.Scripts.Game.Player
         void OnEnable()
         {
             AttackInput.Subscribe();
+            JumpInput.Subscribe();
         }
 
         void OnDisable()
         {
             AttackInput.Cancel();
+            JumpInput.Cancel();
         }
 
         void Start()
         {
-            rb = GetComponent<Rigidbody>();
-
             //InputActionの取得
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
@@ -79,6 +85,8 @@ namespace Assets.Scripts.Game.Player
 
         private void FixedUpdate()
         {
+            if (JumpInput.IsJump) return;
+
             //動作処理
             Move(InputVer);
         }
@@ -141,6 +149,10 @@ namespace Assets.Scripts.Game.Player
         public void ExitWaterDebuff(int lingertime)
         {
             SpeedModifier.ExitWater(lingertime);
+        }
+        public void ExecuteStepJump(Vector3 targetpos)
+        {
+            JumpInput.ExecuteStepJump(targetpos);
         }
     }
 }
