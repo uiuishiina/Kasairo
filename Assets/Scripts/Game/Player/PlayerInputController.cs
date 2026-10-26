@@ -150,9 +150,5 @@ namespace Assets.Scripts.Game.Player
         {
             SpeedModifier.ExitWater(lingertime);
         }
-        public void ExecuteStepJump(Vector3 targetpos)
-        {
-            JumpInput.ExecuteStepJump(targetpos);
-        }
     }
 }

@@ -68,9 +68,11 @@ public class PlayerJumpInput
                 float dot = Dot(obj.transform, P_Body);
 
                 //obj“à‚É“ü‚Á‚Ä‚¢‚égameobjct‚Ìscript‚ªOtherObject‚ğŒp³‚µ‚Ä‚¢‚ÄA®Š‚Â“àÏ‚ªFront‚É“ü‚Á‚Ä‚¢‚é’lˆÈã‚Å‚ ‚ê‚ÎŒ‹‰Ê‚Æ‚µ‚ÄOther‚ª•Ô‚Á‚Ä‚«‚ÄAOther“à‚ÌObjectAction‚ªˆ—‚³‚ê‚é
-                if (obj.TryGetComponent<OtherObject>(out var Other) && dot > DotJudge.Front)
+                if (obj.TryGetComponent<Step>(out var step) && dot > DotJudge.Front)
                 {
-                    Other.ObjectAction(Player);
+                    Vector3 targetpos = step.GetVaultTarget();
+
+                    ExecuteStepJump(targetpos);
                 }
             }
         }
