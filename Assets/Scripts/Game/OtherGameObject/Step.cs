@@ -1,4 +1,3 @@
-using Assets.Scripts.Game.Player;
 using UnityEngine;
 /// <summary>
 /// ’i·‚ÌƒNƒ‰ƒX
