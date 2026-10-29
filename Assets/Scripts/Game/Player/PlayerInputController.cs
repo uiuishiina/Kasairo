@@ -51,8 +51,10 @@ namespace Assets.Scripts.Game.Player
             // AttackInputのコンストラクタ
             AttackInput = new PlayerAttackInput(Body);
 
+            // JumpImputのコンストラクタ
             JumpInput = new PlayerJumpInput(Body,this,rb);
 
+            // SpeedModifierのコンストラクタ
             SpeedModifier = new PlayerSpeedModifier();
         }
 
