@@ -61,8 +61,6 @@ namespace Assets.Scripts.StaticObject
                 return;
 
             CurrentState = newState;
-
-            Debug.Log($"操作デバイス切り替え: {CurrentState}");
             OnDeviceStateChanged?.Invoke(CurrentState);
         }
 

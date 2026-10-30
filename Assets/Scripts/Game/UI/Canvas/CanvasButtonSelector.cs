@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.Game.UI.Button
+namespace Assets.Scripts.Game.UI.Canvas
 {
     /// <summary>
     /// Canvasにつける

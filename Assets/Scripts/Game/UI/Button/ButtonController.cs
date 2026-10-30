@@ -45,13 +45,11 @@ namespace Assets.Scripts.Game.UI.Button
         public override void OnPointerClick(PointerEventData eventData)
         {
             base.OnPointerClick(eventData);
-            Debug.Log("MouseClick決定");
         }
 
         public override void OnSubmit(BaseEventData eventData)
         {
             base.OnSubmit(eventData);
-            Debug.Log("Submit決定");
         }
 
         /// <summary>
@@ -93,25 +91,5 @@ namespace Assets.Scripts.Game.UI.Button
             base.OnDeselect(eventData);
 
         }
-
-        //public virtual void OnSelect(BaseEventData eventData)
-        //{
-        //    hasSelection = true;
-        //    EvaluateAndTransitionToSelectionState();
-        //}
-
-        //public virtual void OnDeselect(BaseEventData eventData)
-        //{
-        //    hasSelection = false;
-        //    EvaluateAndTransitionToSelectionState();
-        //}
-
-        //public virtual void Select()
-        //{
-        //    if (!(EventSystem.current == null) && !EventSystem.current.alreadySelecting)
-        //    {
-        //        EventSystem.current.SetSelectedGameObject(base.gameObject);
-        //    }
-        //}
     }
 }

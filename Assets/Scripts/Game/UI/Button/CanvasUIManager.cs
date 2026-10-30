@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Game.UI.Button;
+using Assets.Scripts.Game.UI.Canvas;
 using R3;
 using UnityEngine;
 
@@ -34,9 +35,7 @@ namespace Assets.Scripts.Game.UI.Button
                 trigger.OnBecameVisibleAsObservable
                                 .Subscribe(_ =>
                                 {
-                                    Debug.Log("Canvasが表示");
                                     select.ActiveButton();
-
                                 })
                                 .RegisterTo(destroyCancellationToken); //Unity 6のライフサイクルで自動解除
             }
