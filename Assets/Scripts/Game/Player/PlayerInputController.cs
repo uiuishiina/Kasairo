@@ -9,9 +9,11 @@ namespace Assets.Scripts.Game.Player
     /// Playerの入力処理と移動・回転処理が組まれていて、これを付けると自動的にRigidBodyがゲームオブジェクトに付く
     /// </summary>
     /// RequireComponentで必要なコンポーネントが付くようにしてある
+    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerInputController : MonoBehaviour
     {
+        const float PlayerRange = 5.0f;
         //回転するための体
         [Tooltip("回転するための体")]
         [SerializeField] private Transform Body;
@@ -25,30 +27,67 @@ namespace Assets.Scripts.Game.Player
         [SerializeField] private float RotaSpeed = 10.0f;
 
         [Header("入力設定")]
-
         //入力値の取得  
         Vector2 InputVer;
 
         //入力値の参照
         public Vector2 GetInputVer => InputVer;
 
-        //-----Component取得-----
-
         //InputAction
         private InputAction MoveAction;
+
+        private InputAction AttackAction;
+
+        private InputAction JumpAction;
 
         //-----Component取得-----
         Rigidbody rb;
 
-        void Start()
+        PlayerAttackInput AttackInput;
+
+        PlayerJumpInput JumpInput;
+
+        PlayerSpeedModifier SpeedModifier;
+
+        void Awake()
         {
             rb = GetComponent<Rigidbody>();
 
-            //InputActionの取得
+            AttackAction = StaticInputManager.Instance_.GetInputAction(
+                         MapName.Player, "Attack");
+
+            JumpAction = StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Jump");
+
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
+
+            // AttackInputのコンストラクタ
+            AttackInput = new PlayerAttackInput(Body,PlayerRange);
+
+            // JumpImputのコンストラクタ
+            JumpInput = new PlayerJumpInput(Body,this,rb,PlayerRange);
+
+            // SpeedModifierのコンストラクタ
+            SpeedModifier = new PlayerSpeedModifier();
         }
 
+        void OnEnable()
+        {
+            AttackAction.performed += AttackInput.Attack;
+            JumpAction.performed += JumpInput.Jump;
+        }
+
+        void OnDisable()
+        {
+            AttackAction.performed -= AttackInput.Attack;
+            JumpAction.performed -= JumpInput.Jump;
+        }
+
+        void Start()
+        {
+            //InputActionの取得
+        }
         void Update()
         {
             //移動入力取得
@@ -60,6 +99,8 @@ namespace Assets.Scripts.Game.Player
 
         private void FixedUpdate()
         {
+            if (JumpInput.IsJump) return;
+
             //動作処理
             Move(InputVer);
         }
@@ -90,7 +131,7 @@ namespace Assets.Scripts.Game.Player
         /// <returns>入力値をVectro3に変換したものに移送速度とGameTimeクラスにあるFixedDeltaTimeを掛けた値</returns>
         private Vector3 CalculateMove(Vector2 input)
         {
-            return new Vector3(input.x, 0, input.y) * Speed * GameTime.FixedDeltaTime;
+            return new Vector3(input.x, 0, input.y) * (Speed * SpeedModifier.MoveSpeedPercent) * GameTime.FixedDeltaTime;
         }
 
         /// <summary>
@@ -108,6 +149,20 @@ namespace Assets.Scripts.Game.Player
 
             //回転
             return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
+        }
+        /// <summary>
+        /// PlayerSpeedModifier内のEnterWaterを処理させる関数
+        /// </summary>
+        public void EnterWaterDebuff()
+        {
+            SpeedModifier.EnterWater();
+        }
+        /// <summary>
+        /// PlayerSpeedModifier内のExitWaterを処理させる関数
+        /// </summary>
+        public void ExitWaterDebuff(int lingertime)
+        {
+            SpeedModifier.ExitWater(lingertime);
         }
     }
 }
