@@ -10,8 +10,6 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerJumpInput
 {
-    private InputAction JumpAction;
-
     Transform P_Body;
 
     Rigidbody Rb;
@@ -21,6 +19,8 @@ public class PlayerJumpInput
     CancellationTokenSource cts;
 
     const float jumpHeight = 1.5f;
+
+    readonly float P_Range;
     /// <summary>
     /// playerが跳び越えている最中かを知らせる変数
     /// </summary>
@@ -31,78 +31,31 @@ public class PlayerJumpInput
     /// <param name="body">playerの体</param>
     /// <param name="player">参照するクラス</param>
     /// <param name="rb">playerの物理演算</param>
-    public PlayerJumpInput(Transform body,PlayerInputController player, Rigidbody rb)
+    public PlayerJumpInput(Transform body,PlayerInputController player, Rigidbody rb,float range)
     {
         P_Body = body;
 
-        Player = player;
-
-        JumpAction = StaticInputManager.Instance_.GetInputAction(
-                          MapName.Player, "Jump");
         Rb = rb;
+
+        P_Range = range;
     }
     /// <summary>
     /// InputAction内のJumpに登録してあるキーを押すことによってJump関数が処理される
     /// </summary>
     /// <param name="cont">登録したキーの入力値</param>
-    void Jump(InputAction.CallbackContext cont)
+    public void Jump(InputAction.CallbackContext cont)
     {
-        if (cont.performed)
-        {
-            //光線が出る場所と方向を決める
-            Ray ray = new Ray(P_Body.position, P_Body.forward);
+        var obj = DotJudge.Dot(P_Body,P_Range);
 
-            //光線が当たった結果を保持するための変数
-            RaycastHit hit;
+        if (obj == null) return;
 
-            //Physics.Raycast()自体はbool型の関数で、光線を放って結果が返ってきて、hitに保持されればtrueが返ってくる
-            if (Physics.Raycast(ray, out hit, 5.0f))
-            {
-                //obj内にhitに入っているgameObjectを代入する
-                GameObject obj = hit.collider.gameObject;
+        var step = obj.gameObject.GetComponent<Step>();
 
-                //この時点でobjに何も入っていなければ処理はここで終わる
-                if (obj == null) return;
+        if (step == null) return;
 
-                //内積を調べるためにDot関数にobjのtransformとP_Bodyを入れる
-                float dot = Dot(obj.transform, P_Body);
-
-                //obj内に入っているgameobjctのscriptがOtherObjectを継承していて、尚且つ内積がFrontに入っている値以上であれば結果としてOtherが返ってきて、Other内のObjectActionが処理される
-                if (obj.TryGetComponent<Step>(out var step) && dot > DotJudge.Front)
-                {
-                    Vector3 targetpos = step.GetVaultTarget();
-
-                    ExecuteStepJump(targetpos);
-                }
-            }
-        }
+        ExecuteStepJump(step.GetVaultTarget());
     }
-
-    float Dot(Transform targettransform, Transform fromtransform)
-    {
-        Vector3 pos = (fromtransform.position - targettransform.position).normalized;
-
-        float dot = Vector3.Dot(targettransform.forward, pos);
-
-        return dot;
-    }
-
-    /// <summary>
-    /// JumpInput内にあるJump関数をJumpActionに登録する
-    /// </summary>
-    public void Subscribe()
-    {
-        JumpAction.performed += Jump;
-    }
-    /// <summary>
-    /// Subscribeの逆でJumpActionからJump関数を削除する
-    /// </summary>
-    public void Cancel()
-    {
-        JumpAction.performed -= Jump;
-    }
-
-    public void ExecuteStepJump(Vector3 targetpos)
+    void ExecuteStepJump(Vector3 targetpos)
     {
         if(cts != null)
         {

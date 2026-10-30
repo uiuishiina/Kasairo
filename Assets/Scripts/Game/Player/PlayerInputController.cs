@@ -11,8 +11,9 @@ namespace Assets.Scripts.Game.Player
     /// RequireComponentで必要なコンポーネントが付くようにしてある
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerInputController : MonoBehaviour,DotJudge
+    public class PlayerInputController : MonoBehaviour
     {
+        const float PlayerRange = 5.0f;
         //回転するための体
         [Tooltip("回転するための体")]
         [SerializeField] private Transform Body;
@@ -35,6 +36,10 @@ namespace Assets.Scripts.Game.Player
         //InputAction
         private InputAction MoveAction;
 
+        private InputAction AttackAction;
+
+        private InputAction JumpAction;
+
         //-----Component取得-----
         Rigidbody rb;
 
@@ -48,11 +53,20 @@ namespace Assets.Scripts.Game.Player
         {
             rb = GetComponent<Rigidbody>();
 
+            AttackAction = StaticInputManager.Instance_.GetInputAction(
+                         MapName.Player, "Attack");
+
+            JumpAction = StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Jump");
+
+            MoveAction = StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Move");
+
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body);
+            AttackInput = new PlayerAttackInput(Body,PlayerRange);
 
             // JumpImputのコンストラクタ
-            JumpInput = new PlayerJumpInput(Body,this,rb);
+            JumpInput = new PlayerJumpInput(Body,this,rb,PlayerRange);
 
             // SpeedModifierのコンストラクタ
             SpeedModifier = new PlayerSpeedModifier();
@@ -60,21 +74,19 @@ namespace Assets.Scripts.Game.Player
 
         void OnEnable()
         {
-            AttackInput.Subscribe();
-            JumpInput.Subscribe();
+            AttackAction.performed += AttackInput.Attack;
+            JumpAction.performed += JumpInput.Jump;
         }
 
         void OnDisable()
         {
-            AttackInput.Cancel();
-            JumpInput.Cancel();
+            AttackAction.performed -= AttackInput.Attack;
+            JumpAction.performed -= JumpInput.Jump;
         }
 
         void Start()
         {
             //InputActionの取得
-            MoveAction = StaticInputManager.Instance_.GetInputAction(
-                          MapName.Player, "Move");
         }
         void Update()
         {
