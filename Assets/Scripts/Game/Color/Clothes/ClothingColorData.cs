@@ -1,14 +1,26 @@
 using UnityEngine;
 using R3;
+using Assets.Utility.Time;
 
 public class ClothingColorData : MonoBehaviour
 {
     // この服の種類の設定
-    ClothingData clothingData;
+    private ClothingData clothingData;
     // 確定している色
-    SerializableReactiveProperty<ColorState> confirmedColor;
+    private ColorState confirmedColor;
     //基本色ごとの進行度
-    SerializableReactiveProperty<float> redPaintedRatio;
-    SerializableReactiveProperty<float> bluePaintedRatio;
-    SerializableReactiveProperty<float> yellowPaintedRatio;
+    [Range(0, 1), SerializeField, Min(0.01f)] private float redPaintedRatio;
+    [Range(0, 1), SerializeField, Min(0.01f)] private float bluePaintedRatio;
+    [Range(0, 1), SerializeField, Min(0.01f)] private float yellowPaintedRatio;
+
+    private void Update()
+    {
+        Mathf.Clamp01(redPaintedRatio += GameTime.DeltaTime / clothingData.FillDuration);
+    }
+
+
+    private void ConfirmedColor(ColorState confirmedColor)
+    {
+
+    }
 }
