@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Audio
 {
+    /// <summary>
+    /// オーディオ管理
+    /// </summary>
     public class AudioManager : MonoBehaviour//StaticObject<AudioManager>....テスト用(実際はStaticObjectを継承する)
     {
         public static AudioManager Instance_;
@@ -146,7 +149,7 @@ namespace Assets.Scripts.Audio
         /// <summary>
         /// 現在のマスター音量を取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Master音量</returns>
         public float GetMasterVolume()
         {
             return VolumeDeta.MasterVolume;
@@ -154,7 +157,7 @@ namespace Assets.Scripts.Audio
         /// <summary>
         /// 現在のBGM音量を取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>BGM音量</returns>
         public float GetBGMVolume()
         {
             return VolumeDeta.BGMVolume;
@@ -162,7 +165,7 @@ namespace Assets.Scripts.Audio
         /// <summary>
         /// 現在のSE音量を取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>SE音量</returns>
         public float GetSEVolume()
         {
             return VolumeDeta.SEVolume;
