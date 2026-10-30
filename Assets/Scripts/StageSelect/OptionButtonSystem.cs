@@ -1,3 +1,5 @@
+using Assets.Scripts.Utility;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +10,13 @@ namespace Assets.Scripts.StageSelect
     /// </summary>
     public class OptionButtonSystem : MonoBehaviour
     {
+        [Header("OptionのGameObject")]
         /// <summary>
         /// オプションのオブジェクト
         /// </summary>
         [SerializeField] GameObject OptionBox;
+
+        [Header("StageSelectのButton")]
         /// <summary>
         /// ゲームを開始するボタン
         /// </summary>
@@ -29,6 +34,10 @@ namespace Assets.Scripts.StageSelect
         /// </summary>
         [SerializeField] Button GoTitleButton;
 
+        /// <summary>
+        /// タイトルシーン
+        /// </summary>
+        const string TitleScene = "Title";
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,31 +87,22 @@ namespace Assets.Scripts.StageSelect
         /// <summary>
         /// ゲーム開始　名前を取得してシーンをロード
         /// </summary>
-        void GameStart()
-        {
-            Debug.Log("未実装 GameStart ");
-        }
+        void GameStart() => Debug.Log("未実装 GameStart ");
 
         /// <summary>
         /// オプションを開くボタンが押された
         /// </summary>
-        void OpenOption()
-        {
-            OptionBox.SetActive(true);
-        }
+        void OpenOption() => OptionBox.SetActive(true);
 
         /// <summary>
         /// オプションを閉じるボタンが押された
         /// </summary>
-        void CloseOption()
-        {
-            OptionBox.SetActive(false);
-        }
+        void CloseOption() => OptionBox.SetActive(false);
 
-        void GoTitle()
-        {
-            Debug.Log("未実装 GoTitle ");
-        }
+        /// <summary>
+        /// Titleに戻る
+        /// </summary>
+        void GoTitle() => SceneTransition.Instance_.Load(TitleScene);
     }
 }
 
