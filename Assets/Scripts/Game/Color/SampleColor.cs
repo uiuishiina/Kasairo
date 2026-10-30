@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SampleColor : MonoBehaviour
 {
-    [SerializeField] private GameColor color;
+    [SerializeField] private ColorSettings color;
     private void Start()
     {
         var sprite = GetComponent<Image>();

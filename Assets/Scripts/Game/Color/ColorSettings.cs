@@ -4,7 +4,7 @@ using UnityEngine;
 /// 色のbit定義と実際の色を紐づけ
 /// </summary>
 [CreateAssetMenu(fileName = "ColorSettings", menuName = "Scriptable Objects/ColorSettings")]
-public class GameColor : ScriptableObject
+public class ColorSettings : ScriptableObject
 {
     /// <summary>
     /// インスペクタから色を変える
