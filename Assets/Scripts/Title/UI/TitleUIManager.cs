@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 /// <summary>
 /// 真偽を表す 2 つの Button と関連する GameObject パネルの参照をまとめて保持するシリアライズ可能な構造体。
@@ -20,6 +22,16 @@ public class TitleUIManager : MonoBehaviour
     [SerializeField,Header("ボタンとパネル")]
     [Tooltip("1つ目が表示用ボタン、2つ目が非表示用ボタン、3つ目がパネル")] private Controllers[] Action;
 
+    [SerializeField,Header("シーン遷移用ボタン")]private Button SceneChangeButton;
+
+    //ゲーム開始テキストにアニメーションをつける用
+    [SerializeField, Header("スタートテキスト")] private GameObject StartText = null;
+
+    private void Start()
+    {
+        //StartText?.GetComponent<Text>();
+    }
+
     private void OnEnable()
     {
         //----------ボタンのイベント登録----------//
@@ -30,6 +42,8 @@ public class TitleUIManager : MonoBehaviour
             data.True_.onClick.AddListener(() => data.Panel_.SetActive(true));
             data.False_.onClick.AddListener(() => data.Panel_.SetActive(false));
         }
+
+        SceneChangeButton.onClick.AddListener(() => SceneManager.LoadScene("StageSelect"));
 
     }
     private void OnDisable()
@@ -42,6 +56,8 @@ public class TitleUIManager : MonoBehaviour
             data.True_.onClick.RemoveListener(() => data.Panel_.SetActive(true));
             data.False_.onClick.RemoveListener(() => data.Panel_.SetActive(false));
         }
+        SceneChangeButton.onClick.RemoveListener(() => SceneManager.LoadScene("StageSelect"));
+
     }
 
     public void ExitGame()
