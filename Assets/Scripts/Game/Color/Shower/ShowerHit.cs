@@ -1,28 +1,23 @@
 using UnityEngine;
-using R3;
 
+[RequireComponent(typeof(ShowerColor))]
 public class ShowerHit : MonoBehaviour
 {
-    ReactiveProperty<bool> isShowerHit;
+    private ShowerColor showerColor;
 
-    private void Start()
+    private void Awake()
     {
-        isShowerHit.Value = false;
+        showerColor = GetComponent<ShowerColor>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isShowerHit.Value = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isShowerHit.Value = false;
+            if (other.TryGetComponent(out OwnedClothing clothing))
+            {
+                clothing.ShowerEnter(showerColor.CurrentColor);
+            }
         }
     }
 }

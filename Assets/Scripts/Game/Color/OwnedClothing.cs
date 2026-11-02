@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using R3;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +6,25 @@ using UnityEngine;
 public class OwnedClothing : MonoBehaviour
 {
     //  àÍíÖÇµÇ©éùÇƒÇ»Ç¢
-    private GameObject ownedClothing;
+    [SerializeField] private Clothes ownedClothes;
 
+    public bool AddClothing(Clothes newClothes)
+    {
+        if (ownedClothes != null) return false;
+        ownedClothes = newClothes;
+        
+        return true;
+    }
 
+    public bool RemoveClothing()
+    {
+        if (ownedClothes == null) return false;
+        ownedClothes = null;
+        return true;
+    }
+
+    public void ShowerEnter(PrimaryColorState showerColor)
+    {
+        if (ownedClothes != null) ownedClothes.PaintColor(showerColor);
+    }
 }

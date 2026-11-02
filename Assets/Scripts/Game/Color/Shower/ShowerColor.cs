@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShowerColor : MonoBehaviour
 {
     [SerializeField] private PrimaryColorState showerColor = PrimaryColorState.None;
-    public PrimaryColorState GetShowerColor => showerColor;
+    public PrimaryColorState CurrentColor => showerColor;
 
     public void ChangeShowerColor(PrimaryColorState col)
     {

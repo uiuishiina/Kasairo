@@ -7,7 +7,7 @@ public class SampleColor : MonoBehaviour
     private void Start()
     {
         var sprite = GetComponent<Image>();
-        ColorState state = ColorChanger.MixedColor(ColorState.Red, ColorState.Red);
+        ColorState state = ColorMixer.MixedColor(ColorState.Red, ColorState.Red);
         sprite.color = color[state];
 
 

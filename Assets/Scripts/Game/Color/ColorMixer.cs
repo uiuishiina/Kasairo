@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// 色変換クラス(Bit演算で）
 /// </summary>
-public static class ColorChanger
+public static class ColorMixer
 {
     /// <summary>
     /// 色を混ぜる
@@ -16,9 +16,6 @@ public static class ColorChanger
     {
         //  orでbit演算
         var col = a | b | c;
-
-        //  黒に割り当てているbitよりも大きければ黒
-        if (col >= ColorState.Black) col = ColorState.Black;
 
         return col;
     }
@@ -38,7 +35,7 @@ public static class ColorChanger
     /// 色のリセット
     /// </summary>
     /// <returns>白色</returns>
-    public static ColorState ClearNone()
+    public static ColorState Clear()
     {
         return ColorState.None;
     }
