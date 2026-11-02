@@ -1,3 +1,4 @@
+using Assets.Utility.Time;
 using UnityEngine;
 
 public class ClothesÅ@: MonoBehaviour
@@ -13,7 +14,7 @@ public class ClothesÅ@: MonoBehaviour
 
     protected void Update()
     {
-
+        Mathf.Clamp01(redPaintedRatio += GameTime.DeltaTime / fillDuration);
     }
 
     protected void ConfirmedColor(ColorState confirmedColor)

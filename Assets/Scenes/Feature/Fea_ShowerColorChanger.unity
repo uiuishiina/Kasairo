@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4535e620855d5f4aac7ca50f487e0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClothingColorData
+  clothingData: {fileID: 0}
+  confirmedColor: 0
   redPaintedRatio: 0
   bluePaintedRatio: 0
   yellowPaintedRatio: 0
@@ -615,6 +617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352792711}
   - component: {fileID: 1352792710}
+  - component: {fileID: 1352792713}
   - component: {fileID: 1352792712}
   m_Layer: 0
   m_Name: Shower
@@ -669,10 +672,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1352792709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1eb43f14e30764da02e3a31166edf7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5041a6fce50b7424b86416917ddae081, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShowerColorHolder
-  showerColor: 0
+  m_EditorClassIdentifier: Assembly-CSharp::ShowerHit
+--- !u!114 &1352792713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352792709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14694e8d037008043bd262a3030f3e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowerColor
+  showerColor: 1
 --- !u!1 &1407331298
 GameObject:
   m_ObjectHideFlags: 0

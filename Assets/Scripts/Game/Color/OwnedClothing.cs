@@ -9,4 +9,6 @@ public class OwnedClothing : MonoBehaviour
 {
     //  ˆê’…‚µ‚©‚Ä‚È‚¢
     private GameObject ownedClothing;
+
+
 }
