@@ -10,6 +10,10 @@ namespace Assets.Scripts.Game.GameUI
         /// スコアのマネージャー
         /// </summary>
         public Score.ScoreManager ScoreManager { get; private set; } = new Score.ScoreManager();
+        /// <summary>
+        /// オーダーのマネージャー
+        /// </summary>
+        public Order.OrderManager OrderManager { get; private set; } = new Order.OrderManager();
 
         /// <summary>
         /// GameUi全体の初期化
@@ -17,6 +21,7 @@ namespace Assets.Scripts.Game.GameUI
         public void Initialization()
         {
             ScoreManager.Initialization();
+            OrderManager.Initialization();
         }
 
 
