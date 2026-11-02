@@ -10,6 +10,7 @@ public class Clothes : MonoBehaviour
     public void PaintColor(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
+        //GetComponent<Renderer>().material.color = paintedColor;
         Debug.Log(paintedColor);
     }
 }
