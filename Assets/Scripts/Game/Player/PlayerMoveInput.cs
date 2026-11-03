@@ -30,12 +30,22 @@ public class PlayerMoveInput : MonoBehaviour
     {
         //Rigidbodyの取得
         rb = GetComponent<Rigidbody>();
+
+        //PlayerInputControllerの取得
+        PlayerInput = GetComponent<PlayerInputController>();
+
         // JumpInputのコンストラクタ
         JumpInput = new PlayerJumpInput(Body, this, rb, PlayerInput.GetPlayerRange);
     }
-    void Start()
+    void OnEnable()
     {
-        PlayerInput = GetComponent<PlayerInputController>();
+        // JumpActionのイベント登録
+        PlayerInput.OnJump += JumpInput.Jump;
+    }
+    void OnDisable()
+    {
+        // JumpActionのイベント解除
+        PlayerInput.OnJump -= JumpInput.Jump;
     }
     void FixedUpdate()
     {

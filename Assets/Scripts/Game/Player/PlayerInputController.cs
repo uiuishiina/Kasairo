@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
+using System;
 
 namespace Assets.Scripts.Game.Player
 {
@@ -12,6 +13,9 @@ namespace Assets.Scripts.Game.Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerInputController : MonoBehaviour
     {
+        //PlayerMoveInputにJumpInputの中の関数を登録してもらうためのイベント変数
+        public event Action OnJump;
+
         const float PlayerRange = 5.0f;
         //回転するための体
         [Tooltip("回転するための体")]
@@ -36,8 +40,6 @@ namespace Assets.Scripts.Game.Player
 
         //-----Component取得-----
         PlayerAttackInput AttackInput;
-
-        PlayerMoveInput MoveInput;
         void Awake()
         {
             //InputActionの取得
@@ -52,20 +54,24 @@ namespace Assets.Scripts.Game.Player
 
             // AttackInputのコンストラクタ
             AttackInput = new PlayerAttackInput(Body,PlayerRange);
-
-            MoveInput = GetComponent<PlayerMoveInput>();
         }
 
         void OnEnable()
         {
+            //InputSystemのAttackのキーを押している間の処理にAttackInput.Attack関数を登録する
             AttackAction.performed += AttackInput.Attack;
-            JumpAction.performed += MoveInput.JumpInput.Jump;
+
+            //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
+            JumpAction.performed += _ => OnJump?.Invoke();
         }
 
         void OnDisable()
         {
+            //InputSystemのAttackのキーを押している間の処理からAttackInput.Attack関数を解除する
             AttackAction.performed -= AttackInput.Attack;
-            JumpAction.performed -= MoveInput.JumpInput.Jump;
+
+            //InputSystemのJumpのキーを押したときの処理からOnJumpイベントを解除する
+            JumpAction.performed -= _ => OnJump?.Invoke();
         }
         void Update()
         {

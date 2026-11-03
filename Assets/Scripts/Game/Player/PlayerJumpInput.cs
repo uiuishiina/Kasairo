@@ -13,7 +13,7 @@ public class PlayerJumpInput
 
     Rigidbody Rb;
 
-    PlayerInputController Player;
+    PlayerMoveInput Player;
 
     CancellationTokenSource Cts;
 
@@ -36,13 +36,14 @@ public class PlayerJumpInput
 
         Rb = rb;
 
+        Player = player;
+
         PlayerRange = range;
     }
     /// <summary>
     /// InputAction“à‚ÌJump‚É“o˜^‚µ‚Ä‚ ‚éƒL[‚ğ‰Ÿ‚·‚±‚Æ‚É‚æ‚Á‚ÄJumpŠÖ”‚ªˆ—‚³‚ê‚é
     /// </summary>
-    /// <param name="cont">“o˜^‚µ‚½ƒL[‚Ì“ü—Í’l</param>
-    public void Jump(InputAction.CallbackContext cont)
+    public void Jump()
     {
         var obj = DotJudge.Dot(PlayerBody,PlayerRange);
 
