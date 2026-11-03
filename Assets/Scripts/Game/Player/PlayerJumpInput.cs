@@ -1,5 +1,4 @@
 using Assets.Scripts.Game.Player;
-using Assets.Scripts.StaticObject;
 using Assets.Utility.Time;
 using Cysharp.Threading.Tasks;
 using System.Threading;
@@ -10,17 +9,17 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerJumpInput
 {
-    Transform P_Body;
+    Transform PlayerBody;
 
     Rigidbody Rb;
 
     PlayerInputController Player;
 
-    CancellationTokenSource cts;
+    CancellationTokenSource Cts;
 
-    const float jumpHeight = 1.5f;
+    const float JumpHeight = 1.5f;
 
-    readonly float P_Range;
+    readonly float PlayerRange;
     /// <summary>
     /// playerが跳び越えている最中かを知らせる変数
     /// </summary>
@@ -31,13 +30,13 @@ public class PlayerJumpInput
     /// <param name="body">playerの体</param>
     /// <param name="player">参照するクラス</param>
     /// <param name="rb">playerの物理演算</param>
-    public PlayerJumpInput(Transform body,PlayerInputController player, Rigidbody rb,float range)
+    public PlayerJumpInput(Transform body,PlayerMoveInput player, Rigidbody rb,float range)
     {
-        P_Body = body;
+        PlayerBody = body;
 
         Rb = rb;
 
-        P_Range = range;
+        PlayerRange = range;
     }
     /// <summary>
     /// InputAction内のJumpに登録してあるキーを押すことによってJump関数が処理される
@@ -45,7 +44,7 @@ public class PlayerJumpInput
     /// <param name="cont">登録したキーの入力値</param>
     public void Jump(InputAction.CallbackContext cont)
     {
-        var obj = DotJudge.Dot(P_Body,P_Range);
+        var obj = DotJudge.Dot(PlayerBody,PlayerRange);
 
         if (obj == null) return;
 
@@ -57,15 +56,15 @@ public class PlayerJumpInput
     }
     void ExecuteStepJump(Vector3 targetpos)
     {
-        if(cts != null)
+        if(Cts != null)
         {
-            cts.Cancel();
-            cts.Dispose();
+            Cts.Cancel();
+            Cts.Dispose();
         }
 
-        cts = new CancellationTokenSource();
+        Cts = new CancellationTokenSource();
 
-        StepJump(targetpos, cts.Token).Forget();
+        StepJump(targetpos, Cts.Token).Forget();
     }
     /// <summary>
     /// 段差を跳び越える処理を行っている関数
@@ -99,7 +98,7 @@ public class PlayerJumpInput
 
                 Vector3 basepos = Vector3.Lerp(startpos, targetpos, percent);
 
-                float heightOffset = Mathf.Sin(percent * Mathf.PI) * jumpHeight;
+                float heightOffset = Mathf.Sin(percent * Mathf.PI) * JumpHeight;
 
                 basepos.y += heightOffset;
 

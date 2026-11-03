@@ -1160,6 +1160,7 @@ GameObject:
   - component: {fileID: 1739279171}
   - component: {fileID: 1739279170}
   - component: {fileID: 1739279168}
+  - component: {fileID: 1739279173}
   - component: {fileID: 1739279172}
   m_Layer: 0
   m_Name: Player
@@ -1197,8 +1198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputController
   Body: {fileID: 87582608}
-  Speed: 500
-  RotaSpeed: 10
 --- !u!65 &1739279170
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1270,6 +1269,21 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1739279173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739279166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5148cd5a8ddd27441a4db7e5aa8a8255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMoveInput
+  Body: {fileID: 87582608}
+  Speed: 500
+  RotaSpeed: 10
 --- !u!1 &1810248577
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class Shower : OtherObject
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<PlayerInputController>(out var player))
+        if(other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
         {
             player.EnterWaterDebuff();
         }
@@ -32,7 +32,7 @@ public class Shower : OtherObject
     {
         int time = Mathf.RoundToInt(DebuffTime) * 2;
 
-        if(other.gameObject.TryGetComponent<PlayerInputController>(out var player))
+        if(other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
         {
             player.ExitWaterDebuff(time);
         }
