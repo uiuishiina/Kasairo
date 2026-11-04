@@ -2,7 +2,9 @@ using Assets.Scripts.Game.Player;
 using Assets.Utility.Time;
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Player‚ÌˆÚ“®‚ÉŠÖ‚·‚éˆ—‚ª‚ ‚éƒNƒ‰ƒX
+/// </summary>
 public class PlayerMoveInput : MonoBehaviour
 {
     Coroutine DebuffCoroutine;

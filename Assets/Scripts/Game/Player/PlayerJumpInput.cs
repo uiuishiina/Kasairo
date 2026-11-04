@@ -1,25 +1,26 @@
-using Assets.Scripts.Game.Player;
 using Assets.Utility.Time;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.InputSystem;
 /// <summary>
 /// playerが段差を跳び越える処理があるクラス
 /// </summary>
 public class PlayerJumpInput
 {
+    //-----コンストラクタで受け取る変数-----
     Transform PlayerBody;
 
     Rigidbody Rb;
 
     PlayerMoveInput Player;
 
+    readonly float PlayerRange;
+
+    //-----段差を跳び越える処理を行う関数内で使う変数-----
     CancellationTokenSource Cts;
 
     const float JumpHeight = 1.5f;
 
-    readonly float PlayerRange;
     /// <summary>
     /// playerが跳び越えている最中かを知らせる変数
     /// </summary>
