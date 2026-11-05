@@ -3,12 +3,12 @@ using UnityEngine;
 public class Clothes : MonoBehaviour
 {
     /// <summary>
-    /// 確定している色
+    /// 現在の色
     /// </summary>
     [SerializeField] private ColorState paintedColor = ColorState.None;
 
     /// <summary>
-    /// 確定している色の読み取り専用プロパティ
+    /// 現在の色の読み取り専用プロパティ
     /// </summary>
     public ColorState PaintedColor => paintedColor;
 

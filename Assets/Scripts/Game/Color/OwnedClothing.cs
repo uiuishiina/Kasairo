@@ -1,14 +1,14 @@
 using UnityEngine;
 
 /// <summary>
-/// 衣服を持つか捨てるか
+/// 服の所持状況
 /// </summary>
 public class OwnedClothing : MonoBehaviour
 {
     [SerializeField] private Clothes ownedClothes;
 
     /// <summary>
-    /// 衣服を持つ
+    /// 服の所持
     /// </summary>
     /// <param name="newClothes">Clothesがついているオブジェクト</param>
     /// <returns>持てたかどうか</returns>
@@ -21,7 +21,7 @@ public class OwnedClothing : MonoBehaviour
     }
 
     /// <summary>
-    /// 衣服を捨てる
+    /// 服の破棄
     /// </summary>
     /// <returns>衣服を捨てたか持っていなくて捨てれないか</returns>
     public bool RemoveClothing()
