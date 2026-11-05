@@ -10,12 +10,11 @@ public static class ColorMixer
     /// </summary>
     /// <param name="a">一つ目の色</param>
     /// <param name="b">二つ目の色</param>
-    /// <param name="c">三つ目の色</param>
     /// <returns>引数の色を混ぜた色</returns>
-    public static ColorState MixedColor(ColorState a, ColorState b, ColorState c = ColorState.None)
+    public static ColorState MixedColor(ColorState a, ColorState b)
     {
         //  orでbit演算
-        var col = a | b | c;
+        var col = a | b;
 
         return col;
     }

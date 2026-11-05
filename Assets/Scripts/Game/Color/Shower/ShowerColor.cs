@@ -5,7 +5,7 @@ public class ShowerColor : MonoBehaviour
     /// <summary>
     /// シャワーの色
     /// </summary>
-    [SerializeField] private PrimaryColorState showerColor = PrimaryColorState.None;
+    [SerializeField] private PrimaryColorState showerColor;
     
     /// <summary>
     /// 読み取り専用のプロパティ

@@ -22,6 +22,14 @@ public class Clothes : MonoBehaviour
     /// </summary>
     public ClothingType CurrentClothingType => clothingType;
 
+    private ClothingPainter clothingPainter;
+
+    private void Awake()
+    {
+        if (!TryGetComponent(out clothingPainter))
+            Debug.LogError($"{name}: ClothingPainter がありません", this);
+    }
+
     /// <summary>
     /// シャワーの色を引数として持ってきて現在の服の色と混ぜて更新する
     /// </summary>
@@ -29,7 +37,8 @@ public class Clothes : MonoBehaviour
     public void PaintColor(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
-        //GetComponent<Renderer>().material.color = paintedColor;
-        Debug.Log(paintedColor);
+
+        if (clothingPainter != null) return;
+        clothingPainter.PaintClothing(paintedColor);
     }
 }

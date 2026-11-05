@@ -10,7 +10,8 @@ public class ShowerHit : MonoBehaviour
 
     private void Awake()
     {
-        showerColor = GetComponent<ShowerColor>();
+        if (!TryGetComponent(out showerColor))
+            Debug.LogError($"{name}: ShowerColor ‚ª‚ ‚è‚Ü‚¹‚ñ", this);
     }
 
     /// <summary>
