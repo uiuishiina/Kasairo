@@ -40,8 +40,12 @@ namespace Assets.Scripts.Game.Player
 
         //-----Component取得-----
         PlayerAttackInput AttackInput;
+
+        OwnedClothing MyClothe;
         void Awake()
         {
+            MyClothe = GetComponent<OwnedClothing>();
+
             //InputActionの取得
             AttackAction = StaticInputManager.Instance_.GetInputAction(
                          MapName.Player, "Attack");
@@ -53,7 +57,7 @@ namespace Assets.Scripts.Game.Player
                           MapName.Player, "Move");
 
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body,PlayerRange);
+            AttackInput = new PlayerAttackInput(Body,PlayerRange,MyClothe);
         }
 
         void OnEnable()

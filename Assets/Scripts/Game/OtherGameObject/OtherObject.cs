@@ -10,4 +10,9 @@ public class OtherObject : MonoBehaviour
     {
         Debug.Log("âΩÇ…êGÇÍÇΩ?");
     }
+
+    public virtual void ObjectAction(OwnedClothing myclothe)
+    {
+        Debug.Log("âΩÇ…êGÇÍÇΩ?");
+    }
 }
