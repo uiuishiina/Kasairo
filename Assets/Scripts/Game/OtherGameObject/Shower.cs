@@ -1,5 +1,6 @@
 using Assets.Utility.Time;
 using UnityEngine;
+using UnityEngine.Rendering;
 /// <summary>
 /// シャワーのクラス
 /// </summary>
@@ -7,11 +8,18 @@ public class Shower : OtherObject
 {
     float DebuffTime = 0;
 
+    ShowerColor ShowerColor;
+
+    void Awake()
+    {
+        //ShowerColor = GetComponent<ShowerColor>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
         {
-            player.EnterWaterDebuff();
+            //player.EnterWaterDebuff(ShowerColor.CurrentColor);
         }
     }
 

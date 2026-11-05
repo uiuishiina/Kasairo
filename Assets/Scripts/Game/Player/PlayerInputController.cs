@@ -85,5 +85,10 @@ namespace Assets.Scripts.Game.Player
                 InputVer = MoveAction.ReadValue<Vector2>();
             }
         }
+
+        public void ClothingColorChange(PrimaryColorState state)
+        {
+            MyClothe.ShowerEnter(state);
+        }
     }
 }

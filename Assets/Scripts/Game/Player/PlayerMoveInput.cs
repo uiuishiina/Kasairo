@@ -102,8 +102,10 @@ public class PlayerMoveInput : MonoBehaviour
         return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
     }
 
-    public void EnterWaterDebuff()
+    public void EnterWaterDebuff(PrimaryColorState state)
     {
+        PlayerInput.ClothingColorChange(state);
+
         if (DebuffCoroutine != null)
         {
             StopCoroutine(DebuffCoroutine);
