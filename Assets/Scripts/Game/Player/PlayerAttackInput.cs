@@ -40,6 +40,10 @@ public class PlayerAttackInput
         {
             chest.ObjectAction(clothe);
         }
+        else if(otherobj.TryGetComponent<TrashBox>(out var other))
+        {
+            other.ObjectAction(clothe);
+        }
         else
         {
             otherobj.ObjectAction();
