@@ -4,5 +4,15 @@ using UnityEngine;
 /// </summary>
 public class ChestofDrawers : OtherObject
 {
-    
+    protected Clothes Clothes;
+    void Start()
+    {
+        Clothes = GetComponent<Clothes>();
+    }
+    public override void ObjectAction(OwnedClothing myclothe)
+    {
+        Debug.Log("帽子のチェストに触れた");
+
+        myclothe.AddClothing(Clothes);
+    }
 }
