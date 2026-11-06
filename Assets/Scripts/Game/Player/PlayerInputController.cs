@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
-using Assets.Utility.Time;
+using System;
 
 namespace Assets.Scripts.Game.Player
 {
@@ -9,46 +9,74 @@ namespace Assets.Scripts.Game.Player
     /// Playerの入力処理と移動・回転処理が組まれていて、これを付けると自動的にRigidBodyがゲームオブジェクトに付く
     /// </summary>
     /// RequireComponentで必要なコンポーネントが付くようにしてある
+    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerInputController : MonoBehaviour
     {
+        //PlayerMoveInputにJumpInputの中の関数を登録してもらうためのイベント変数
+        public event Action OnJump;
+
+        const float PlayerRange = 5.0f;
         //回転するための体
         [Tooltip("回転するための体")]
         [SerializeField] private Transform Body;
 
-        [Header("移動設定")]
-
-        //移動速度
-        [SerializeField] private float Speed = 500.0f;
-
-        //回転速度
-        [SerializeField] private float RotaSpeed = 10.0f;
-
         [Header("入力設定")]
-
         //入力値の取得  
         Vector2 InputVer;
 
         //入力値の参照
         public Vector2 GetInputVer => InputVer;
 
-        //-----Component取得-----
+        //Playerの判定する範囲
+        public float GetPlayerRange => PlayerRange;
 
         //InputAction
         private InputAction MoveAction;
 
-        //-----Component取得-----
-        Rigidbody rb;
+        private InputAction AttackAction;
 
-        void Start()
+        private InputAction JumpAction;
+
+        //-----Component取得-----
+        PlayerAttackInput AttackInput;
+
+        OwnedClothing OwnedClothing;
+        void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            OwnedClothing = GetComponent<OwnedClothing>();
 
             //InputActionの取得
+            AttackAction = StaticInputManager.Instance_.GetInputAction(
+                         MapName.Player, "Attack");
+
+            JumpAction = StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Jump");
+
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
+
+            // AttackInputのコンストラクタ
+            AttackInput = new PlayerAttackInput(Body,PlayerRange,OwnedClothing);
         }
 
+        void OnEnable()
+        {
+            //InputSystemのAttackのキーを押している間の処理にAttackInput.Attack関数を登録する
+            AttackAction.performed += AttackInput.Attack;
+
+            //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
+            JumpAction.performed += _ => OnJump?.Invoke();
+        }
+
+        void OnDisable()
+        {
+            //InputSystemのAttackのキーを押している間の処理からAttackInput.Attack関数を解除する
+            AttackAction.performed -= AttackInput.Attack;
+
+            //InputSystemのJumpのキーを押したときの処理からOnJumpイベントを解除する
+            JumpAction.performed -= _ => OnJump?.Invoke();
+        }
         void Update()
         {
             //移動入力取得
@@ -58,56 +86,9 @@ namespace Assets.Scripts.Game.Player
             }
         }
 
-        private void FixedUpdate()
+        public void ShowerEnter(PrimaryColorState showerColor)
         {
-            //動作処理
-            Move(InputVer);
-        }
-
-        /// <summary>
-        /// 移動,回転処理
-        /// </summary>
-        private void Move(Vector2 input)
-        {
-            //移動
-            var move = CalculateMove(input);
-
-            //移動量をRigidBodyに入れてる
-            rb.linearVelocity = move;
-
-            //入力したときだけ子オブジェクトを移動方向に回転させる
-            if (move != Vector3.zero)
-            {
-                //回転
-                Body.rotation = CalculateRotation(input);
-            }
-        }
-
-        /// <summary>
-        /// 移動量計算
-        /// </summary>
-        /// <param name="input">PlayerInputの入力値</param>
-        /// <returns>入力値をVectro3に変換したものに移送速度とGameTimeクラスにあるFixedDeltaTimeを掛けた値</returns>
-        private Vector3 CalculateMove(Vector2 input)
-        {
-            return new Vector3(input.x, 0, input.y) * Speed * GameTime.FixedDeltaTime;
-        }
-
-        /// <summary>
-        /// Y軸の回転量を計算
-        /// </summary>
-        /// <param name="input">PlayerInputの入力値</param>
-        /// <returns>Quaternion.Slerpで計算した回転量</returns>
-        private Quaternion CalculateRotation(Vector2 input)
-        {
-            //Vector3に変換
-            var dir = new Vector3(input.x, 0, input.y);
-
-            //決めた回転方向をtargetRotationに代入している
-            var targetRotation = Quaternion.LookRotation(dir, Vector3.up);
-
-            //回転
-            return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
+            if (OwnedClothing != null) OwnedClothing.ShowerEnter(showerColor);
         }
     }
 }
