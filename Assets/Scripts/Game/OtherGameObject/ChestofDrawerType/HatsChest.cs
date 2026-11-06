@@ -4,9 +4,5 @@ using UnityEngine;
 /// </summary>
 public class HatsChest : ChestofDrawers
 {
-    public override void ObjectAction(OwnedClothing myclothe)
-    {
-        Debug.Log("帽子のチェストに触れた");
-        myclothe.AddClothing(Clothes);
-    }
+    
 }

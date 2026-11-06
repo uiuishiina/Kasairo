@@ -4,15 +4,16 @@ using UnityEngine;
 /// </summary>
 public class ChestofDrawers : OtherObject
 {
-    protected Clothes Clothes;
+    [SerializeField]
+    protected ClothingType Clothes;
     void Start()
     {
-        Clothes = GetComponent<Clothes>();
+        Clothes = ClothingType.Hat;
     }
-    public override void ObjectAction(OwnedClothing myclothe)
-    {
-        Debug.Log("帽子のチェストに触れた");
+    //public override void ObjectAction(OwnedClothing myclothe)
+    //{
+    //    Debug.Log("帽子のチェストに触れた");
 
-        myclothe.AddClothing(Clothes);
-    }
+    //    myclothe.AddClothing(Clothes);
+    //}
 }
