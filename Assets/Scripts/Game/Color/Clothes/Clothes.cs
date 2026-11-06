@@ -23,8 +23,6 @@ public class Clothes
     /// </summary>
     public ClothingType CurrentClothingType => clothingType;
 
-    private ClothingPainter clothingPainter;
-
     public Clothes(ColorState paintedColor,ClothingType clothingType)
     {
         this.paintedColor = paintedColor;
@@ -38,8 +36,5 @@ public class Clothes
     public void PaintColor(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
-
-        if (clothingPainter != null) return;
-        clothingPainter.PaintClothing(paintedColor);
     }
 }
