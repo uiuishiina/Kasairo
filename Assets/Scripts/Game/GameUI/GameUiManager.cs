@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace Assets.Scripts.Game.GameUI
 {
     /// <summary>
@@ -14,16 +16,21 @@ namespace Assets.Scripts.Game.GameUI
         /// オーダーのマネージャー
         /// </summary>
         public Order.OrderManager OrderManager { get; private set; } = new Order.OrderManager();
+        /// <summary>
+        /// タイマーのマネージャー
+        /// </summary>
+        public Timer.TimerManager TimerManager { get; private set; } = new Timer.TimerManager();
 
         /// <summary>
         /// GameUi全体の初期化
         /// </summary>
-        public void Initialization()
+        /// <param name="timer">ゲームの制限時間</param>
+        public void Initialization(float timer)
         {
             ScoreManager.Initialization();
             OrderManager.Initialization();
+            TimerManager.Initialization(timer);
         }
-
-
+       
     }
 }

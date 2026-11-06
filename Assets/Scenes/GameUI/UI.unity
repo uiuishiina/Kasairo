@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 180160389}
   - component: {fileID: 180160388}
   - component: {fileID: 180160392}
+  - component: {fileID: 180160393}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -313,11 +314,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 180160387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5361f7947620fd545a8c8b28603f7df3, type: 3}
+  m_Script: {fileID: 11500000, guid: dd06fad11deb8cd4faccd1c6ca7c97a4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameTimerManager
-  Timer: 10
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Game.GameUI.Timer.TimerUi
   TimeText: {fileID: 1748099206}
+--- !u!114 &180160393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180160387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f50c534ba5cb0c4eb0e998adc26c8ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Game.GameUI.GameUiManager
+  Timer: 15
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
