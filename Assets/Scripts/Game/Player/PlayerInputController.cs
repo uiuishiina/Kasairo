@@ -57,7 +57,7 @@ namespace Assets.Scripts.Game.Player
                           MapName.Player, "Move");
 
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body,PlayerRange);
+            AttackInput = new PlayerAttackInput(Body,PlayerRange,OwnedClothing);
         }
 
         void OnEnable()

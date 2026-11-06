@@ -4,18 +4,13 @@ using UnityEngine;
 /// </summary>
 public class ChestofDrawers : OtherObject
 {
-    [SerializeField]
-    protected ClothingType Clothes;
-    [SerializeField]
-    private Clothes chestofdrawers;
+    protected Clothes Clothes;
     void Start()
     {
-        Clothes = ClothingType.Hat;
+        
     }
     public override void ObjectAction(OwnedClothing myclothe)
     {
         Debug.Log("帽子のチェストに触れた");
-
-        myclothe.AddClothing(chestofdrawers);
     }
 }

@@ -8,15 +8,19 @@ public class PlayerAttackInput
     readonly Transform P_Body;
 
     readonly float P_Range;
+
+    readonly OwnedClothing OwnedClothing;
     /// <summary>
     /// この関数内で、PlayerAttackInput内のAttackActionにInputAction内のPlayerの中にあるAttackというActionが代入され、引数に入れたBodyがPlayerAttackInput内のP_Bodyに代入される
     /// </summary>
     /// <param name="body">Playerの体として定義しているもの</param>
-    public PlayerAttackInput(Transform body,float range)
+    public PlayerAttackInput(Transform body,float range,OwnedClothing myclothe)
     {
         P_Body = body;
 
         P_Range = range;
+
+        OwnedClothing = myclothe;
     }
     /// <summary>
     /// InputAction内のAttackに登録してあるキーを押すことによってAttack関数が処理される
@@ -32,6 +36,14 @@ public class PlayerAttackInput
 
         if (otherobj==null) return;
 
-        otherobj.ObjectAction();
+        if (otherobj is ChestofDrawers chest)
+        {
+            chest.ObjectAction(OwnedClothing);
+        }
+        else
+        {
+            otherobj.ObjectAction();
+        }
+ 
     }
 }
