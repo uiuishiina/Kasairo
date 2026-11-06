@@ -1,12 +1,12 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Clothes : MonoBehaviour
+public class Clothes
 {
     /// <summary>
     /// 現在の色
     /// </summary>
-    [SerializeField] private ColorState paintedColor;
+    private ColorState paintedColor;
 
     /// <summary>
     /// 現在の色の読み取り専用プロパティ
@@ -29,12 +29,6 @@ public class Clothes : MonoBehaviour
     {
         this.paintedColor = paintedColor;
         this.clothingType = clothingType;
-    }
-
-    private void Awake()
-    {
-        if (!TryGetComponent(out clothingPainter))
-            Debug.LogError($"{name}: ClothingPainter がありません", this);
     }
 
     /// <summary>
