@@ -41,4 +41,9 @@ public class Clothes : MonoBehaviour
         if (clothingPainter != null) return;
         clothingPainter.PaintClothing(paintedColor);
     }
+
+    public void SetClothingType(ClothingType Type)
+    {
+        clothingType = Type;
+    }
 }
