@@ -381,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8623537370810794eb5ec09e41c93d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HatsChest
+  Clothes: 0
 --- !u!54 &174381030
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -661,7 +662,6 @@ GameObject:
   - component: {fileID: 255475215}
   - component: {fileID: 255475220}
   - component: {fileID: 255475219}
-  - component: {fileID: 255475221}
   m_Layer: 0
   m_Name: Chest3
   m_TagString: Untagged
@@ -774,6 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fad6f6d540f0184fb60acfa7ddd2c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShirtsChest
+  Clothes: 1
 --- !u!54 &255475220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -801,20 +802,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &255475221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255475214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4a0df23b2298949bf1d6c05857b6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clothes
-  paintedColor: 0
-  clothingType: 1
 --- !u!1 &333156383
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1122,6 @@ GameObject:
   - component: {fileID: 457066236}
   - component: {fileID: 457066241}
   - component: {fileID: 457066240}
-  - component: {fileID: 457066242}
   m_Layer: 0
   m_Name: Chest2
   m_TagString: Untagged
@@ -1248,6 +1234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8795d3adaae503943a3f1c7be62fd190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PantsChest
+  Clothes: 2
 --- !u!54 &457066241
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1275,20 +1262,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &457066242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457066235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4a0df23b2298949bf1d6c05857b6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clothes
-  paintedColor: 0
-  clothingType: 2
 --- !u!1 &773833666
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,7 +2211,6 @@ GameObject:
   - component: {fileID: 1314438862}
   - component: {fileID: 1314438867}
   - component: {fileID: 1314438866}
-  - component: {fileID: 1314438868}
   m_Layer: 0
   m_Name: Chest4
   m_TagString: Untagged
@@ -2351,6 +2323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d34fdc158001e4b98d984af22d6b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShoesChest
+  Clothes: 3
 --- !u!54 &1314438867
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2378,20 +2351,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1314438868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314438861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4a0df23b2298949bf1d6c05857b6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clothes
-  paintedColor: 0
-  clothingType: 3
 --- !u!1001 &1541674369
 PrefabInstance:
   m_ObjectHideFlags: 0
