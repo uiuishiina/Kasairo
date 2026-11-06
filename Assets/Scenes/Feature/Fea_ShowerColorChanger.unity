@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 172253772}
   - component: {fileID: 172253771}
   - component: {fileID: 172253770}
-  - component: {fileID: 172253774}
   m_Layer: 0
   m_Name: Clothing
   m_TagString: Untagged
@@ -232,20 +231,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &172253774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172253768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4a0df23b2298949bf1d6c05857b6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clothes
-  paintedColor: 0
-  clothingType: 0
 --- !u!1001 &482277606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,6 +606,7 @@ GameObject:
   - component: {fileID: 912322552}
   - component: {fileID: 912322555}
   - component: {fileID: 912322556}
+  - component: {fileID: 912322557}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -641,8 +627,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Game.Player.PlayerInputController
   Body: {fileID: 912322554}
-  Speed: 500
-  RotaSpeed: 10
 --- !u!54 &912322553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -699,7 +683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84b25f2609375f4face3602586bc799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OwnedClothing
-  ownedClothes: {fileID: 172253774}
 --- !u!65 &912322556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -720,6 +703,29 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &912322557
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912322551}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &955289042
 GameObject:
@@ -1232,7 +1238,6 @@ GameObject:
   - component: {fileID: 1592526338}
   - component: {fileID: 1592526337}
   - component: {fileID: 1592526336}
-  - component: {fileID: 1592526335}
   m_Layer: 0
   m_Name: Clothing (1)
   m_TagString: Untagged
@@ -1240,20 +1245,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1592526335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592526334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4a0df23b2298949bf1d6c05857b6bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Clothes
-  paintedColor: 0
-  clothingType: 0
 --- !u!65 &1592526336
 BoxCollider:
   m_ObjectHideFlags: 0
