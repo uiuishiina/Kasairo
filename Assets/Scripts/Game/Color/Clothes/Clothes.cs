@@ -36,5 +36,7 @@ public class Clothes
     public void PaintColor(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
+
+        Debug.Log(paintedColor);
     }
 }
