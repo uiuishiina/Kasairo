@@ -24,7 +24,10 @@ namespace Assets.Scripts.Game.GameUI.Score
 
         private void OnDestroy()
         {
-            GameUiManager.Instance_.ScoreManager.ScoreChangeEvent -= UpdateText;
+            if(GameUiManager.Instance_.ScoreManager != null)
+            {
+                GameUiManager.Instance_.ScoreManager.ScoreChangeEvent -= UpdateText;
+            }
         }
 
         /// <summary>

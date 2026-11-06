@@ -224,7 +224,6 @@ GameObject:
   - component: {fileID: 281010479}
   - component: {fileID: 281010478}
   - component: {fileID: 281010477}
-  - component: {fileID: 281010476}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -232,18 +231,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &281010476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281010475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bef9474029358954188955d46a693ed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::test
 --- !u!114 &281010477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +491,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 281010476}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: test, Assembly-CSharp
         m_MethodName: TestButton
         m_Mode: 3
@@ -809,7 +796,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 281010476}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: test, Assembly-CSharp
         m_MethodName: TestButton
         m_Mode: 3
@@ -942,7 +929,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 281010476}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: test, Assembly-CSharp
         m_MethodName: TestButton
         m_Mode: 3
