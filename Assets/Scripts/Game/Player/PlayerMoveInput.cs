@@ -104,8 +104,7 @@ public class PlayerMoveInput : MonoBehaviour
 
     public void EnterWaterDebuff(PrimaryColorState state)
     {
-        PlayerInput.ClothingColorChange(state);
-
+        PlayerInput.ShowerEnter(state);
         if (DebuffCoroutine != null)
         {
             StopCoroutine(DebuffCoroutine);

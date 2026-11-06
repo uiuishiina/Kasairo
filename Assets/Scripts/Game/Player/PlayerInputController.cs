@@ -41,10 +41,10 @@ namespace Assets.Scripts.Game.Player
         //-----Component取得-----
         PlayerAttackInput AttackInput;
 
-        OwnedClothing MyClothe;
+        OwnedClothing OwnedClothing;
         void Awake()
         {
-            MyClothe = GetComponent<OwnedClothing>();
+            OwnedClothing = GetComponent<OwnedClothing>();
 
             //InputActionの取得
             AttackAction = StaticInputManager.Instance_.GetInputAction(
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Game.Player
                           MapName.Player, "Move");
 
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body,PlayerRange,MyClothe);
+            AttackInput = new PlayerAttackInput(Body,PlayerRange);
         }
 
         void OnEnable()
@@ -86,9 +86,9 @@ namespace Assets.Scripts.Game.Player
             }
         }
 
-        public void ClothingColorChange(PrimaryColorState state)
+        public void ShowerEnter(PrimaryColorState showerColor)
         {
-            MyClothe.ShowerEnter(state);
+            if (OwnedClothing != null) OwnedClothing.ShowerEnter(showerColor);
         }
     }
 }
