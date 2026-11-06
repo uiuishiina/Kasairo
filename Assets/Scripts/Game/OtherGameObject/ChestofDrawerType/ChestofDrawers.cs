@@ -6,14 +6,16 @@ public class ChestofDrawers : OtherObject
 {
     [SerializeField]
     protected ClothingType Clothes;
+    [SerializeField]
+    private Clothes chestofdrawers;
     void Start()
     {
         Clothes = ClothingType.Hat;
     }
-    //public override void ObjectAction(OwnedClothing myclothe)
-    //{
-    //    Debug.Log("帽子のチェストに触れた");
+    public override void ObjectAction(OwnedClothing myclothe)
+    {
+        Debug.Log("帽子のチェストに触れた");
 
-    //    myclothe.AddClothing(Clothes);
-    //}
+        myclothe.AddClothing(chestofdrawers);
+    }
 }
