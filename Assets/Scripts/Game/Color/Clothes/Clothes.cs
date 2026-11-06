@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Clothes : MonoBehaviour
@@ -5,7 +6,7 @@ public class Clothes : MonoBehaviour
     /// <summary>
     /// 現在の色
     /// </summary>
-    [SerializeField] private ColorState paintedColor = ColorState.None;
+    [SerializeField] private ColorState paintedColor;
 
     /// <summary>
     /// 現在の色の読み取り専用プロパティ
@@ -15,7 +16,7 @@ public class Clothes : MonoBehaviour
     /// <summary>
     /// 服の種類
     /// </summary>
-    [SerializeField] private ClothingType clothingType = ClothingType.Shirt;
+    private ClothingType clothingType;
 
     /// <summary>
     /// 服の種類の読み取り専用プロパティ
@@ -23,6 +24,12 @@ public class Clothes : MonoBehaviour
     public ClothingType CurrentClothingType => clothingType;
 
     private ClothingPainter clothingPainter;
+
+    public Clothes(ColorState paintedColor,ClothingType clothingType)
+    {
+        this.paintedColor = paintedColor;
+        this.clothingType = clothingType;
+    }
 
     private void Awake()
     {
@@ -40,10 +47,5 @@ public class Clothes : MonoBehaviour
 
         if (clothingPainter != null) return;
         clothingPainter.PaintClothing(paintedColor);
-    }
-
-    public void SetClothingType(ClothingType Type)
-    {
-        clothingType = Type;
     }
 }
