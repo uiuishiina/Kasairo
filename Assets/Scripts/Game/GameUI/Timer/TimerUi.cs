@@ -9,22 +9,22 @@ namespace Assets.Scripts.Game.GameUI.Timer
     /// </summary>
     public class TimerUi : MonoBehaviour
     {
-        [SerializeField] private Text TimeText;
+        private Text TimeText;
 
+        private void OnValidate()
+        {
+            TimeText = GetComponent<Text>();
+        }
 
         private void Start()
         {
-            if(!TimeText) TimeText = GetComponent<Text>();
             GameUiManager.Instance_.TimerManager.TimerChangeEvent += UpdateText;
         }
 
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            if(GameUiManager.Instance_.TimerManager != null)
-            {
-                GameUiManager.Instance_.TimerManager.TimerChangeEvent -= UpdateText;
-            }      
+            GameUiManager.Instance_.TimerManager.TimerChangeEvent -= UpdateText;
         }
         /// <summary>
         /// タイマーのUI更新

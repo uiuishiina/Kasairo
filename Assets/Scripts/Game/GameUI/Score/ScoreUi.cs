@@ -12,22 +12,23 @@ namespace Assets.Scripts.Game.GameUI.Score
         /// <summary>
         /// The UI text component that displays the score.
         /// </summary>
-        [SerializeField] private Text ScoreText;
+        private Text ScoreText;
+
+        private void OnValidate()
+        {
+            ScoreText = GetComponent<Text>();
+        }
 
         public void Start()
         {
-            if(!ScoreText) ScoreText = GetComponent<Text>();
             UpdateText(0);
 
             GameUiManager.Instance_.ScoreManager.ScoreChangeEvent += UpdateText;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            if(GameUiManager.Instance_.ScoreManager != null)
-            {
-                GameUiManager.Instance_.ScoreManager.ScoreChangeEvent -= UpdateText;
-            }
+            GameUiManager.Instance_.ScoreManager.ScoreChangeEvent -= UpdateText;
         }
 
         /// <summary>
