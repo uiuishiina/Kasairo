@@ -15,23 +15,15 @@ public class MachineObject : OtherObject
     {
         return time > 0;
     }
-
-    protected void cool()
-    {
-        if(!iscool())
-        {
-            time = CoolTime;
-            Debug.Log(this + "ÇÃèÄîıOK!");
-        }
-        else
-        {
-            Debug.Log("Ç‹ÇæëÅÇ¢ÇÌÅAÇπÇ¡Ç©ÇøÇ‚Ç»Å`");
-        }
-    }
-
     public override void ObjectAction(OwnedClothing ownedClothing)
     {
         Debug.Log("ã@äBÇ…êGÇÍÇΩ!");
+
+        if (iscool())
+        {
+            Debug.Log("Ç‹ÇæégÇ¶Ç÷ÇÒÇ≈");
+            return;
+        }
 
         Clothes it = ownedClothing.OwnedClothes;
 
@@ -45,7 +37,6 @@ public class MachineObject : OtherObject
 
         ownedClothing.RemoveClothing();
 
-        cool();
     }
 
     private void Update()
