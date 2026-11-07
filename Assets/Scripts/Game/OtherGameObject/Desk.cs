@@ -11,8 +11,13 @@ public class Desk : OtherObject
             Debug.Log("Š÷‚É•‚ª’u‚¢‚Ä‚ ‚é‚©‚ç‚±‚êˆÈã’u‚¯‚Ö‚ñ");
             return;
         }
-        else if (myclothe.OwnedClothes == null&& Clothes == null)
+        else if (myclothe.OwnedClothes == null)
         {
+            if(Clothes == null)
+            {
+                Debug.Log("Š÷‚É•‚ª’u‚¢‚Ä‚È‚¢‚©‚çæ‚ê‚Ö‚ñ");
+                return;
+            }
             myclothe.AddClothing(Clothes);
             Debug.Log("Š÷‚©‚ç•‚ğæ‚Á‚½");
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 /// </summary>
 public class ChestofDrawers : OtherObject
 {
-    protected Clothes Clothes;
     public override void ObjectAction(OwnedClothing myclothe)
     {
         Debug.Log("チェストに触れた");
