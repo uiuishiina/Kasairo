@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class OtherObject : MonoBehaviour
 {
+    protected Clothes Clothes;
     public virtual void ObjectAction()
     {
         Debug.Log("âΩÇ…êGÇÍÇΩ?");

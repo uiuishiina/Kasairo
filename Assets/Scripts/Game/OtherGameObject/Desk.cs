@@ -4,8 +4,23 @@ using UnityEngine;
 /// </summary>
 public class Desk : OtherObject
 {
-    public override void ObjectAction()
+    public override void ObjectAction(OwnedClothing myclothe)
     {
-        Debug.Log("Š÷‚ÉG‚ê‚½");
+        if(Clothes!=null&&myclothe.OwnedClothes!=null)
+        {
+            Debug.Log("Š÷‚É•‚ª’u‚¢‚Ä‚ ‚é‚©‚ç‚±‚êˆÈã’u‚¯‚Ö‚ñ");
+            return;
+        }
+        else if (myclothe.OwnedClothes == null&& Clothes == null)
+        {
+            myclothe.AddClothing(Clothes);
+            Debug.Log("Š÷‚©‚ç•‚ğæ‚Á‚½");
+        }
+        else if (myclothe.OwnedClothes != null)
+        {
+            Clothes = myclothe.OwnedClothes;
+            myclothe.RemoveClothing();
+            Debug.Log("Š÷‚É•‚ğ’u‚¢‚½");
+        }
     }
 }

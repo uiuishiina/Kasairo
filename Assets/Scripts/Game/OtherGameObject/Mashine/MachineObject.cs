@@ -5,7 +5,6 @@ using UnityEngine;
 /// </summary>
 public class MachineObject : OtherObject
 {
-    protected Clothes Clothes;
     //機械を使ったときのクールタイム
     [SerializeField]
     protected float CoolTime = 10.0f;
