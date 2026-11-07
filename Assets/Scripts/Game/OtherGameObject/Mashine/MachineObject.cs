@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 public class MachineObject : OtherObject
 {
+    protected Clothes Clothes;
     //機械を使ったときのクールタイム
     [SerializeField]
     protected float CoolTime = 10.0f;
@@ -27,6 +28,25 @@ public class MachineObject : OtherObject
         {
             Debug.Log("まだ早いわ、せっかちやな～");
         }
+    }
+
+    public override void ObjectAction(OwnedClothing ownedClothing)
+    {
+        Debug.Log("機械に触れた!");
+
+        Clothes it = ownedClothing.OwnedClothes;
+
+        if (it == null)
+        {
+            Debug.Log("服持ってへんで");
+            return;
+        }
+
+        Clothes = it;
+
+        ownedClothing.RemoveClothing();
+
+        cool();
     }
 
     private void Update()

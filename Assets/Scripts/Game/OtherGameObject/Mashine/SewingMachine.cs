@@ -5,10 +5,5 @@ using UnityEngine;
 /// </summary>
 public class SewingMachine : MachineObject
 {
-    public override void ObjectAction()
-    {
-        Debug.Log("ƒ~ƒVƒ“‚ÉG‚ê‚½!");
 
-        cool();
-    }
 }

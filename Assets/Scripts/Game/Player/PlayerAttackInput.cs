@@ -42,7 +42,7 @@ public class PlayerAttackInput
         }
         else
         {
-            otherobj.ObjectAction();
+            otherobj.ObjectAction(OwnedClothing);
         }
  
     }

@@ -7,6 +7,8 @@ public class OwnedClothing : MonoBehaviour
 {
     [SerializeField] private Clothes ownedClothes;
 
+    public Clothes OwnedClothes => ownedClothes;
+
     /// <summary>
     /// •‚ÌŠ
     /// </summary>
@@ -15,6 +17,7 @@ public class OwnedClothing : MonoBehaviour
     public bool AddClothing(Clothes newClothes)
     {
         if (ownedClothes != null) return false;
+
         ownedClothes = newClothes;
         
         return true;
