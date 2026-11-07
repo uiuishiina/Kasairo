@@ -7,11 +7,6 @@ using UnityEngine;
 public class OtherObject : MonoBehaviour
 {
     protected Clothes Clothes;
-    public virtual void ObjectAction()
-    {
-        Debug.Log("âΩÇ…êGÇÍÇΩ?");
-    }
-
     public virtual void ObjectAction(OwnedClothing myclothe)
     {
         Debug.Log("âΩÇ…êGÇÍÇΩ?");

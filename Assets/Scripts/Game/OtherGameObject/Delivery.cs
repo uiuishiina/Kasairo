@@ -4,7 +4,7 @@ using UnityEngine;
 /// </summary>
 public class Delivery : OtherObject
 {
-    public override void ObjectAction()
+    public override void ObjectAction(OwnedClothing ownedClothing)
     {
         Debug.Log("”[•i‚µ‚Ü‚µ‚½");
     }
