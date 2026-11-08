@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Assets.Scripts.Game.OtherGameObject;
+using Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType;
+using Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingObject;
 /// <summary>
 /// playerがミシンなどのオブジェクトに触れたときの処理だけがあるクラス
 /// </summary>

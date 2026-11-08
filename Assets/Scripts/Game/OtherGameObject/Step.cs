@@ -1,20 +1,25 @@
 using UnityEngine;
-/// <summary>
-/// 段差のクラス
-/// </summary>
-public class Step : OtherObject
+
+namespace Assets.Scripts.Game.OtherGameObject
 {
-    const float YOffSet = 1.0f;
     /// <summary>
-    /// 対象物のcollierの頂点を取得する関数
+    /// 段差のクラス
     /// </summary>
-    /// <returns>対象物のcollierの頂点</returns>
-    public Vector3 GetVaultTarget()
+    public class Step : OtherObject
     {
-        Collider mycol = GetComponent<Collider>();
+        const float YOffSet = 1.0f;
+        /// <summary>
+        /// 対象物のcollierの頂点を取得する関数
+        /// </summary>
+        /// <returns>対象物のcollierの頂点</returns>
+        public Vector3 GetVaultTarget()
+        {
+            Collider mycol = GetComponent<Collider>();
 
-        float topY = mycol.bounds.max.y;
+            float topY = mycol.bounds.max.y;
 
-        return new Vector3(transform.position.x,topY + YOffSet,transform.position.z);
+            return new Vector3(transform.position.x, topY + YOffSet, transform.position.z);
+        }
     }
 }
+

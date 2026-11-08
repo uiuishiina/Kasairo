@@ -42,6 +42,8 @@ namespace Assets.Scripts.Game.Player
         PlayerAttackInput AttackInput;
 
         OwnedClothing OwnedClothing;
+
+        public OwnedClothing PlayerClothing => OwnedClothing;
         void Awake()
         {
             OwnedClothing = GetComponent<OwnedClothing>();

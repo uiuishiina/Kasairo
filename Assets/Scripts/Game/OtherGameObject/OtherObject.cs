@@ -1,14 +1,20 @@
-using Assets.Scripts.Game.Player;
 using UnityEngine;
-/// <summary>
-/// 洗濯機やシャワー、ミシン等の基底クラス
-/// </summary>
-[RequireComponent(typeof(Rigidbody))]
-public class OtherObject : MonoBehaviour
+
+namespace Assets.Scripts.Game.OtherGameObject
 {
-    protected Clothes Clothes;
-    public virtual void ObjectAction(OwnedClothing myclothe)
+    /// <summary>
+    /// 洗濯機やシャワー、ミシン等の基底クラス
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody))]
+    public class OtherObject : MonoBehaviour
     {
-        Debug.Log("何に触れた?");
+        //CheckClothingObjectやその派生先で使う、衣類のデータを保持する変数
+        protected Clothes Clothes;
+        public virtual void ObjectAction(OwnedClothing myclothe)
+        {
+            Debug.Log("何に触れた?");
+        }
     }
 }
+
+

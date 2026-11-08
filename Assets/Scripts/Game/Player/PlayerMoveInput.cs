@@ -27,7 +27,9 @@ public class PlayerMoveInput : MonoBehaviour
 
     PlayerInputController PlayerInput;
 
-    public PlayerJumpInput JumpInput;
+    public PlayerInputController PlayerInputController => PlayerInput;
+
+    PlayerJumpInput JumpInput;
     void Awake()
     {
         //Rigidbody�̎擾

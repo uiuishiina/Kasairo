@@ -2,6 +2,7 @@ using Assets.Utility.Time;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
+using Assets.Scripts.Game.OtherGameObject;
 /// <summary>
 /// player‚ª’i·‚ğ’µ‚Ñ‰z‚¦‚éˆ—‚ª‚ ‚éƒNƒ‰ƒX
 /// </summary>
