@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// OtherObjectを継承した、ミシンや洗濯機に共通した変数や関数をまとめたクラス
 /// </summary>
-public class MachineObject : OtherObject
+public class MachineObject : PutableClothingObject
 {
     //機械を使ったときのクールタイム
     [SerializeField]
@@ -13,30 +13,24 @@ public class MachineObject : OtherObject
 
     protected bool iscool()
     {
-        return time > 0;
+        if(time > 0)
+        {
+            return true;
+        }
+
+        time = CoolTime;
+
+        return false;
     }
+
     public override void ObjectAction(OwnedClothing ownedClothing)
     {
-        Debug.Log("機械に触れた!");
-
         if (iscool())
         {
             Debug.Log("まだ使えへんで");
             return;
         }
-
-        Clothes it = ownedClothing.OwnedClothes;
-
-        if (it == null)
-        {
-            Debug.Log("服持ってへんで");
-            return;
-        }
-
-        Clothes = it;
-
-        ownedClothing.RemoveClothing();
-
+        Check(ownedClothing);
     }
 
     private void Update()
