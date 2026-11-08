@@ -9,15 +9,20 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
     {
         public override void ObjectAction(OwnedClothing ownedClothing)
         {
+            Check(ownedClothing);
+
+            if (Clothes == null)
+            {
+                Debug.Log("ïûÇ™Ç»Ç¢");
+                return;
+            }
+
             if (iscool())
             {
                 Debug.Log("Ç‹ÇæêÙëÛÇµÇƒÇ¢ÇÈç≈íÜÇ‚");
                 return;
             }
 
-            Check(ownedClothing);
-
-            if (Clothes == null) return;
 
             Clothes.PaintColor(PrimaryColorState.None);
         }
