@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Scripts.Game.GameSystem;
 
 namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
 {
@@ -18,6 +19,8 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
             Debug.Log("”[•i‚µ‚Ü‚µ‚½");
 
             Clothes = ownedClothing.OwnedClothes;//player‚ªˆß—Þ‚ð“n‚·
+
+            OrderManager.Instance.Submission(Clothes);
 
             ownedClothing.RemoveClothing();
         }
