@@ -111,8 +111,9 @@ public class PlayerMoveInput : MonoBehaviour
     /// シャワーのクラス側で発動させる、シャワーの水を浴びた瞬間に移動速度を下げる処理と衣類の色を変える関数
     /// </summary>
     /// <param name="state">シャワーの水の色</param>
-    public void EnterWaterDebuff()
+    public void EnterWaterDebuff(PrimaryColorState state)
     {
+        PlayerInput.ShowerEnter(state);
         if (DebuffCoroutine != null)
         {
             StopCoroutine(DebuffCoroutine);
