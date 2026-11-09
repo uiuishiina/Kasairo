@@ -30,7 +30,7 @@ namespace Assets.Scripts.Game.GameSystem
             Instance = this;
         }
 
-        private void OnEnable()
+        private void OnDisable()
         {
             Instance = null;
         }
