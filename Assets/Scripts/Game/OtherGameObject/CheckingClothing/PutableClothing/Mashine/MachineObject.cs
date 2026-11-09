@@ -14,6 +14,10 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
         [SerializeField]
         protected float time = 0;
 
+        /// <summary>
+        /// 機械のオブジェクトがクールタイム中かを判定する関数
+        /// </summary>
+        /// <returns>使えるかどうか(まだ使えないならtrue、もう使えるならfalse)</returns>
         protected bool iscool()
         {
             if (time > 0)

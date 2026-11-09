@@ -5,8 +5,14 @@ using UnityEngine;
 /// </summary>
 public class OwnedClothing : MonoBehaviour
 {
+    /// <summary>
+    /// 服のデータを持つ変数
+    /// </summary>
     [SerializeField] private Clothes ownedClothes;
 
+    /// <summary>
+    /// 服のデータを参照する変数
+    /// </summary>
     public Clothes OwnedClothes => ownedClothes;
 
     /// <summary>

@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+//  服につける色と種類を持つクラス
 using UnityEngine;
 
 public class Clothes
@@ -23,6 +23,11 @@ public class Clothes
     /// </summary>
     public ClothingType CurrentClothingType => clothingType;
 
+    /// <summary>
+    /// コンストラクタ　このクラスをnewしたとき初期値を設定する
+    /// </summary>
+    /// <param name="paintedColor">服の色</param>
+    /// <param name="clothingType">服の種類</param>
     public Clothes(ColorState paintedColor,ClothingType clothingType)
     {
         this.paintedColor = paintedColor;
