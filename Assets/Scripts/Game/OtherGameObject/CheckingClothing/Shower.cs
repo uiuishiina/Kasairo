@@ -21,14 +21,13 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
         {
             if (other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
             {
-                //•‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç‚±‚±‚Åˆ—‚ªI‚í‚é
-                if (!Check(player.PlayerInputController.PlayerClothing))
+                //ˆß—Ş‚ğ‚Á‚Ä‚¢‚½‚ç‚±‚±‚Åˆß—Ş‚ÌF‚ª•Ï‚í‚é
+                if (Check(player.PlayerInputController.PlayerClothing))
                 {
-                    Debug.Log("•‚Á‚Ä‚È‚¢‚æ");
-                    return;
+                    player.PlayerInputController.ShowerEnter(ShowerColor.CurrentColor);
                 }
 
-                player.EnterWaterDebuff(ShowerColor.CurrentColor);
+                player.EnterWaterDebuff();
             }
         }
 
