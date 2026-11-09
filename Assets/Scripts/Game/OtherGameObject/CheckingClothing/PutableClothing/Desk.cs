@@ -6,6 +6,10 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
     /// </summary>
     public class Desk : PutableClothingObject
     {
+        /// <summary>
+        /// player‚ªŠ÷‚ÉG‚ê‚½uŠÔ‚É”­“®‚·‚éŠ÷‚ÌŠÖ”
+        /// </summary>
+        /// <param name="myclothe">player‚Ìˆß—Ş‚Ìƒf[ƒ^</param>
         public override void ObjectAction(OwnedClothing myclothe)
         {
             Check(myclothe);

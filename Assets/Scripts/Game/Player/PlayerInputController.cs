@@ -9,11 +9,12 @@ namespace Assets.Scripts.Game.Player
     /// Playerの入力処理と移動・回転処理が組まれていて、これを付けると自動的にRigidBodyがゲームオブジェクトに付く
     /// </summary>
     /// RequireComponentで必要なコンポーネントが付くようにしてある
-    [RequireComponent(typeof(CapsuleCollider))]
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider), (typeof(Rigidbody)))]
     public class PlayerInputController : MonoBehaviour
     {
-        //PlayerMoveInputにJumpInputの中の関数を登録してもらうためのイベント変数
+        /// <summary>
+        /// PlayerMoveInputにJumpInputの中の関数を登録してもらうためのイベント変数
+        /// </summary>
         public event Action OnJump;
 
         const float PlayerRange = 5.0f;
@@ -25,10 +26,14 @@ namespace Assets.Scripts.Game.Player
         //入力値の取得  
         Vector2 InputVer;
 
-        //入力値の参照
+        /// <summary>
+        /// 入力値の参照
+        /// </summary>
         public Vector2 GetInputVer => InputVer;
 
-        //Playerの判定する範囲
+        /// <summary>
+        /// Playerの判定する範囲
+        /// </summary>
         public float GetPlayerRange => PlayerRange;
 
         //InputAction
@@ -43,6 +48,9 @@ namespace Assets.Scripts.Game.Player
 
         OwnedClothing OwnedClothing;
 
+        /// <summary>
+        /// playerが持っている衣類のデータを参照する変数
+        /// </summary>
         public OwnedClothing PlayerClothing => OwnedClothing;
         void Awake()
         {
@@ -88,6 +96,10 @@ namespace Assets.Scripts.Game.Player
             }
         }
 
+        /// <summary>
+        /// 浴びたシャワーの水の色を衣類に反映させるための関数
+        /// </summary>
+        /// <param name="showerColor">シャワーの水の色</param>
         public void ShowerEnter(PrimaryColorState showerColor)
         {
             if (OwnedClothing != null) OwnedClothing.ShowerEnter(showerColor);

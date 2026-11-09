@@ -27,6 +27,9 @@ public class PlayerMoveInput : MonoBehaviour
 
     PlayerInputController PlayerInput;
 
+    /// <summary>
+    /// PlayerInputControllerの中の変数を参照するための変数
+    /// </summary>
     public PlayerInputController PlayerInputController => PlayerInput;
 
     PlayerJumpInput JumpInput;
@@ -104,6 +107,10 @@ public class PlayerMoveInput : MonoBehaviour
         return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
     }
 
+    /// <summary>
+    /// シャワーのクラス側で発動させる、シャワーの水を浴びた瞬間に移動速度を下げる処理と衣類の色を変える関数
+    /// </summary>
+    /// <param name="state">シャワーの水の色</param>
     public void EnterWaterDebuff(PrimaryColorState state)
     {
         PlayerInput.ShowerEnter(state);
@@ -121,7 +128,11 @@ public class PlayerMoveInput : MonoBehaviour
     {
         DebuffCoroutine = StartCoroutine(DebuffSpeedTime(lingertime));
     }
-
+    /// <summary>
+    /// シャワーの水から出た瞬間に発動するコルーチン
+    /// </summary>
+    /// <param name="time">シャワーの水を浴びた時間を2倍した時間</param>
+    /// <returns>コルーチン</returns>
     IEnumerator DebuffSpeedTime(int time)
     {
         MoveSpeedPercent = 0.7f;

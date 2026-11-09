@@ -7,6 +7,10 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType
     /// </summary>
     public class ChestofDrawers : CheckClothingObject
     {
+        /// <summary>
+        /// playerがタンスに触れた瞬間に発動する、全てのタンスに共通した処理をさせる仮想関数
+        /// </summary>
+        /// <param name="myclothe">playerの衣類</param>
         public override void ObjectAction(OwnedClothing myclothe)
         {
             if (Check(myclothe))

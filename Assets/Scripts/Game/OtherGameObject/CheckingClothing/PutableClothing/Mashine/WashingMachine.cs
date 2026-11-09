@@ -7,6 +7,10 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
     /// </summary>
     public class WashingMachine : MachineObject
     {
+        /// <summary>
+        /// playerが洗濯機に触れた瞬間に発動する、洗濯機側の仮想関数
+        /// </summary>
+        /// <param name="ownedClothing">playerの衣類</param>
         public override void ObjectAction(OwnedClothing ownedClothing)
         {
             Check(ownedClothing);
