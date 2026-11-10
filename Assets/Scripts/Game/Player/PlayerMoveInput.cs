@@ -1,119 +1,118 @@
-using Assets.Scripts.Game.Player;
+ï»¿using Assets.Scripts.Game.Player;
 using Assets.Utility.Time;
 using UnityEngine;
 using System.Collections;
 /// <summary>
-/// Player‚ÌˆÚ“®‚ÉŠÖ‚·‚éˆ—‚ª‚ ‚éƒNƒ‰ƒX
+/// Playerã®ç§»å‹•ã«é–¢ã™ã‚‹å‡¦ç†ãŒã‚ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class PlayerMoveInput : MonoBehaviour
 {
     Coroutine DebuffCoroutine;
 
-    //‰ñ“]‚·‚é‚½‚ß‚Ì‘Ì
-    [Tooltip("‰ñ“]‚·‚é‚½‚ß‚Ì‘Ì")]
+    //å›è»¢ã™ã‚‹ãŸã‚ã®ä½“
+    [Tooltip("å›è»¢ã™ã‚‹ãŸã‚ã®ä½“")]
     [SerializeField] private Transform Body;
-    [Header("ˆÚ“®İ’è")]
-    //ˆÚ“®‘¬“x
+    [Header("ç§»å‹•è¨­å®š")]
+    //ç§»å‹•é€Ÿåº¦
     [SerializeField] private float Speed = 500.0f;
 
-    //ˆÚ“®‘¬“x‚ÌŠ„‡
+    //ç§»å‹•é€Ÿåº¦ã®å‰²åˆ
     float MoveSpeedPercent = 1.0f;
 
-    //‰ñ“]‘¬“x
+    //å›è»¢é€Ÿåº¦
     [SerializeField] private float RotaSpeed = 10.0f;
 
-    //-----Componentæ“¾-----
+    //-----Componentå–å¾—-----
     Rigidbody rb;
 
     PlayerInputController PlayerInput;
 
     /// <summary>
-    /// PlayerInputController‚Ì’†‚Ì•Ï”‚ğQÆ‚·‚é‚½‚ß‚Ì•Ï”
+    /// PlayerInputControllerã®ä¸­ã®å¤‰æ•°ã‚’å‚ç…§ã™ã‚‹ãŸã‚ã®å¤‰æ•°
     /// </summary>
     public PlayerInputController PlayerInputController => PlayerInput;
 
     PlayerJumpInput JumpInput;
     void Awake()
     {
-        //Rigidbody‚Ìæ“¾
+        //Rigidbodyã®å–å¾—
         rb = GetComponent<Rigidbody>();
 
-        //PlayerInputController‚Ìæ“¾
+        //PlayerInputControllerã®å–å¾—
         PlayerInput = GetComponent<PlayerInputController>();
 
-        // JumpInput‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        // JumpInputã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         JumpInput = new PlayerJumpInput(Body, this, rb, PlayerInput.GetPlayerRange);
     }
     void OnEnable()
     {
-        // JumpAction‚ÌƒCƒxƒ“ƒg“o˜^
+        // JumpActionã®ã‚¤ãƒ™ãƒ³ãƒˆç™»éŒ²
         PlayerInput.OnJump += JumpInput.Jump;
     }
     void OnDisable()
     {
-        // JumpAction‚ÌƒCƒxƒ“ƒg‰ğœ
+        // JumpActionã®ã‚¤ãƒ™ãƒ³ãƒˆè§£é™¤
         PlayerInput.OnJump -= JumpInput.Jump;
     }
     void FixedUpdate()
     {
         if (JumpInput.IsJump) return;
 
-        //“®ìˆ—
+        //å‹•ä½œå‡¦ç†
         Move(PlayerInput.GetInputVer);
     }
     /// <summary>
-    /// ˆÚ“®,‰ñ“]ˆ—
+    /// ç§»å‹•,å›è»¢å‡¦ç†
     /// </summary>
     void Move(Vector2 input)
     {
-        //ˆÚ“®
+        //ç§»å‹•
         var move = CalculateMove(input);
 
-        //ˆÚ“®—Ê‚ğRigidBody‚É“ü‚ê‚Ä‚é
+        //ç§»å‹•é‡ã‚’RigidBodyã«å…¥ã‚Œã¦ã‚‹
         rb.linearVelocity = move;
 
-        //“ü—Í‚µ‚½‚Æ‚«‚¾‚¯qƒIƒuƒWƒFƒNƒg‚ğˆÚ“®•ûŒü‚É‰ñ“]‚³‚¹‚é
+        //å…¥åŠ›ã—ãŸã¨ãã ã‘å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç§»å‹•æ–¹å‘ã«å›è»¢ã•ã›ã‚‹
         if (move != Vector3.zero)
         {
-            //‰ñ“]
+            //å›è»¢
             Body.rotation = CalculateRotation(input);
         }
     }
 
     /// <summary>
-    /// ˆÚ“®—ÊŒvZ
+    /// ç§»å‹•é‡è¨ˆç®—
     /// </summary>
-    /// <param name="input">PlayerInput‚Ì“ü—Í’l</param>
-    /// <returns>“ü—Í’l‚ğVectro3‚É•ÏŠ·‚µ‚½‚à‚Ì‚ÉˆÚ‘—‘¬“x‚ÆGameTimeƒNƒ‰ƒX‚É‚ ‚éFixedDeltaTime‚ğŠ|‚¯‚½’l</returns>
+    /// <param name="input">PlayerInputã®å…¥åŠ›å€¤</param>
+    /// <returns>å…¥åŠ›å€¤ã‚’Vectro3ã«å¤‰æ›ã—ãŸã‚‚ã®ã«ç§»é€é€Ÿåº¦ã¨GameTimeã‚¯ãƒ©ã‚¹ã«ã‚ã‚‹FixedDeltaTimeã‚’æ›ã‘ãŸå€¤</returns>
     private Vector3 CalculateMove(Vector2 input)
     {
         return new Vector3(input.x, 0, input.y) * (Speed * MoveSpeedPercent) * GameTime.FixedDeltaTime;
     }
 
     /// <summary>
-    /// Y²‚Ì‰ñ“]—Ê‚ğŒvZ
+    /// Yè»¸ã®å›è»¢é‡ã‚’è¨ˆç®—
     /// </summary>
-    /// <param name="input">PlayerInput‚Ì“ü—Í’l</param>
-    /// <returns>Quaternion.Slerp‚ÅŒvZ‚µ‚½‰ñ“]—Ê</returns>
+    /// <param name="input">PlayerInputã®å…¥åŠ›å€¤</param>
+    /// <returns>Quaternion.Slerpã§è¨ˆç®—ã—ãŸå›è»¢é‡</returns>
     private Quaternion CalculateRotation(Vector2 input)
     {
-        //Vector3‚É•ÏŠ·
+        //Vector3ã«å¤‰æ›
         var dir = new Vector3(input.x, 0, input.y);
 
-        //Œˆ‚ß‚½‰ñ“]•ûŒü‚ğtargetRotation‚É‘ã“ü‚µ‚Ä‚¢‚é
+        //æ±ºã‚ãŸå›è»¢æ–¹å‘ã‚’targetRotationã«ä»£å…¥ã—ã¦ã„ã‚‹
         var targetRotation = Quaternion.LookRotation(dir, Vector3.up);
 
-        //‰ñ“]
+        //å›è»¢
         return Quaternion.Slerp(Body.rotation, targetRotation, RotaSpeed * GameTime.FixedDeltaTime);
     }
 
     /// <summary>
-    /// ƒVƒƒƒ[‚ÌƒNƒ‰ƒX‘¤‚Å”­“®‚³‚¹‚éAƒVƒƒƒ[‚Ì…‚ğ—‚Ñ‚½uŠÔ‚ÉˆÚ“®‘¬“x‚ğ‰º‚°‚éˆ—‚Æˆß—Ş‚ÌF‚ğ•Ï‚¦‚éŠÖ”
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®ã‚¯ãƒ©ã‚¹å´ã§ç™ºå‹•ã•ã›ã‚‹ã€ã‚·ãƒ£ãƒ¯ãƒ¼ã®æ°´ã‚’æµ´ã³ãŸç¬é–“ã«ç§»å‹•é€Ÿåº¦ã‚’ä¸‹ã’ã‚‹å‡¦ç†ã¨è¡£é¡ã®è‰²ã‚’å¤‰ãˆã‚‹é–¢æ•°
     /// </summary>
-    /// <param name="state">ƒVƒƒƒ[‚Ì…‚ÌF</param>
+    /// <param name="state">ã‚·ãƒ£ãƒ¯ãƒ¼ã®æ°´ã®è‰²</param>
     public void EnterWaterDebuff(PrimaryColorState state)
     {
-        PlayerInput.ShowerEnter(state);
         if (DebuffCoroutine != null)
         {
             StopCoroutine(DebuffCoroutine);
@@ -122,17 +121,17 @@ public class PlayerMoveInput : MonoBehaviour
         MoveSpeedPercent = 0.7f;
     }
     /// <summary>
-    /// PlayerSpeedModifier“à‚ÌExitWater‚ğˆ—‚³‚¹‚éŠÖ”
+    /// PlayerSpeedModifierå†…ã®ExitWaterã‚’å‡¦ç†ã•ã›ã‚‹é–¢æ•°
     /// </summary>
     public void ExitWaterDebuff(int lingertime)
     {
         DebuffCoroutine = StartCoroutine(DebuffSpeedTime(lingertime));
     }
     /// <summary>
-    /// ƒVƒƒƒ[‚Ì…‚©‚ço‚½uŠÔ‚É”­“®‚·‚éƒRƒ‹[ƒ`ƒ“
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®æ°´ã‹ã‚‰å‡ºãŸç¬é–“ã«ç™ºå‹•ã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
     /// </summary>
-    /// <param name="time">ƒVƒƒƒ[‚Ì…‚ğ—‚Ñ‚½ŠÔ‚ğ2”{‚µ‚½ŠÔ</param>
-    /// <returns>ƒRƒ‹[ƒ`ƒ“</returns>
+    /// <param name="time">ã‚·ãƒ£ãƒ¯ãƒ¼ã®æ°´ã‚’æµ´ã³ãŸæ™‚é–“ã‚’2å€ã—ãŸæ™‚é–“</param>
+    /// <returns>ã‚³ãƒ«ãƒ¼ãƒãƒ³</returns>
     IEnumerator DebuffSpeedTime(int time)
     {
         MoveSpeedPercent = 0.7f;

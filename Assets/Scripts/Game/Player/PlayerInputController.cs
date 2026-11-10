@@ -46,15 +46,9 @@ namespace Assets.Scripts.Game.Player
         //-----Component取得-----
         PlayerAttackInput AttackInput;
 
-        OwnedClothing OwnedClothing;
-
-        /// <summary>
-        /// playerが持っている衣類のデータを参照する変数
-        /// </summary>
-        public OwnedClothing PlayerClothing => OwnedClothing;
         void Awake()
         {
-            OwnedClothing = GetComponent<OwnedClothing>();
+            var Cloth = GetComponent<OwnedClothing>();
 
             //InputActionの取得
             AttackAction = StaticInputManager.Instance_.GetInputAction(
@@ -67,7 +61,7 @@ namespace Assets.Scripts.Game.Player
                           MapName.Player, "Move");
 
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body,PlayerRange,OwnedClothing);
+            AttackInput = new PlayerAttackInput(Body,PlayerRange, Cloth);
         }
 
         void OnEnable()
@@ -94,15 +88,6 @@ namespace Assets.Scripts.Game.Player
             {
                 InputVer = MoveAction.ReadValue<Vector2>();
             }
-        }
-
-        /// <summary>
-        /// 浴びたシャワーの水の色を衣類に反映させるための関数
-        /// </summary>
-        /// <param name="showerColor">シャワーの水の色</param>
-        public void ShowerEnter(PrimaryColorState showerColor)
-        {
-            if (OwnedClothing != null) OwnedClothing.ShowerEnter(showerColor);
         }
     }
 }

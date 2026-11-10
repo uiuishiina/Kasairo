@@ -1,14 +1,14 @@
-using Assets.Utility.Time;
+ï»¿using Assets.Utility.Time;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
 {
     /// <summary>
-    /// ƒVƒƒƒ[‚ÌƒNƒ‰ƒX
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®ã‚¯ãƒ©ã‚¹
     /// </summary>
     public class Shower : CheckClothingObject
     {
-        float DebuffTime = 0;//player‚ÌˆÚ“®‘¬“x‚ª‰º‚ª‚éŠÔ
+        float DebuffTime = 0;//playerã®ç§»å‹•é€Ÿåº¦ãŒä¸‹ãŒã‚‹æ™‚é–“
 
         ShowerColor ShowerColor;
 
@@ -21,14 +21,18 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
         {
             if (other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
             {
-                //•‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç‚±‚±‚Åˆ—‚ªI‚í‚é
-                if (!Check(player.PlayerInputController.PlayerClothing))
+                player.EnterWaterDebuff(ShowerColor.CurrentColor);
+            }
+            if (other.gameObject.TryGetComponent<OwnedClothing>(out var Cloth))
+            {
+                //æœã‚’æŒã£ã¦ã„ãªã‹ã£ãŸã‚‰ã“ã“ã§å‡¦ç†ãŒçµ‚ã‚ã‚‹
+                if (!Check(Cloth))
                 {
-                    Debug.Log("•‚Á‚Ä‚È‚¢‚æ");
+                    Debug.Log("æœæŒã£ã¦ãªã„ã‚ˆ");
                     return;
                 }
-
-                player.EnterWaterDebuff(ShowerColor.CurrentColor);
+                Debug.Log("æœæŒã£ã¦ã‚‹ã‚ˆ");
+                Cloth.ShowerEnter(ShowerColor.CurrentColor);
             }
         }
 
