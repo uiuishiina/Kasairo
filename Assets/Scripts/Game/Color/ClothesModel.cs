@@ -56,9 +56,9 @@ public class ClothesModel : MonoBehaviour
     }
 
     /// <summary>
-    /// 塗った色をベースに変える,
-    /// Amountのリセット
-    /// PaintClear両方
+    /// 塗った色をベースに変える, :ClearするときにBaseColorに戻すから同じ色から同じ色になって意味がない
+    /// Amountのリセット : OK
+    /// PaintClear両方 :
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
