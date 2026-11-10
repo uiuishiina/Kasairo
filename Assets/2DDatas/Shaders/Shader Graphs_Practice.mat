@@ -54,13 +54,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ClearAmount: 1
-    - _PaintAmount: 1
+    - _ClearAmount: 0
+    - _PaintAmount: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _PaintColor: {r: 1, g: 0, b: 0, a: 1}
+    - _PaintColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6733171660053024815

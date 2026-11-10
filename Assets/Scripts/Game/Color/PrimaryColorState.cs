@@ -1,5 +1,5 @@
-/// <summary>
-/// ‘¼‚ÌƒNƒ‰ƒX‚Åg‚¤—p
+ï»¿/// <summary>
+/// ä»–ã®ã‚¯ãƒ©ã‚¹ã§ä½¿ã†æ™‚ç”¨
 /// </summary>
 public enum PrimaryColorState
 {

@@ -8,10 +8,7 @@ public class ClothesModel : MonoBehaviour
 
     private Material material;
 
-    private float paintAmount = 0;
-    private float clearAmount = 0;
-
-
+    private float Amount = 0;
 
     private Assets.Scripts.StaticObject.StaticColorManager colorManager;
 
@@ -43,16 +40,19 @@ public class ClothesModel : MonoBehaviour
     public void ColorChange(ColorState color)
     {
         //material.SetFloat("_PaintAmount", 0);
-        paintAmount = 0;
+        Amount = 0;
         material.SetColor("_PaintColor", colorManager.colorSettings[color]);
-        StartCoroutine(SetNum("_PaintAmount", colorManager.colorSettings[color], paintAmount));
+        StartCoroutine(SetNum("_PaintAmount", colorManager.colorSettings[color]));
+
+        Invoke(nameof(PaintClear), 5f);
     }
 
-    public void PaintClear(ColorState color)
+    public void PaintClear()
     {
-        clearAmount = 0;
+        Amount = 0;
         material.SetColor("_BaseColor", Color.white);
-        StartCoroutine(SetNum("_ClearAmount", Color.white, clearAmount));
+        StartCoroutine(SetNum("_ClearAmount", Color.white));
+
     }
 
     /// <summary>
@@ -62,16 +62,28 @@ public class ClothesModel : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    IEnumerator SetNum(string name, Color color,float amount)
+    IEnumerator SetNum(string name, Color color)
     {
-        while (true)
+        while (name == "_PaintAmount")
         {
-            amount += 0.1f;
-            material.SetFloat(name, amount);
+            Amount += 0.1f;
+            material.SetFloat(name, Amount);
             yield return new WaitForSeconds(0.1f);
-            if(amount >= 1)
+            if(Amount >= 1)
             {
-                //material.SetColor("_BaseColor", color);
+                material.SetColor("_BaseColor", color);
+                yield break;
+            }
+        }
+        while (name == "_ClearAmount")
+        {
+            Amount += 0.1f;
+            material.SetFloat(name, Amount);
+            yield return new WaitForSeconds(0.1f);
+            if (Amount >= 1)
+            {
+                material.SetFloat("_PaintAmount", 0);
+                material.SetFloat("_ClearAmount", 0);
                 yield break;
             }
         }
