@@ -1,16 +1,21 @@
 ﻿using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ClothesModel : MonoBehaviour
 {
+    /// <summary>
+    /// シャワーの色を服に塗るためのクラス
+    /// </summary>
     [SerializeField]
     public Clothes clothes;
 
-    private Material material;
+    private Material material;         //Material取得
+    private float PaintAmount = 0;     //塗装値
+    private float ClearAmount = 0;     //クリア値
 
-    private float Amount = 0;
 
-    private Assets.Scripts.StaticObject.StaticColorManager colorManager;
+    private Assets.Scripts.StaticObject.StaticColorManager colorManager; //色のManagerを取得するための変数
 
 
     void Start()
@@ -37,19 +42,21 @@ public class ClothesModel : MonoBehaviour
         ColorChange(clothes.PaintedColor);
     }
 
+    /// <summary>
+    /// 色を変更させる関数
+    /// </summary>
+    /// <param name="color">変更する色</param>
     public void ColorChange(ColorState color)
     {
-        //material.SetFloat("_PaintAmount", 0);
-        Amount = 0;
         material.SetColor("_PaintColor", colorManager.colorSettings[color]);
         StartCoroutine(SetNum("_PaintAmount", colorManager.colorSettings[color]));
-
-        Invoke(nameof(PaintClear), 5f);
     }
 
+    /// <summary>
+    /// 色をリセットする関数
+    /// </summary>
     public void PaintClear()
     {
-        Amount = 0;
         material.SetColor("_BaseColor", Color.white);
         StartCoroutine(SetNum("_ClearAmount", Color.white));
 
@@ -64,27 +71,37 @@ public class ClothesModel : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetNum(string name, Color color)
     {
-        while (name == "_PaintAmount")
+        if(name == "_PaintAmount")
         {
-            Amount += 0.1f;
-            material.SetFloat(name, Amount);
-            yield return new WaitForSeconds(0.1f);
-            if(Amount >= 1)
+            while (true)
             {
-                material.SetColor("_BaseColor", color);
-                yield break;
+                PaintAmount += 0.1f;
+                material.SetFloat(name, PaintAmount);
+                yield return new WaitForSeconds(0.1f);
+                if (PaintAmount >= 1)
+                {
+                    material.SetColor("_BaseColor", color);
+                    PaintAmount = 0;
+                    yield break;
+                }
             }
         }
-        while (name == "_ClearAmount")
+        else if(name == "_ClearAmount")
         {
-            Amount += 0.1f;
-            material.SetFloat(name, Amount);
-            yield return new WaitForSeconds(0.1f);
-            if (Amount >= 1)
+            while (true)
             {
-                material.SetFloat("_PaintAmount", 0);
-                material.SetFloat("_ClearAmount", 0);
-                yield break;
+                ClearAmount += 0.1f;
+                material.SetFloat(name, ClearAmount);
+                yield return new WaitForSeconds(0.1f);
+                if (ClearAmount >= 1)
+                {
+                    material.SetColor("_BaseColor", Color.white);
+                    material.SetColor("_PaintColor", Color.white);
+                    material.SetFloat("_PaintAmount", 0);
+                    material.SetFloat("_ClearAmount", 0);
+                    ClearAmount = 0;
+                    yield break;
+                }
             }
         }
     }
