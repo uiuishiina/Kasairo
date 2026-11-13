@@ -1,7 +1,8 @@
-﻿//  服につける色と種類を持つクラス
 using UnityEngine;
 
-
+/// <summary>
+/// ���ɂ���F�Ǝ�ނ����N���X
+/// </summary>
 public class Clothes
 {
     /// <summary>

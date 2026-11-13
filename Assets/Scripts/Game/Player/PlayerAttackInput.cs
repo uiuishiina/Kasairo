@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.Game.OtherGameObject;
+using Assets.Scripts.Game.OtherGameObject.CheckingClothing;
 using Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType;
-using Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingObject;
 /// <summary>
 /// playerがミシンなどのオブジェクトに触れたときの処理だけがあるクラス
 /// </summary>
@@ -44,7 +44,7 @@ public class PlayerAttackInput
             chest.ObjectAction(OwnedClothing);
             return;
         }
-        if (otherobj is PutableClothingObject putableobj)
+        if (otherobj is CheckClothingObject putableobj)
         {
             putableobj.ObjectAction(OwnedClothing);
         }

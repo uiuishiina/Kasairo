@@ -17,10 +17,10 @@ namespace Assets.Scripts.Game.GameUI.Order
         private void OnValidate()
         {
             ViewBox = GetComponent<ScrollRect>().content;
-
             for(int i = 0;  i < ViewBox.childCount; i++)
             {
-                StandByImage.Enqueue(ViewBox.GetChild(i).GetComponent<Image>());
+                var child = ViewBox.GetChild(i);
+                StandByImage.Enqueue(child.GetComponent<Image>());
             }
         }
 
@@ -33,12 +33,16 @@ namespace Assets.Scripts.Game.GameUI.Order
 
             GameUiManager.Instance_.OrderManager.AddOrderEvent += AddOrderImage;
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent += RemoveOrderImage;
+
+            GameUiManager.Instance_.OrderManager.AddAlphaOrderEvent += AddAlphaOrderText;
         }
 
         private void OnDisable()
         {
             GameUiManager.Instance_.OrderManager.AddOrderEvent -= AddOrderImage;
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent -= RemoveOrderImage;
+
+            GameUiManager.Instance_.OrderManager.AddAlphaOrderEvent -= AddAlphaOrderText;
         }
 
         /// <summary>
@@ -72,5 +76,33 @@ namespace Assets.Scripts.Game.GameUI.Order
             StandByImage.Enqueue(UsingImage[orderNumber]);
             UsingImage.Remove(UsingImage[orderNumber]);
         }
+
+
+        /// <summary>
+        /// アルファ用ーーーーーーーーーーーーーーーー↓
+        /// </summary>
+
+        void AddAlphaOrderText(Sprite sprite, Material material)
+        {
+
+            var useImage = StandByImage.Dequeue();
+
+
+            useImage.transform.SetAsLastSibling();
+
+            useImage.gameObject.SetActive(true);
+
+            useImage.sprite = sprite;
+            useImage.material = material;
+
+            UsingImage.Add(useImage);
+        }
+
+        /// <summary>
+        /// アルファ用ーーーーーーーーーーーーーーーー↑
+        /// </summary>
+
+
+
     }
 }

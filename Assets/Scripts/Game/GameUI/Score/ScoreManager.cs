@@ -10,7 +10,7 @@ namespace Assets.Scripts.Game.GameUI.Score
         /// <summary>
         /// The current score.
         /// </summary>
-        private int ScorePoint = 0;
+       　private int ScorePoint = 0;
 
         /// <summary>
         /// 表示内容を変える事を伝えるイベント
@@ -30,6 +30,8 @@ namespace Assets.Scripts.Game.GameUI.Score
         public void AddScorePoint(int point)
         {
             ScorePoint += point;
+
+            if (ScorePoint < 0) ScorePoint = 0;
 
             ScoreChangeEvent?.Invoke(ScorePoint);
         }

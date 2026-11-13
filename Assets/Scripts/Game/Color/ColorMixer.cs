@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// 色変換クラス(Bit演算で）
 /// </summary>
