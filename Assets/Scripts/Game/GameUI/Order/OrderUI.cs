@@ -35,7 +35,7 @@ namespace Assets.Scripts.Game.GameUI.Order
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent += RemoveOrderImage;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameUiManager.Instance_.OrderManager.AddOrderEvent -= AddOrderImage;
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent -= RemoveOrderImage;
