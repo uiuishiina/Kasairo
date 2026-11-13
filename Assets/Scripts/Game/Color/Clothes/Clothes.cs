@@ -1,35 +1,35 @@
 using UnityEngine;
 
 /// <summary>
-/// •‚É‚Â‚¯‚éF‚Æí—Ş‚ğ‚ÂƒNƒ‰ƒX
+/// ï¿½ï¿½ï¿½É‚Â‚ï¿½ï¿½ï¿½Fï¿½Æï¿½Ş‚ï¿½ï¿½ï¿½ï¿½ÂƒNï¿½ï¿½ï¿½X
 /// </summary>
 public class Clothes
 {
     /// <summary>
-    /// Œ»İ‚ÌF
+    /// ç¾åœ¨ã®è‰²
     /// </summary>
     private ColorState paintedColor;
 
     /// <summary>
-    /// Œ»İ‚ÌF‚Ì“Ç‚İæ‚èê—pƒvƒƒpƒeƒB
+    /// ç¾åœ¨ã®è‰²ã®èª­ã¿å–ã‚Šå°‚ç”¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     /// </summary>
     public ColorState PaintedColor => paintedColor;
 
     /// <summary>
-    /// •‚Ìí—Ş
+    /// æœã®ç¨®é¡
     /// </summary>
     private ClothingType clothingType;
 
     /// <summary>
-    /// •‚Ìí—Ş‚Ì“Ç‚İæ‚èê—pƒvƒƒpƒeƒB
+    /// æœã®ç¨®é¡ã®èª­ã¿å–ã‚Šå°‚ç”¨ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     /// </summary>
     public ClothingType CurrentClothingType => clothingType;
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^@‚±‚ÌƒNƒ‰ƒX‚ğnew‚µ‚½‚Æ‚«‰Šú’l‚ğİ’è‚·‚é
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€€ã“ã®ã‚¯ãƒ©ã‚¹ã‚’newã—ãŸã¨ãåˆæœŸå€¤ã‚’è¨­å®šã™ã‚‹
     /// </summary>
-    /// <param name="paintedColor">•‚ÌF</param>
-    /// <param name="clothingType">•‚Ìí—Ş</param>
+    /// <param name="paintedColor">æœã®è‰²</param>
+    /// <param name="clothingType">æœã®ç¨®é¡</param>
     public Clothes(ColorState paintedColor,ClothingType clothingType)
     {
         this.paintedColor = paintedColor;
@@ -37,13 +37,19 @@ public class Clothes
     }
 
     /// <summary>
-    /// ƒVƒƒƒ[‚ÌF‚ğˆø”‚Æ‚µ‚Ä‚Á‚Ä‚«‚ÄŒ»İ‚Ì•‚ÌF‚Æ¬‚º‚ÄXV‚·‚é
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²ã‚’å¼•æ•°ã¨ã—ã¦æŒã£ã¦ãã¦ç¾åœ¨ã®æœã®è‰²ã¨æ··ãœã¦æ›´æ–°ã™ã‚‹
     /// </summary>
-    /// <param name="color">ƒVƒƒƒ[‚ÌF‚ª“ü‚é</param>
-    public void PaintColor(PrimaryColorState color)
+    /// <param name="color">ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²ãŒå…¥ã‚‹</param>
+    public void PaintColorClothes(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
 
+
         Debug.Log(paintedColor);
+    }
+
+    public void ClearColor()
+    {
+        paintedColor = ColorMixer.Clear();
     }
 }

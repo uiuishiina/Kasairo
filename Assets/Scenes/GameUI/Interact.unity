@@ -578,6 +578,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2341945452561808560, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b60fb2c925aa644cbb5591d4375991a, type: 3}
+    - target: {fileID: 2341945452561808560, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: ecaf882e9ce5d23419b93ecd4d3aae7b, type: 2}
+    - target: {fileID: 3895798463473342826, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc37589a332065945a36d8ea7e6beef0, type: 3}
+    - target: {fileID: 3895798463473342826, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 42cc54dc16e6089498c154172e1dd415, type: 2}
+    - target: {fileID: 4305374797032186794, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3806f757ac4f31f45b95e2e46af7f81c, type: 3}
+    - target: {fileID: 4305374797032186794, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 37c8ebeadf273e2459e29ab806cfccb2, type: 2}
     - target: {fileID: 4674659338708759710, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -598,6 +622,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6898017985425373154, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e3883405866bf049b7d614e5d3f0ba5, type: 3}
+    - target: {fileID: 6898017985425373154, guid: f9fed8fdc5430234a9b0416761f4552e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: ecaf882e9ce5d23419b93ecd4d3aae7b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

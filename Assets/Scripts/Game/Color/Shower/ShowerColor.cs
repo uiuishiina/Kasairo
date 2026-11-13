@@ -1,21 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ShowerColor : MonoBehaviour
 {
     /// <summary>
-    /// ƒVƒƒƒ[‚ÌF
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²
     /// </summary>
     [SerializeField] private PrimaryColorState showerColor;
     
     /// <summary>
-    /// “Ç‚İæ‚èê—p‚ÌƒvƒƒpƒeƒB
+    /// èª­ã¿å–ã‚Šå°‚ç”¨ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     /// </summary>
     public PrimaryColorState CurrentColor => showerColor;
 
     /// <summary>
-    /// ƒVƒƒƒ[‚ÌF‚ğ•Ï‚¦‚éŠÖ”
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²ã‚’å¤‰ãˆã‚‹é–¢æ•°
     /// </summary>
-    /// <param name="col">Šî–{F‚Ìstate‚ª“ü‚é</param>
+    /// <param name="col">åŸºæœ¬è‰²ã®stateãŒå…¥ã‚‹</param>
     public void ChangeShowerColor(PrimaryColorState col)
     {
         if (col is PrimaryColorState.Red or 

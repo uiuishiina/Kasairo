@@ -1,38 +1,38 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// •‚ÌŠó‹µ
+/// æœã®æ‰€æŒçŠ¶æ³
 /// </summary>
 public class OwnedClothing : MonoBehaviour
 {
     /// <summary>
-    /// •‚Ìƒf[ƒ^‚ğ‚Â•Ï”
+    /// æœã®ãƒ‡ãƒ¼ã‚¿ã‚’æŒã¤å¤‰æ•°
     /// </summary>
-    [SerializeField] private Clothes ownedClothes;
+    [SerializeField] private ClothesModel ownedClothes;
 
     /// <summary>
-    /// •‚Ìƒf[ƒ^‚ğQÆ‚·‚é•Ï”
+    /// æœã®ãƒ‡ãƒ¼ã‚¿ã‚’å‚ç…§ã™ã‚‹å¤‰æ•°
     /// </summary>
-    public Clothes OwnedClothes => ownedClothes;
+    public Clothes OwnedClothes => ownedClothes.clothes;
 
     /// <summary>
-    /// •‚ÌŠ
+    /// æœã®æ‰€æŒ
     /// </summary>
-    /// <param name="newClothes">Clothes‚ª‚Â‚¢‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg</param>
-    /// <returns>‚Ä‚½‚©‚Ç‚¤‚©</returns>
+    /// <param name="newClothes">ClothesãŒã¤ã„ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+    /// <returns>æŒã¦ãŸã‹ã©ã†ã‹</returns>
     public bool AddClothing(Clothes newClothes)
     {
         if (ownedClothes != null) return false;
 
-        ownedClothes = newClothes;
+        ownedClothes.clothes = newClothes;
         
         return true;
     }
 
     /// <summary>
-    /// •‚Ì”jŠü
+    /// æœã®ç ´æ£„
     /// </summary>
-    /// <returns>ˆß•‚ğÌ‚Ä‚½‚©‚Á‚Ä‚¢‚È‚­‚ÄÌ‚Ä‚ê‚È‚¢‚©</returns>
+    /// <returns>è¡£æœã‚’æ¨ã¦ãŸã‹æŒã£ã¦ã„ãªãã¦æ¨ã¦ã‚Œãªã„ã‹</returns>
     public bool RemoveClothing()
     {
         if (ownedClothes == null) return false;
@@ -41,11 +41,21 @@ public class OwnedClothing : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒVƒƒƒ[‚É“ü‚Á‚½‚Á‚Ä‚¢‚é•‚ÉƒVƒƒƒ[‚ÌF‚ğ“n‚·
+    /// ã‚·ãƒ£ãƒ¯ãƒ¼ã«å…¥ã£ãŸæ™‚æŒã£ã¦ã„ã‚‹æœã«ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²ã‚’æ¸¡ã™
     /// </summary>
-    /// <param name="showerColor">ƒVƒƒƒ[‚ÌF</param>
+    /// <param name="showerColor">ã‚·ãƒ£ãƒ¯ãƒ¼ã®è‰²</param>
     public void ShowerEnter(PrimaryColorState showerColor)
     {
-        if (ownedClothes != null) ownedClothes.PaintColor(showerColor);
+        if (ownedClothes != null) { 
+            ownedClothes.PaintColor(showerColor);
+        }
+    }
+
+    public void ClearShower()
+    {
+        if (ownedClothes != null)
+        {
+            ownedClothes.PaintClear();
+        }
     }
 }

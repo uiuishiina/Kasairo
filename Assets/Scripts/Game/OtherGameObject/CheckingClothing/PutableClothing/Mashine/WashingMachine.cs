@@ -1,34 +1,34 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingObject.Mashine
 {
     /// <summary>
-    /// ô‘ó‹@‚ÌƒNƒ‰ƒX
+    /// æ´—æ¿¯æ©Ÿã®ã‚¯ãƒ©ã‚¹
     /// </summary>
     public class WashingMachine : MachineObject
     {
         /// <summary>
-        /// player‚ªô‘ó‹@‚ÉG‚ê‚½uŠÔ‚É”­“®‚·‚éAô‘ó‹@‘¤‚Ì‰¼‘zŠÖ”
+        /// playerãŒæ´—æ¿¯æ©Ÿã«è§¦ã‚ŒãŸç¬é–“ã«ç™ºå‹•ã™ã‚‹ã€æ´—æ¿¯æ©Ÿå´ã®ä»®æƒ³é–¢æ•°
         /// </summary>
-        /// <param name="ownedClothing">player‚Ìˆß—Ş</param>
+        /// <param name="ownedClothing">playerã®è¡£é¡</param>
         public override void ObjectAction(OwnedClothing ownedClothing)
         {
             Check(ownedClothing);
 
             if (Clothes == null)
             {
-                Debug.Log("•‚ª‚È‚¢");
+                Debug.Log("æœãŒãªã„");
                 return;
             }
 
             if (iscool())
             {
-                Debug.Log("‚Ü‚¾ô‘ó‚µ‚Ä‚¢‚éÅ’†‚â");
+                Debug.Log("ã¾ã æ´—æ¿¯ã—ã¦ã„ã‚‹æœ€ä¸­ã‚„");
                 return;
             }
 
 
-            Clothes.PaintColor(PrimaryColorState.None);
+            Clothes.PaintColorClothes(PrimaryColorState.None);
         }
     }
 }
