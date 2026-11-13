@@ -770,9 +770,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WorldToUI
   MainCamera: {fileID: 961739752}
   TargetCanvas: {fileID: 971963680}
-  TargetObject: {fileID: 329649457}
-  TargetRectTransform: {fileID: 1691216128}
-  OffSet: 2
+  TargetList:
+  - TargetObject: {fileID: 329649457}
+    TargetRectTransform: {fileID: 1691216128}
+    OffSet: 1.5
 --- !u!1 &1178343414
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// インタラクト用データ構造体
+/// </summary>
 [System.Serializable]
 public struct WorldToUIData
 {
-    public Transform TargetObject;
-    public RectTransform TargetRectTransform;
-    public float OffSet;
+    [Header("対象オブジェクト")]public Transform TargetObject;
+    [Header("対象RectTransform")]public RectTransform TargetRectTransform;
+    [Header("オフセット")]public float OffSet;
 }
 
 namespace Assets.Scripts.Game.GameUI.Interact
 {
+    /// <summary>
+    /// インタラクト用座標変換クラス
+    /// </summary>
     public class WorldToUI : MonoBehaviour
     {
         [SerializeField, Header("メインカメラ")] private Camera MainCamera;
@@ -32,9 +38,11 @@ namespace Assets.Scripts.Game.GameUI.Interact
 
         private void LateUpdate()
         {
-            UpdateUIPosition();
+            //UpdateUIPosition();
         }
-
+        /// <summary>
+        /// 座標変換関数
+        /// </summary>
         public void UpdateUIPosition()
         {
             foreach (var target in TargetList)
