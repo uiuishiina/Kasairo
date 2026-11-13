@@ -17,10 +17,11 @@ namespace Assets.Scripts.Game.GameUI.Order
         private void OnValidate()
         {
             ViewBox = GetComponent<ScrollRect>().content;
-
             for(int i = 0;  i < ViewBox.childCount; i++)
             {
-                StandByImage.Enqueue(ViewBox.GetChild(i).GetComponent<Image>());
+                var child = ViewBox.GetChild(i);
+                StandByImage.Enqueue(child.GetComponent<Image>());
+                TextSet(child);
             }
         }
 
@@ -33,12 +34,16 @@ namespace Assets.Scripts.Game.GameUI.Order
 
             GameUiManager.Instance_.OrderManager.AddOrderEvent += AddOrderImage;
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent += RemoveOrderImage;
+
+            GameUiManager.Instance_.OrderManager.AddAlphaOrderEvent += AddAlphaOrderText;
         }
 
         private void OnDisable()
         {
             GameUiManager.Instance_.OrderManager.AddOrderEvent -= AddOrderImage;
             GameUiManager.Instance_.OrderManager.RemoveOrderEvent -= RemoveOrderImage;
+
+            GameUiManager.Instance_.OrderManager.AddAlphaOrderEvent -= AddAlphaOrderText;
         }
 
         /// <summary>
@@ -71,6 +76,60 @@ namespace Assets.Scripts.Game.GameUI.Order
 
             StandByImage.Enqueue(UsingImage[orderNumber]);
             UsingImage.Remove(UsingImage[orderNumber]);
+
+
+            ////////////////////////
+            RemoveText(orderNumber);
+            ///////////////////////
         }
+
+
+        /// <summary>
+        /// アルファ用ーーーーーーーーーーーーーーーー↓
+        /// </summary>
+
+        struct TextBox
+        {
+            public Text color;
+            public Text type;
+        }
+
+        private Queue<TextBox> StandByText = new();
+        private List<TextBox> UseByText = new();
+
+        void TextSet(Transform image)
+        {
+            if (image.childCount != 2) return;
+
+            TextBox b;
+            b.color = image.GetChild(0).GetComponent<Text>();
+            b.type = image.GetChild(1).GetComponent<Text>();
+
+            StandByText.Enqueue(b);
+        }
+
+
+        void AddAlphaOrderText(string color, string type)
+        {
+            var b = StandByText.Dequeue();
+
+            b.color.text = color;
+            b.type.text = type;
+
+            UseByText.Add(b);
+        }
+
+        void RemoveText(int n)
+        {
+            StandByText.Enqueue(UseByText[n]);
+            UseByText.Remove(UseByText[n]);
+        }
+
+        /// <summary>
+        /// アルファ用ーーーーーーーーーーーーーーーー↑
+        /// </summary>
+
+
+
     }
 }

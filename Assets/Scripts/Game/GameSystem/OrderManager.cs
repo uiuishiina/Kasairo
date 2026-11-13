@@ -72,10 +72,14 @@ namespace Assets.Scripts.Game.GameSystem
 
             var newOrder = new Clothes(SetColor[RandomValue(SetColor.Count)], SetClothing[RandomValue(SetClothing.Count)]);
 
-            Debug.Log(newOrder.PaintedColor);
-            Debug.Log(newOrder.CurrentClothingType);
-
             GameUiManager.Instance_.OrderManager.AddOrder();
+
+            //////////////////////////////////////////////////  アルファ版専用
+            var color = newOrder.PaintedColor.ToString();
+            var type = newOrder.CurrentClothingType.ToString();
+            GameUiManager.Instance_.OrderManager.AddAlphaOrder(color, type);
+            //////////////////////////////////////////////////  アルファ版専用
+
 
             OrderList.Add(newOrder);
         }
@@ -119,6 +123,7 @@ namespace Assets.Scripts.Game.GameSystem
                     }
 
                     GameUiManager.Instance_.ScoreManager.AddScorePoint(score);
+                    GameUiManager.Instance_.OrderManager.RemoveOrder(i);
                     return;
                 }
             }
