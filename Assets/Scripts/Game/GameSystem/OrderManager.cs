@@ -1,6 +1,7 @@
 using Assets.Scripts.Game.GameUI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Game.GameSystem
 {
@@ -61,6 +62,16 @@ namespace Assets.Scripts.Game.GameSystem
         /// <summary>
         /// アルファ用ーーーーーーーーーーーーーーーー↑
         /// </summary>
+        
+        [SerializeField] Sprite Hat;
+        [SerializeField] Sprite Shirt;
+        [SerializeField] Sprite Pants;
+        [SerializeField] Sprite Shoes;
+
+        [SerializeField] Material Red;
+        [SerializeField] Material Blue;
+        [SerializeField] Material Yellow;
+
 
 
         /// <summary>
@@ -72,12 +83,26 @@ namespace Assets.Scripts.Game.GameSystem
 
             var newOrder = new Clothes(SetColor[RandomValue(SetColor.Count)], SetClothing[RandomValue(SetClothing.Count)]);
 
-            GameUiManager.Instance_.OrderManager.AddOrder();
+            //GameUiManager.Instance_.OrderManager.AddOrder();
 
             //////////////////////////////////////////////////  アルファ版専用
-            var color = newOrder.PaintedColor.ToString();
-            var type = newOrder.CurrentClothingType.ToString();
-            GameUiManager.Instance_.OrderManager.AddAlphaOrder(color, type);
+            ///
+            Sprite s = newOrder.CurrentClothingType switch
+            {
+                ClothingType.Hat => Hat,
+                ClothingType.Shirt => Shirt,
+                ClothingType.Pants => Pants,
+                ClothingType.Shoes => Shoes,
+            };
+
+            Material m = newOrder.PaintedColor switch {
+                ColorState.Red => Red,
+                ColorState.Blue => Blue,
+                ColorState.Yellow => Yellow,
+            };
+
+            GameUiManager.Instance_.OrderManager.AddAlphaOrder(s, m);
+
             //////////////////////////////////////////////////  アルファ版専用
 
 

@@ -1,6 +1,3 @@
-
-using UnityEngine;
-
 namespace Assets.Scripts.Game.GameUI
 {
     /// <summary>

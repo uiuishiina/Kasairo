@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Game.GameUI.Order
 {
@@ -49,15 +50,15 @@ namespace Assets.Scripts.Game.GameUI.Order
         /// <summary>
         /// Alpha用　オーダーUI追加イベント
         /// </summary>
-        public event Action<string, string> AddAlphaOrderEvent;
+        public event Action<Sprite, Material> AddAlphaOrderEvent;
         /// <summary>
         /// Alpha用　オーダーUI追加
         /// </summary>
         /// <param name="color"></param>
         /// <param name="clothing"></param>
-        public void AddAlphaOrder(string color, string clothing)
+        public void AddAlphaOrder(Sprite clothing, Material color)
         {
-            AddAlphaOrderEvent?.Invoke(color, clothing);
+            AddAlphaOrderEvent?.Invoke(clothing, color);
         }
 
         /// <summary>

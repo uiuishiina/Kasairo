@@ -1,8 +1,5 @@
-using Assets.Scripts.StaticObject;
 using Assets.Utility.Time;
 using System;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Game.GameUI.Timer
 {

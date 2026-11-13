@@ -21,7 +21,6 @@ namespace Assets.Scripts.Game.GameUI.Order
             {
                 var child = ViewBox.GetChild(i);
                 StandByImage.Enqueue(child.GetComponent<Image>());
-                TextSet(child);
             }
         }
 
@@ -76,11 +75,6 @@ namespace Assets.Scripts.Game.GameUI.Order
 
             StandByImage.Enqueue(UsingImage[orderNumber]);
             UsingImage.Remove(UsingImage[orderNumber]);
-
-
-            ////////////////////////
-            RemoveText(orderNumber);
-            ///////////////////////
         }
 
 
@@ -88,41 +82,20 @@ namespace Assets.Scripts.Game.GameUI.Order
         /// アルファ用ーーーーーーーーーーーーーーーー↓
         /// </summary>
 
-        struct TextBox
+        void AddAlphaOrderText(Sprite sprite, Material material)
         {
-            public Text color;
-            public Text type;
-        }
 
-        private Queue<TextBox> StandByText = new();
-        private List<TextBox> UseByText = new();
-
-        void TextSet(Transform image)
-        {
-            if (image.childCount != 2) return;
-
-            TextBox b;
-            b.color = image.GetChild(0).GetComponent<Text>();
-            b.type = image.GetChild(1).GetComponent<Text>();
-
-            StandByText.Enqueue(b);
-        }
+            var useImage = StandByImage.Dequeue();
 
 
-        void AddAlphaOrderText(string color, string type)
-        {
-            var b = StandByText.Dequeue();
+            useImage.transform.SetAsLastSibling();
 
-            b.color.text = color;
-            b.type.text = type;
+            useImage.gameObject.SetActive(true);
 
-            UseByText.Add(b);
-        }
+            useImage.sprite = sprite;
+            useImage.material = material;
 
-        void RemoveText(int n)
-        {
-            StandByText.Enqueue(UseByText[n]);
-            UseByText.Remove(UseByText[n]);
+            UsingImage.Add(useImage);
         }
 
         /// <summary>
