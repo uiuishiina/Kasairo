@@ -50,4 +50,12 @@ public class OwnedClothing : MonoBehaviour
             ownedClothes.PaintColor(showerColor);
         }
     }
+
+    public void ClearShower()
+    {
+        if (ownedClothes != null)
+        {
+            ownedClothes.PaintClear();
+        }
+    }
 }

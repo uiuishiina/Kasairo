@@ -1,6 +1,9 @@
 ﻿using System.Collections;
+using System.Drawing;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
+using Color = UnityEngine.Color;
 
 public class ClothesModel : MonoBehaviour
 {
@@ -14,6 +17,9 @@ public class ClothesModel : MonoBehaviour
     private float PaintAmount = 0;     //塗装値
     private float ClearAmount = 0;     //クリア値
 
+    Coroutine PaintCorutine;
+
+    private UnityAction<Color> endAction;
 
     private Assets.Scripts.StaticObject.StaticColorManager colorManager; //色のManagerを取得するための変数
 
@@ -37,19 +43,27 @@ public class ClothesModel : MonoBehaviour
     /// <param name="color">シャワーの色が入る</param>
     public void PaintColor(PrimaryColorState color)
     {
-        clothes.PaintColorClothes(color);
-
-        ColorChange(clothes.PaintedColor);
-    }
-
-    /// <summary>
-    /// 色を変更させる関数
-    /// </summary>
-    /// <param name="color">変更する色</param>
-    public void ColorChange(ColorState color)
-    {
-        material.SetColor("_PaintColor", colorManager.colorSettings[color]);
-        StartCoroutine(SetNum("_PaintAmount", colorManager.colorSettings[color]));
+        //  色が違うなら呼び出し
+        if(!ColorJudge.JudgeColor(clothes.PaintedColor, color))
+        {
+            if (PaintCorutine != null)
+            {
+                endAction?.Invoke(colorManager.colorSettings[clothes.PaintedColor]);
+                StopCoroutine(PaintCorutine);
+            }
+            clothes.PaintColorClothes(color);
+            material.SetColor("_PaintColor", colorManager.colorSettings[clothes.PaintedColor]);
+            PaintCorutine = StartCoroutine(
+                ChengeColorCol(
+                    "_PaintAmount",
+                    colorManager.colorSettings[clothes.PaintedColor],
+                    endAction = ((Color Color) =>
+                    {
+                        material.SetColor("_BaseColor", Color);
+                    })
+                )
+            );
+        }
     }
 
     /// <summary>
@@ -57,9 +71,26 @@ public class ClothesModel : MonoBehaviour
     /// </summary>
     public void PaintClear()
     {
-        material.SetColor("_BaseColor", Color.white);
-        StartCoroutine(SetNum("_ClearAmount", Color.white));
+        
+        if(!ColorJudge.JudgeColor(clothes.PaintedColor,ColorState.None))
+        {
+            if (PaintCorutine != null)
+            {
+                endAction?.Invoke(Color.white);
 
+                StopCoroutine(PaintCorutine);
+            }
+            clothes.ClearColor();
+            material.SetColor("_BaseColor", Color.white);
+            PaintCorutine = StartCoroutine(ChengeColorCol("_ClearAmount", Color.white,
+            endAction = ((Color Color) =>
+            {
+                material.SetColor("_BaseColor", Color.white);
+                material.SetColor("_PaintColor", Color.white);
+                material.SetFloat("_PaintAmount", 0);
+                material.SetFloat("_ClearAmount", 0);
+            })));
+        }
     }
 
     /// <summary>
@@ -69,39 +100,18 @@ public class ClothesModel : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    IEnumerator SetNum(string name, Color color)
+    IEnumerator ChengeColorCol(string name, Color color ,UnityAction<Color> unityEvent)
     {
-        if(name == "_PaintAmount")
+        var amount = 0.0f;
+        while (true)
         {
-            while (true)
+            amount += 0.01f;
+            material.SetFloat(name, amount);
+            yield return new WaitForSeconds(0.001f);
+            if (amount >= 1)
             {
-                PaintAmount += 0.1f;
-                material.SetFloat(name, PaintAmount);
-                yield return new WaitForSeconds(0.1f);
-                if (PaintAmount >= 1)
-                {
-                    material.SetColor("_BaseColor", color);
-                    PaintAmount = 0;
-                    yield break;
-                }
-            }
-        }
-        else if(name == "_ClearAmount")
-        {
-            while (true)
-            {
-                ClearAmount += 0.1f;
-                material.SetFloat(name, ClearAmount);
-                yield return new WaitForSeconds(0.1f);
-                if (ClearAmount >= 1)
-                {
-                    material.SetColor("_BaseColor", Color.white);
-                    material.SetColor("_PaintColor", Color.white);
-                    material.SetFloat("_PaintAmount", 0);
-                    material.SetFloat("_ClearAmount", 0);
-                    ClearAmount = 0;
-                    yield break;
-                }
+                unityEvent?.Invoke(color);
+                yield break;
             }
         }
     }

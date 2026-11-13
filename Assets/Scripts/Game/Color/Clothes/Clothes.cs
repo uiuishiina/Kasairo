@@ -46,4 +46,9 @@ public class Clothes
 
         Debug.Log(paintedColor);
     }
+
+    public void ClearColor()
+    {
+        paintedColor = ColorMixer.Clear();
+    }
 }

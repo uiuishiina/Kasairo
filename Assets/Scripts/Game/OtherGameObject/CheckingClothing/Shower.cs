@@ -31,8 +31,15 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
                     Debug.Log("服持ってないよ");
                     return;
                 }
-                Debug.Log("服持ってるよ");
-                Cloth.ShowerEnter(ShowerColor.CurrentColor);
+                Debug.Log("服持ってるよ");    
+                if(ShowerColor.CurrentColor == PrimaryColorState.None)
+                {
+                    Cloth.ClearShower();
+                }
+                else
+                {
+                    Cloth.ShowerEnter(ShowerColor.CurrentColor);
+                }
             }
         }
 
