@@ -31,8 +31,6 @@ public class ClothesModel : MonoBehaviour
         material = GetComponent<Renderer>().material;
 
         colorManager = Assets.Scripts.StaticObject.StaticColorManager.Instance_;
-
-        //ColorChange(clothes.PaintedColor);
     }
 
 
