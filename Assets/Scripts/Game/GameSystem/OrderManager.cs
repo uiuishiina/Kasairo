@@ -1,5 +1,4 @@
 using Assets.Scripts.Game.GameUI;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +15,10 @@ namespace Assets.Scripts.Game.GameSystem
         public static OrderManager Instance { get; private set; }
 
         private int MaxOrder = 4;
+
+
+        [SerializeField] private List<ColorState> SetColor = new();
+        [SerializeField] private List<ClothingType> SetClothing = new();
 
         private List<Clothes> OrderList = new();
 
@@ -36,7 +39,7 @@ namespace Assets.Scripts.Game.GameSystem
         }
 
         /// <summary>
-        /// アルファ用ーーーーーーーーーーーーーーーー
+        /// アルファ用ーーーーーーーーーーーーーーーー↓
         /// </summary>
 
         bool a = false;
@@ -56,7 +59,7 @@ namespace Assets.Scripts.Game.GameSystem
         }
 
         /// <summary>
-        /// アルファ用ーーーーーーーーーーーーーーーー
+        /// アルファ用ーーーーーーーーーーーーーーーー↑
         /// </summary>
 
 
@@ -67,7 +70,10 @@ namespace Assets.Scripts.Game.GameSystem
         {
             if (OrderList.Count >= MaxOrder) return;
 
-            var newOrder = new Clothes(GetRandomEnum<ColorState>(), GetRandomEnum<ClothingType>());
+            var newOrder = new Clothes(SetColor[RandomValue(SetColor.Count)], SetClothing[RandomValue(SetClothing.Count)]);
+
+            Debug.Log(newOrder.PaintedColor);
+            Debug.Log(newOrder.CurrentClothingType);
 
             GameUiManager.Instance_.OrderManager.AddOrder();
 
@@ -75,15 +81,13 @@ namespace Assets.Scripts.Game.GameSystem
         }
         
         /// <summary>
-        /// Enumからランダムに取得
+        /// ランダムな値を返す
         /// </summary>
-        /// <typeparam name="T">Enumの型</typeparam>
-        /// <returns>ランダムの結果</returns>
-        private T GetRandomEnum<T>()
+        /// <param name="maxValue">最大値</param>
+        /// <returns>値</returns>
+        private int RandomValue(int maxValue)
         {
-            Array values = Enum.GetValues(typeof(T));
-            int randomIndex = UnityEngine.Random.Range(0, values.Length);
-            return (T)values.GetValue(randomIndex);
+            return Random.Range(0, maxValue);
         }
         
         /// <summary>

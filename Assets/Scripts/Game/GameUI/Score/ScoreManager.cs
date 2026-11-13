@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Game.GameUI.Score
 {
@@ -10,7 +11,7 @@ namespace Assets.Scripts.Game.GameUI.Score
         /// <summary>
         /// The current score.
         /// </summary>
-        private int ScorePoint = 0;
+       　[Min(0)] private int ScorePoint = 0;
 
         /// <summary>
         /// 表示内容を変える事を伝えるイベント
