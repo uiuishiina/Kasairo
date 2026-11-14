@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
+using Assets.Scripts.StaticObject;
 
 /// <summary>
 /// 真偽を表す 2 つの Button と関連する GameObject パネルの参照をまとめて保持するシリアライズ可能な構造体。
@@ -24,12 +23,18 @@ public class TitleUIManager : MonoBehaviour
 
     [SerializeField,Header("シーン遷移用ボタン")]private Button SceneChangeButton;
 
+    [SerializeField] private string NextSceneName;
+
     //ゲーム開始テキストにアニメーションをつける用
     [SerializeField, Header("スタートテキスト")] private GameObject StartText = null;
 
     private void Start()
     {
         //StartText?.GetComponent<Text>();
+        if (NextSceneName == null)
+        {
+            Debug.LogError("NextSceneName Not Set");
+        }
     }
 
     private void OnEnable()
@@ -43,20 +48,20 @@ public class TitleUIManager : MonoBehaviour
             data.False_.onClick.AddListener(() => data.Panel_.SetActive(false));
         }
 
-        SceneChangeButton.onClick.AddListener(() => SceneManager.LoadScene("StageSelect"));
+        SceneChangeButton.onClick.AddListener(() => StaticSceneManager.Instance_.LoadScene(NextSceneName));
 
     }
     private void OnDisable()
     {
         //----------ボタンのイベント解除----------//
-        QuitButton.onClick.RemoveListener(ExitGame);
+        QuitButton.onClick.RemoveAllListeners();
 
         foreach (var data in Action)
         {
-            data.True_.onClick.RemoveListener(() => data.Panel_.SetActive(true));
-            data.False_.onClick.RemoveListener(() => data.Panel_.SetActive(false));
+            data.True_.onClick.RemoveAllListeners();
+            data.False_.onClick.RemoveAllListeners();
         }
-        SceneChangeButton.onClick.RemoveListener(() => SceneManager.LoadScene("StageSelect"));
+        SceneChangeButton.onClick.RemoveAllListeners();
 
     }
 

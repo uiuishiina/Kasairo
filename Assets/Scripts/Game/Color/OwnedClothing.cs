@@ -10,8 +10,6 @@ public class OwnedClothing : MonoBehaviour
     /// </summary>
     public ClothesModel ownedClothes = null;
 
-    [SerializeField] Material _material;
-
     /// <summary>
     /// 服のデータを参照する変数
     /// </summary>
@@ -20,14 +18,6 @@ public class OwnedClothing : MonoBehaviour
     public ClothesModel Model => ownedClothes;
 
     public bool HasOwnedClothes => ownedClothes != null;
-
-
-
-    private void Start()
-    {
-        Clothes cloth = new Clothes(ColorState.None, ClothingType.Pants);
-        ownedClothes = new ClothesModel(_material, cloth);
-    }
 
     /// <summary>
     /// 服の所持
