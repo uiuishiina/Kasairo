@@ -28,7 +28,7 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
             }
 
 
-            Clothes.PaintColorClothes(PrimaryColorState.None);
+            Clothes.clothes.PaintColorClothes(PrimaryColorState.None);
         }
     }
 }

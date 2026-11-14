@@ -2,6 +2,7 @@
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
 using System;
+using Unity.VisualScripting;
 
 namespace Assets.Scripts.Game.Player
 {
@@ -46,9 +47,9 @@ namespace Assets.Scripts.Game.Player
         //-----Component取得-----
         PlayerAttackInput AttackInput;
 
-        void Awake()
+        private void Awake()
         {
-            var Cloth = GetComponent<OwnedClothing>();
+            var Cloth = this.GetComponent<OwnedClothing>();
 
             //InputActionの取得
             AttackAction = StaticInputManager.Instance_.GetInputAction(
@@ -64,23 +65,41 @@ namespace Assets.Scripts.Game.Player
             AttackInput = new PlayerAttackInput(Body,PlayerRange, Cloth);
         }
 
+        private void OnCallAttack(InputAction.CallbackContext cont)
+        {
+            AttackInput?.Attack(cont);
+        }
+
+        private void OnCallJumpAction(InputAction.CallbackContext cont)
+        {
+            OnJump?.Invoke();
+        }
+
         void OnEnable()
         {
+
             //InputSystemのAttackのキーを押している間の処理にAttackInput.Attack関数を登録する
-            AttackAction.performed += AttackInput.Attack;
+            AttackAction.performed += OnCallAttack;
 
             //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
-            JumpAction.performed += _ => OnJump?.Invoke();
+            //JumpAction.performed += _ => OnJump?.Invoke();
+            JumpAction.performed +=OnCallJumpAction;
         }
+
 
         void OnDisable()
         {
             //InputSystemのAttackのキーを押している間の処理からAttackInput.Attack関数を解除する
-            AttackAction.performed -= AttackInput.Attack;
-
-            //InputSystemのJumpのキーを押したときの処理からOnJumpイベントを解除する
-            JumpAction.performed -= _ => OnJump?.Invoke();
+            AttackAction.performed -= OnCallAttack;
+            JumpAction.performed -= OnCallJumpAction;
         }
+
+
+        private void OnDestroy()
+        {
+            JumpAction.performed -= null;
+        }
+
         void Update()
         {
             //移動入力取得

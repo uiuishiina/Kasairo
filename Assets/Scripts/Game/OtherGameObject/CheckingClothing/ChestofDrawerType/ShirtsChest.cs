@@ -17,9 +17,9 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType
 
             base.ObjectAction(myclothe);
 
-            Clothes = new Clothes(ColorState.None, ClothingType.Shirt);
+            Clothes = myclothe.Model;
 
-            myclothe.AddClothing(Clothes);
+            myclothe.AddClothing(new ClothesModel());
         }
     }
 }

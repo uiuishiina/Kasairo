@@ -39,14 +39,6 @@ public class PlayerAttackInput
 
         if (otherobj==null) return;
 
-        if (otherobj is ChestofDrawers chest)
-        {
-            chest.ObjectAction(OwnedClothing);
-            return;
-        }
-        if (otherobj is CheckClothingObject putableobj)
-        {
-            putableobj.ObjectAction(OwnedClothing);
-        }
+        otherobj.ObjectAction(OwnedClothing);
     }
 }

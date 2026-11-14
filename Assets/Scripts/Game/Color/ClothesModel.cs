@@ -4,6 +4,8 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using Color = UnityEngine.Color;
+using Assets.Scripts.StaticObject;
+using Unity.VisualScripting;
 
 public class ClothesModel : MonoBehaviour
 {
@@ -23,16 +25,38 @@ public class ClothesModel : MonoBehaviour
 
     private Assets.Scripts.StaticObject.StaticColorManager colorManager; //色のManagerを取得するための変数
 
-
-    void Start()
+    public bool IsInitialized
     {
-        clothes = new Clothes(ColorState.None, ClothingType.Shirt);
-
-        material = GetComponent<Renderer>().material;
-
-        colorManager = Assets.Scripts.StaticObject.StaticColorManager.Instance_;
+        get
+        {
+            return clothes.IsInitialized;
+        }
     }
 
+    private void Awake()
+    {
+        enabled = false;
+
+        clothes = Clothes.NoneClothes;
+
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            material = renderer.material;
+        }
+
+        colorManager = StaticColorManager.Instance_;
+    }
+
+    public bool InitializeClothes(ColorState paintedColor, ClothingType clothingType)
+    {
+        if (clothes.IsInitialized)
+        {
+            return false;
+        }
+        clothes = new Clothes(paintedColor, clothingType);
+        return true;
+    }
 
 
     /// <summary>
@@ -42,7 +66,7 @@ public class ClothesModel : MonoBehaviour
     public void PaintColor(PrimaryColorState color)
     {
         //  色が違うなら呼び出し
-        if(!ColorJudge.JudgeColor(clothes.PaintedColor, color))
+        if (!ColorJudge.JudgeColor(clothes.PaintedColor, color))
         {
             if (PaintCorutine != null)
             {
@@ -69,8 +93,8 @@ public class ClothesModel : MonoBehaviour
     /// </summary>
     public void PaintClear()
     {
-        
-        if(!ColorJudge.JudgeColor(clothes.PaintedColor,ColorState.None))
+
+        if (!ColorJudge.JudgeColor(clothes.PaintedColor, ColorState.None))
         {
             if (PaintCorutine != null)
             {
@@ -98,7 +122,7 @@ public class ClothesModel : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    IEnumerator ChengeColorCol(string name, Color color ,UnityAction<Color> unityEvent)
+    IEnumerator ChengeColorCol(string name, Color color, UnityAction<Color> unityEvent)
     {
         var amount = 0.0f;
         while (true)

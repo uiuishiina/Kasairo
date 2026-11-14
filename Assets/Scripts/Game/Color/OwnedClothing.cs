@@ -8,23 +8,27 @@ public class OwnedClothing : MonoBehaviour
     /// <summary>
     /// 服のデータを持つ変数
     /// </summary>
-    [SerializeField] private ClothesModel ownedClothes;
+     private ClothesModel ownedClothes;
 
     /// <summary>
     /// 服のデータを参照する変数
     /// </summary>
     public Clothes OwnedClothes => ownedClothes.clothes;
 
+    public ClothesModel Model => ownedClothes;
+
+    public bool HasOwnedClothes => ownedClothes != null;
+
     /// <summary>
     /// 服の所持
     /// </summary>
     /// <param name="newClothes">Clothesがついているオブジェクト</param>
     /// <returns>持てたかどうか</returns>
-    public bool AddClothing(Clothes newClothes)
+    public bool AddClothing(ClothesModel newClothes)
     {
         if (ownedClothes != null) return false;
 
-        ownedClothes.clothes = newClothes;
+        ownedClothes = newClothes;
         
         return true;
     }
@@ -57,5 +61,9 @@ public class OwnedClothing : MonoBehaviour
         {
             ownedClothes.PaintClear();
         }
+    }
+
+    private void Awake()
+    {
     }
 }

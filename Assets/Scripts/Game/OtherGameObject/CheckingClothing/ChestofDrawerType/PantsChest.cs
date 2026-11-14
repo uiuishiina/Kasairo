@@ -15,11 +15,9 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType
         {
             Debug.Log("ズボンのチェストに触れた");
 
-            base.ObjectAction(myclothe);
+            Clothes = myclothe.Model;
 
-            Clothes = new Clothes(ColorState.None, ClothingType.Pants);
-
-            myclothe.AddClothing(Clothes);
+            myclothe.AddClothing(new ClothesModel());
         }
     }
 }

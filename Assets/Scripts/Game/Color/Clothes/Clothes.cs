@@ -5,6 +5,10 @@ using UnityEngine;
 /// </summary>
 public class Clothes
 {
+
+    public static readonly Clothes NoneClothes = new Clothes(ColorState.None, ClothingType.None);
+
+
     /// <summary>
     /// 現在の色
     /// </summary>
@@ -25,12 +29,23 @@ public class Clothes
     /// </summary>
     public ClothingType CurrentClothingType => clothingType;
 
+    public bool IsInitialized
+    {
+        get
+        {
+            return PaintedColor != ColorState.None 
+                && CurrentClothingType != ClothingType.None;
+        }
+    }
+
+
+
     /// <summary>
     /// コンストラクタ　このクラスをnewしたとき初期値を設定する
     /// </summary>
     /// <param name="paintedColor">服の色</param>
     /// <param name="clothingType">服の種類</param>
-    public Clothes(ColorState paintedColor,ClothingType clothingType)
+    public Clothes(ColorState paintedColor, ClothingType clothingType)
     {
         this.paintedColor = paintedColor;
         this.clothingType = clothingType;

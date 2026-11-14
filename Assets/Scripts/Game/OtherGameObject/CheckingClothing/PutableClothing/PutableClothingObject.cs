@@ -18,7 +18,7 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
 
             if (it != null && Clothes == null)//playerに衣類があって、且つ机やミシン、洗濯機に衣類がない時
             {
-                Clothes = it;//playerが衣類を渡す
+                Clothes = ownedClothing.Model;//playerが衣類を渡す
 
                 Debug.Log("衣類を置いた");
 

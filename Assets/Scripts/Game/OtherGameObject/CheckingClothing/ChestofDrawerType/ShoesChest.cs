@@ -7,6 +7,9 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType
     /// </summary>
     public class ShoesChest : ChestofDrawers
     {
+
+
+
         /// <summary>
         /// playerがタンスに触れた瞬間に発動する、靴下のタンスの仮想関数
         /// </summary>
@@ -17,9 +20,14 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType
 
             base.ObjectAction(myclothe);
 
-            Clothes = new Clothes(ColorState.None, ClothingType.Shoes);
+            //Clothes = new Clothes(ColorState.None, ClothingType.Shoes);
+
+
 
             myclothe.AddClothing(Clothes);
         }
+
+
+
     }
 }

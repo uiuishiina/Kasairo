@@ -9,10 +9,14 @@ namespace Assets.Scripts.Game.OtherGameObject
     public class OtherObject : MonoBehaviour
     {
         //CheckClothingObjectやその派生先で使う、衣類のデータを保持する変数
-        protected Clothes Clothes;
+        protected ClothesModel Clothes;
         public virtual void ObjectAction(OwnedClothing myclothe)
         {
             Debug.Log("何に触れた?");
+        }
+
+        private void Awake()
+        {
         }
     }
 }
