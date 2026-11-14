@@ -37,7 +37,7 @@ public class PlayerAttackInput
 
         var otherobj = obj.GetComponent<OtherObject>();
 
-        if (otherobj==null) return;
+        if (otherobj == null) return;
 
         otherobj.ObjectAction(OwnedClothing);
     }

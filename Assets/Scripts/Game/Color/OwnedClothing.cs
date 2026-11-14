@@ -8,16 +8,26 @@ public class OwnedClothing : MonoBehaviour
     /// <summary>
     /// 服のデータを持つ変数
     /// </summary>
-     private ClothesModel ownedClothes;
+    public ClothesModel ownedClothes = null;
+
+    [SerializeField] Material _material;
 
     /// <summary>
     /// 服のデータを参照する変数
     /// </summary>
-    public Clothes OwnedClothes => ownedClothes.clothes;
+    public Clothes OwnedClothes => ownedClothes._clothes;
 
     public ClothesModel Model => ownedClothes;
 
     public bool HasOwnedClothes => ownedClothes != null;
+
+
+
+    private void Start()
+    {
+        Clothes cloth = new Clothes(ColorState.None, ClothingType.Pants);
+        ownedClothes = new ClothesModel(_material, cloth);
+    }
 
     /// <summary>
     /// 服の所持
@@ -29,6 +39,7 @@ public class OwnedClothing : MonoBehaviour
         if (ownedClothes != null) return false;
 
         ownedClothes = newClothes;
+        Debug.Log(ownedClothes._clothes.CurrentClothingType);
         
         return true;
     }
@@ -61,9 +72,5 @@ public class OwnedClothing : MonoBehaviour
         {
             ownedClothes.PaintClear();
         }
-    }
-
-    private void Awake()
-    {
     }
 }

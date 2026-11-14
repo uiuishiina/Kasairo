@@ -15,7 +15,7 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
         {
             Check(ownedClothing);
 
-            if (Clothes == null)
+            if (clothes == null)
             {
                 Debug.Log("服がない");
                 return;
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
             }
 
 
-            Clothes.clothes.PaintColorClothes(PrimaryColorState.None);
+            clothes._clothes.PaintColorClothes(PrimaryColorState.None);
         }
     }
 }

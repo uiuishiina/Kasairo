@@ -16,21 +16,21 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
         {
             Clothes it = ownedClothing.OwnedClothes;
 
-            if (it != null && Clothes == null)//playerに衣類があって、且つ机やミシン、洗濯機に衣類がない時
+            if (it != null && clothes == null)//playerに衣類があって、且つ机やミシン、洗濯機に衣類がない時
             {
-                Clothes = ownedClothing.Model;//playerが衣類を渡す
+                clothes = ownedClothing.Model;//playerが衣類を渡す
 
                 Debug.Log("衣類を置いた");
 
                 ownedClothing.RemoveClothing();
             }
-            else if (it == null && Clothes != null)//playerに衣類がなくて、且つ机やミシン、洗濯機に衣類がある時
+            else if (it == null && clothes != null)//playerに衣類がなくて、且つ机やミシン、洗濯機に衣類がある時
             {
                 Debug.Log("衣類を取った");
 
-                ownedClothing.AddClothing(Clothes);//playerに衣類を渡す
+                ownedClothing.AddClothing(clothes);//playerに衣類を渡す
 
-                Clothes = null;
+                clothes = null;
             }
 
             return true;
