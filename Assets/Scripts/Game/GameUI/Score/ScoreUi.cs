@@ -12,17 +12,16 @@ namespace Assets.Scripts.Game.GameUI.Score
         /// <summary>
         /// The UI text component that displays the score.
         /// </summary>
-        private Text ScoreText;
+        private Text ScoreText = null;
 
-        //  Buildで実行されていいためコメントアウト
-        //private void OnValidate()
-        //{
-        //    ScoreText = GetComponent<Text>();
-        //}
+        private void OnValidate()
+        {
+            ScoreText = GetComponent<Text>();
+        }
 
         public void Start()
         {
-            ScoreText = GetComponent<Text>();
+            OnValidate();
             UpdateText(0);
 
             GameUiManager.Instance_.ScoreManager.ScoreChangeEvent += UpdateText;

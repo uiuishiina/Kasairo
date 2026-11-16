@@ -67,7 +67,6 @@ public class TitleUIManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("ゲーム終了します");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
