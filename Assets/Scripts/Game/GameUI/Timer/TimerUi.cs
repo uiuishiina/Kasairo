@@ -9,20 +9,19 @@ namespace Assets.Scripts.Game.GameUI.Timer
     /// </summary>
     public class TimerUi : MonoBehaviour
     {
-        private Text TimeText;
+        private Text TimeText = null;
 
         //  Buildで呼ばれていないためコメントアウト
-        //private void OnValidate()
-        //{
-        //    TimeText = GetComponent<Text>();
-        //}
+        private void OnValidate()
+        {
+            TimeText = GetComponent<Text>();
+        }
 
         private void Start()
         {
-            TimeText = GetComponent<Text>();
+            OnValidate();
             GameUiManager.Instance_.TimerManager.TimerChangeEvent += UpdateText;
         }
-
 
         private void OnDisable()
         {

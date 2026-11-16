@@ -9,23 +9,11 @@ namespace Assets.Scripts.Game.GameUI.Order
     /// </summary>
     public class OrderUi : MonoBehaviour
     {
-        private Transform ViewBox;
+        private Transform ViewBox　= null;
 
         private Queue<Image> StandByImage = new ();
         private List<Image> UsingImage = new ();
-
-        //  Build時に反応しないため、コメントアウトしてStartに追記
-        //private void OnValidate()
-        //{
-        //    ViewBox = GetComponent<ScrollRect>().content;
-        //    for(int i = 0;  i < ViewBox.childCount; i++)
-        //    {
-        //        var child = ViewBox.GetChild(i);
-        //        StandByImage.Enqueue(child.GetComponent<Image>());
-        //    }
-        //}
-
-        private void Start()
+        private void OnValidate()
         {
             ViewBox = GetComponent<ScrollRect>().content;
             for (int i = 0; i < ViewBox.childCount; i++)
@@ -33,6 +21,11 @@ namespace Assets.Scripts.Game.GameUI.Order
                 var child = ViewBox.GetChild(i);
                 StandByImage.Enqueue(child.GetComponent<Image>());
             }
+        }
+
+        private void Start()
+        {
+            OnValidate();
 
             for (int i = 0;i < ViewBox.childCount; i++)
             {
