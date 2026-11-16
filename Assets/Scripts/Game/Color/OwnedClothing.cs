@@ -19,6 +19,18 @@ public class OwnedClothing : MonoBehaviour
 
     public bool HasOwnedClothes => ownedClothes != null;
 
+    private Renderer _clothesRenderer = null;
+
+    //  服がないときのマテリアル
+    [SerializeField] Material NoneMaterial = null;
+
+    private void Start()
+    {
+        //  とりあえずBodyから
+        _clothesRenderer = GetComponentInChildren<Renderer>();
+        _clothesRenderer.material = NoneMaterial;
+    }
+
     /// <summary>
     /// 服の所持
     /// </summary>
@@ -26,11 +38,14 @@ public class OwnedClothing : MonoBehaviour
     /// <returns>持てたかどうか</returns>
     public bool AddClothing(ClothesModel newClothes)
     {
-        if (ownedClothes != null) return false;
+        if (HasOwnedClothes) return false;
 
         ownedClothes = newClothes;
-        Debug.Log(ownedClothes._clothes.CurrentClothingType);
-        
+        Debug.Log($"新規取得 : 取得した種類{ownedClothes._clothes.CurrentClothingType}");
+
+        //  マテリアル上書き
+        _clothesRenderer.material = ownedClothes.Marerial;
+
         return true;
     }
 
@@ -42,6 +57,10 @@ public class OwnedClothing : MonoBehaviour
     {
         if (ownedClothes == null) return false;
         ownedClothes = null;
+
+        _clothesRenderer.material = NoneMaterial;
+
+        Debug.Log("削除");
         return true;
     }
 

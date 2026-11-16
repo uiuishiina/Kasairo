@@ -13,22 +13,24 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
         /// <param name="ownedClothing">playerの衣類</param>
         public override void ObjectAction(OwnedClothing ownedClothing)
         {
-            Check(ownedClothing);
-
-            if (clothes == null)
-            {
-                Debug.Log("服がない");
-                return;
-            }
-
             if (iscool())
             {
                 Debug.Log("まだ洗濯している最中や");
                 return;
             }
 
+            if(Check(ownedClothing))
+            {
 
-            clothes._clothes.PaintColorClothes(PrimaryColorState.None);
+            }
+
+            if (model == null)
+            {
+                Debug.Log("服がない");
+                return;
+            }
+
+            model._clothes.PaintColorClothes(PrimaryColorState.None);
         }
     }
 }

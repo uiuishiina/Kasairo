@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfdbd35d5eb3754a97ef102a670d496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.StaticObject.StaticColorManager
-  colorSettings: {fileID: 11400000, guid: e2c8e57c0c94a5a40997e1734ff4b86c, type: 2}
+  _colorSettings: {fileID: 11400000, guid: e2c8e57c0c94a5a40997e1734ff4b86c, type: 2}

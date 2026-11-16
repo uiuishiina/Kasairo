@@ -33,7 +33,7 @@ public class PlayerMoveInput : MonoBehaviour
     public PlayerInputController PlayerInputController => PlayerInput;
 
     PlayerJumpInput JumpInput;
-    void Awake()
+    void Start()
     {
         //Rigidbodyの取得
         rb = GetComponent<Rigidbody>();
@@ -43,13 +43,12 @@ public class PlayerMoveInput : MonoBehaviour
 
         // JumpInputのコンストラクタ
         JumpInput = new PlayerJumpInput(Body, this, rb, PlayerInput.GetPlayerRange);
-    }
-    void OnEnable()
-    {
+
         // JumpActionのイベント登録
         PlayerInput.OnJump += JumpInput.Jump;
     }
-    void OnDisable()
+
+    void OnDestroy()
     {
         // JumpActionのイベント解除
         PlayerInput.OnJump -= JumpInput.Jump;
@@ -73,7 +72,7 @@ public class PlayerMoveInput : MonoBehaviour
         rb.linearVelocity = move;
 
         //入力したときだけ子オブジェクトを移動方向に回転させる
-        if (move != Vector3.zero)
+        if (input != Vector2.zero)
         {
             //回転
             Body.rotation = CalculateRotation(input);
@@ -87,7 +86,7 @@ public class PlayerMoveInput : MonoBehaviour
     /// <returns>入力値をVectro3に変換したものに移送速度とGameTimeクラスにあるFixedDeltaTimeを掛けた値</returns>
     private Vector3 CalculateMove(Vector2 input)
     {
-        return new Vector3(input.x, 0, input.y) * (Speed * MoveSpeedPercent) * GameTime.FixedDeltaTime;
+        return new Vector3(input.x, -9.8f/3600, input.y) * (Speed * MoveSpeedPercent) * GameTime.FixedDeltaTime;
     }
 
     /// <summary>
@@ -111,7 +110,7 @@ public class PlayerMoveInput : MonoBehaviour
     /// シャワーのクラス側で発動させる、シャワーの水を浴びた瞬間に移動速度を下げる処理と衣類の色を変える関数
     /// </summary>
     /// <param name="state">シャワーの水の色</param>
-    public void EnterWaterDebuff(PrimaryColorState state)
+    public void EnterWaterDebuff()
     {
         if (DebuffCoroutine != null)
         {

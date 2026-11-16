@@ -1,4 +1,5 @@
-﻿using Assets.Utility.Time;
+﻿using Assets.Scripts.StaticObject;
+using Assets.Utility.Time;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
@@ -8,37 +9,48 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
     /// </summary>
     public class Shower : CheckClothingObject
     {
-        float DebuffTime = 0;//playerの移動速度が下がる時間
+        [SerializeField] float DebuffTime = 0;//playerの移動速度が下がる時間
 
         ShowerColor ShowerColor;
+        ParticleSystem _particleSystem;
 
-        void Awake()
+        void Start()
         {
             ShowerColor = GetComponent<ShowerColor>();
+            _particleSystem = GetComponentInChildren<ParticleSystem>();
+
+            var renderer = _particleSystem.GetComponent<ParticleSystemRenderer>();
+
+            Material material = renderer.material;
+            material.color = StaticColorManager.Instance_.ColorSettings[(ColorState)ShowerColor.CurrentColor];
         }
 
         void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
             {
-                player.EnterWaterDebuff(ShowerColor.CurrentColor);
+                player.EnterWaterDebuff();
+                Debug.Log("速度低下");
             }
             if (other.gameObject.TryGetComponent<OwnedClothing>(out var Cloth))
             {
                 //服を持っていなかったらここで処理が終わる
                 if (!Check(Cloth))
                 {
-                    Debug.Log("服持ってないよ");
+                    Debug.Log("服Model 未所持");
                     return;
                 }
-                Debug.Log("服持ってるよ");    
-                if(ShowerColor.CurrentColor == PrimaryColorState.None)
+
+                Debug.Log("服Model 所持済み");
+                if (ShowerColor.CurrentColor == PrimaryColorState.None)
                 {
                     Cloth.ClearShower();
+                    Debug.Log("Clear Shower");
                 }
                 else
                 {
                     Cloth.ShowerEnter(ShowerColor.CurrentColor);
+                    Debug.Log("Paint Shower");
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using Color = UnityEngine.Color;
 using Assets.Scripts.StaticObject;
@@ -16,9 +15,8 @@ public class ClothesModel
 
     private Material _material;
 
-    Coroutine PaintCorutine;
-
-    private Assets.Scripts.StaticObject.StaticColorManager colorManager; //色のManagerを取得するための変数
+    public Material Marerial => _material;
+    private Assets.Scripts.StaticObject.StaticColorManager colorManager;
 
     const float timeSpan = 0.01f;
 
@@ -40,13 +38,15 @@ public class ClothesModel
         _material = new Material(material);
 
         colorManager = StaticColorManager.Instance_;
-        Debug.Log("Init");
+        _material.SetColor("_BaseColor", colorManager.ColorSettings[_clothes.PaintedColor]);
+
+        Debug.Log("服データ コンストラクタ");
     }
 
     ~ClothesModel()
     {
         _material = null;
-        Debug.Log("delete");
+        Debug.Log("服データ デストラクタ");
     }
 
     /// <summary>
@@ -58,22 +58,24 @@ public class ClothesModel
         //  色が違うなら呼び出し
         if (!ColorJudge.JudgeColor(_clothes.PaintedColor, color))
         {
-            if (PaintCorutine != null)
-            {
-                cancelTaken.Cancel();
-            }
+            cancelTaken.Cancel();
+            cancelTaken = new CancellationTokenSource();
+
             _clothes.PaintColorClothes(color);
-            _material.SetColor("_PaintColor", colorManager.colorSettings[_clothes.PaintedColor]);
+            _material.SetColor("_PaintColor", colorManager.ColorSettings[_clothes.PaintedColor]);
 
             ChengeColorTask(
                 "_PaintAmount",
-                    colorManager.colorSettings[_clothes.PaintedColor],
+                    colorManager.ColorSettings[_clothes.PaintedColor],
                     ((Color Color) =>
                     {
                         _material.SetColor("_BaseColor", Color);
                     })
             ).Forget();
-
+        }
+        else
+        {
+            Debug.Log("同色");
         }
     }
 
@@ -85,12 +87,12 @@ public class ClothesModel
 
         if (!ColorJudge.JudgeColor(_clothes.PaintedColor, ColorState.None))
         {
-            if (PaintCorutine != null)
-            {
-                cancelTaken.Cancel();
-            }
+            cancelTaken.Cancel();
+            cancelTaken = new CancellationTokenSource();
+
             _clothes.ClearColor();
             _material.SetColor("_BaseColor", Color.white);
+
             ChengeColorTask(
                 "_ClearAmount", 
                 Color.white,
@@ -102,7 +104,6 @@ public class ClothesModel
                     _material.SetFloat("_ClearAmount", 0);
                 })
             ).Forget();
-
         }
     }
 
@@ -110,7 +111,7 @@ public class ClothesModel
     async UniTask ChengeColorTask(string name, Color color, UnityAction<Color> unityEvent)
     {
         float amount = 0.0f;
-        while (amount >= 1)
+        while (amount < 1)
         {
             amount += timeSpan;
             _material.SetFloat(name, amount);
@@ -120,9 +121,11 @@ public class ClothesModel
             }
             catch
             {
-                amount = float.MaxValue;
+                Debug.Log("Chenge Cancel");
+                break;
             }
         }
         unityEvent?.Invoke(color);
+        Debug.Log("Chenge End");
     }
 }

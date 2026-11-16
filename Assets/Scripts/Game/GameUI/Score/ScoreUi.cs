@@ -14,13 +14,15 @@ namespace Assets.Scripts.Game.GameUI.Score
         /// </summary>
         private Text ScoreText;
 
-        private void OnValidate()
-        {
-            ScoreText = GetComponent<Text>();
-        }
+        //  Buildで実行されていいためコメントアウト
+        //private void OnValidate()
+        //{
+        //    ScoreText = GetComponent<Text>();
+        //}
 
         public void Start()
         {
+            ScoreText = GetComponent<Text>();
             UpdateText(0);
 
             GameUiManager.Instance_.ScoreManager.ScoreChangeEvent += UpdateText;

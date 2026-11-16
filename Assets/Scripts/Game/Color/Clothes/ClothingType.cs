@@ -7,7 +7,5 @@ public enum ClothingType
     Hat,
     Shirt,
     Pants,
-    Shoes,
-
-    inv
+    Shoes
 }

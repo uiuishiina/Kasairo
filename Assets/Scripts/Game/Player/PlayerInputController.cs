@@ -2,7 +2,6 @@
 using UnityEngine.InputSystem;
 using Assets.Scripts.StaticObject;
 using System;
-using Unity.VisualScripting;
 
 namespace Assets.Scripts.Game.Player
 {
@@ -10,7 +9,7 @@ namespace Assets.Scripts.Game.Player
     /// Playerの入力処理と移動・回転処理が組まれていて、これを付けると自動的にRigidBodyがゲームオブジェクトに付く
     /// </summary>
     /// RequireComponentで必要なコンポーネントが付くようにしてある
-    [RequireComponent(typeof(CapsuleCollider), (typeof(Rigidbody)))]
+    [RequireComponent(typeof(Collider), (typeof(Rigidbody)))]
     public class PlayerInputController : MonoBehaviour
     {
         /// <summary>
@@ -18,8 +17,8 @@ namespace Assets.Scripts.Game.Player
         /// </summary>
         public event Action OnJump;
 
-        const float PlayerRange = 5.0f;
-        //回転するための体
+        [SerializeField] float PlayerRange = 5.0f;
+        
         [Tooltip("回転するための体")]
         [SerializeField] private Transform Body;
 
@@ -47,10 +46,8 @@ namespace Assets.Scripts.Game.Player
         //-----Component取得-----
         PlayerAttackInput AttackInput;
 
-        private void Awake()
+        private void Start()
         {
-            var Cloth = this.GetComponent<OwnedClothing>();
-
             //InputActionの取得
             AttackAction = StaticInputManager.Instance_.GetInputAction(
                          MapName.Player, "Attack");
@@ -61,8 +58,17 @@ namespace Assets.Scripts.Game.Player
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
 
+            var Cloth = this.GetComponent<OwnedClothing>();
+
             // AttackInputのコンストラクタ
-            AttackInput = new PlayerAttackInput(Body,PlayerRange, Cloth);
+            AttackInput = new PlayerAttackInput(Body, PlayerRange, Cloth);
+
+            //InputSystemのAttackのキーを押している間の処理にAttackInput.Attack関数を登録する
+            AttackAction.performed += OnCallAttack;
+
+            //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
+            //JumpAction.performed += _ => OnJump?.Invoke();
+            JumpAction.performed += OnCallJumpAction;
         }
 
         private void OnCallAttack(InputAction.CallbackContext cont)
@@ -75,29 +81,10 @@ namespace Assets.Scripts.Game.Player
             OnJump?.Invoke();
         }
 
-        void OnEnable()
-        {
-
-            //InputSystemのAttackのキーを押している間の処理にAttackInput.Attack関数を登録する
-            AttackAction.performed += OnCallAttack;
-
-            //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
-            //JumpAction.performed += _ => OnJump?.Invoke();
-            JumpAction.performed +=OnCallJumpAction;
-        }
-
-
-        void OnDisable()
-        {
-            //InputSystemのAttackのキーを押している間の処理からAttackInput.Attack関数を解除する
-            AttackAction.performed -= OnCallAttack;
-            JumpAction.performed -= OnCallJumpAction;
-        }
-
-
         private void OnDestroy()
         {
-            JumpAction.performed -= null;
+            AttackAction.performed -= OnCallAttack;
+            JumpAction.performed -= OnCallJumpAction;
         }
 
         void Update()

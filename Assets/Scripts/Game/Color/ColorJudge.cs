@@ -11,10 +11,6 @@ public static class ColorJudge
     /// <returns>同色ならTure</returns>
     public static bool JudgeColor(ColorState current, ColorState color)
     {
-        //if(current == ColorState.None)
-        //{
-        //    return true;
-        //}
         return (current & color) != 0;
     }
 

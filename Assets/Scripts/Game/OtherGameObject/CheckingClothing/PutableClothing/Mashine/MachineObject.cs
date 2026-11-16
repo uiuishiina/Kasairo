@@ -37,7 +37,21 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
                 Debug.Log("‚Ü‚¾Žg‚¦‚Ö‚ñ‚Å");
                 return;
             }
-            Check(ownedClothing);
+            
+            if (HasClothes())
+            {
+                if (!Check(ownedClothing))
+                {
+                    GetCloth(ownedClothing);
+                }
+            }
+            else
+            {
+                if (Check(ownedClothing))
+                {
+                    PutCloth(ownedClothing);
+                }
+            }
         }
 
         private void Update()

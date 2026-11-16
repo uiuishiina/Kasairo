@@ -20,7 +20,9 @@ namespace Assets.Scripts.StaticObject
         /// <summary>
         /// ポーズフラグ
         /// </summary>
-        public bool IsPause_ { get; private set; } = false;
+        bool _IsPause = false;
+
+        public bool IsPause => _IsPause;
 
         /* ========== 関数 ========== */
 
@@ -57,10 +59,10 @@ namespace Assets.Scripts.StaticObject
             bool pause
             )
         {
-            if( IsPause_ == pause) { return; }
+            if( _IsPause == pause) { return; }
 
-            IsPause_ = pause;
-            UnityEngine.Time.timeScale = IsPause_ ? 0.0f : GameTimeScale_;
+            _IsPause = pause;
+            UnityEngine.Time.timeScale = _IsPause ? 0.0f : GameTimeScale_;
         }
     }
 }
