@@ -14,18 +14,26 @@ namespace Assets.Scripts.Game.GameUI.Order
         private Queue<Image> StandByImage = new ();
         private List<Image> UsingImage = new ();
 
-        private void OnValidate()
+        //  Build時に反応しないため、コメントアウトしてStartに追記
+        //private void OnValidate()
+        //{
+        //    ViewBox = GetComponent<ScrollRect>().content;
+        //    for(int i = 0;  i < ViewBox.childCount; i++)
+        //    {
+        //        var child = ViewBox.GetChild(i);
+        //        StandByImage.Enqueue(child.GetComponent<Image>());
+        //    }
+        //}
+
+        private void Start()
         {
             ViewBox = GetComponent<ScrollRect>().content;
-            for(int i = 0;  i < ViewBox.childCount; i++)
+            for (int i = 0; i < ViewBox.childCount; i++)
             {
                 var child = ViewBox.GetChild(i);
                 StandByImage.Enqueue(child.GetComponent<Image>());
             }
-        }
 
-        private void Start()
-        {
             for (int i = 0;i < ViewBox.childCount; i++)
             {
                 ViewBox.GetChild(i).gameObject.SetActive(false);

@@ -1,63 +1,53 @@
-﻿using System.Collections;
-using System.Drawing;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using Color = UnityEngine.Color;
 using Assets.Scripts.StaticObject;
-using Unity.VisualScripting;
+using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
 
-public class ClothesModel : MonoBehaviour
+public class ClothesModel
 {
     /// <summary>
     /// シャワーの色を服に塗るためのクラス
     /// </summary>
-    [SerializeField]
-    public Clothes clothes;
+    public Clothes _clothes;
 
-    private Material material;         //Material取得
-    private float PaintAmount = 0;     //塗装値
-    private float ClearAmount = 0;     //クリア値
+    private Material _material;
 
-    Coroutine PaintCorutine;
+    public Material Marerial => _material;
+    private Assets.Scripts.StaticObject.StaticColorManager colorManager;
 
-    private UnityAction<Color> endAction;
+    const float timeSpan = 0.01f;
 
-    private Assets.Scripts.StaticObject.StaticColorManager colorManager; //色のManagerを取得するための変数
+    CancellationTokenSource cancelTaken = new();
 
-    public bool IsInitialized
+    public ClothesModel(Material material, Clothes clothes)
     {
-        get
-        {
-            return clothes.IsInitialized;
-        }
+        init(material, clothes);
     }
 
-    private void Awake()
+    public ClothesModel(Material material, ColorState paintedColor = ColorState.None, ClothingType clothingType = ClothingType.None)
     {
-        enabled = false;
+        init(material,new Clothes(paintedColor, clothingType));
+    }
 
-        clothes = Clothes.NoneClothes;
-
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            material = renderer.material;
-        }
+    private void init(Material material, Clothes clothes)
+    {
+        _clothes = clothes;
+        _material = new Material(material);
 
         colorManager = StaticColorManager.Instance_;
+        _material.SetColor("_BaseColor", colorManager.ColorSettings[_clothes.PaintedColor]);
+
+        Debug.Log("服データ コンストラクタ");
     }
 
-    public bool InitializeClothes(ColorState paintedColor, ClothingType clothingType)
+    ~ClothesModel()
     {
-        if (clothes.IsInitialized)
-        {
-            return false;
-        }
-        clothes = new Clothes(paintedColor, clothingType);
-        return true;
+        _material = null;
+        Debug.Log("服データ デストラクタ");
     }
-
 
     /// <summary>
     /// シャワーの色を引数として持ってきて現在の服の色と混ぜて更新する
@@ -66,25 +56,26 @@ public class ClothesModel : MonoBehaviour
     public void PaintColor(PrimaryColorState color)
     {
         //  色が違うなら呼び出し
-        if (!ColorJudge.JudgeColor(clothes.PaintedColor, color))
+        if (!ColorJudge.JudgeColor(_clothes.PaintedColor, color))
         {
-            if (PaintCorutine != null)
-            {
-                endAction?.Invoke(colorManager.colorSettings[clothes.PaintedColor]);
-                StopCoroutine(PaintCorutine);
-            }
-            clothes.PaintColorClothes(color);
-            material.SetColor("_PaintColor", colorManager.colorSettings[clothes.PaintedColor]);
-            PaintCorutine = StartCoroutine(
-                ChengeColorCol(
-                    "_PaintAmount",
-                    colorManager.colorSettings[clothes.PaintedColor],
-                    endAction = ((Color Color) =>
+            cancelTaken.Cancel();
+            cancelTaken = new CancellationTokenSource();
+
+            _clothes.PaintColorClothes(color);
+            _material.SetColor("_PaintColor", colorManager.ColorSettings[_clothes.PaintedColor]);
+
+            ChengeColorTask(
+                "_PaintAmount",
+                    colorManager.ColorSettings[_clothes.PaintedColor],
+                    ((Color Color) =>
                     {
-                        material.SetColor("_BaseColor", Color);
+                        _material.SetColor("_BaseColor", Color);
                     })
-                )
-            );
+            ).Forget();
+        }
+        else
+        {
+            Debug.Log("同色");
         }
     }
 
@@ -94,47 +85,47 @@ public class ClothesModel : MonoBehaviour
     public void PaintClear()
     {
 
-        if (!ColorJudge.JudgeColor(clothes.PaintedColor, ColorState.None))
+        if (!ColorJudge.JudgeColor(_clothes.PaintedColor, ColorState.None))
         {
-            if (PaintCorutine != null)
-            {
-                endAction?.Invoke(Color.white);
+            cancelTaken.Cancel();
+            cancelTaken = new CancellationTokenSource();
 
-                StopCoroutine(PaintCorutine);
-            }
-            clothes.ClearColor();
-            material.SetColor("_BaseColor", Color.white);
-            PaintCorutine = StartCoroutine(ChengeColorCol("_ClearAmount", Color.white,
-            endAction = ((Color Color) =>
-            {
-                material.SetColor("_BaseColor", Color.white);
-                material.SetColor("_PaintColor", Color.white);
-                material.SetFloat("_PaintAmount", 0);
-                material.SetFloat("_ClearAmount", 0);
-            })));
+            _clothes.ClearColor();
+            _material.SetColor("_BaseColor", Color.white);
+
+            ChengeColorTask(
+                "_ClearAmount", 
+                Color.white,
+                ((Color Color) =>
+                {
+                    _material.SetColor("_BaseColor", Color.white);
+                    _material.SetColor("_PaintColor", Color.white);
+                    _material.SetFloat("_PaintAmount", 0);
+                    _material.SetFloat("_ClearAmount", 0);
+                })
+            ).Forget();
         }
     }
 
-    /// <summary>
-    /// 塗った色をベースに変える, :ClearするときにBaseColorに戻すから同じ色から同じ色になって意味がない
-    /// Amountのリセット : OK
-    /// PaintClear両方 :
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    IEnumerator ChengeColorCol(string name, Color color, UnityAction<Color> unityEvent)
+
+    async UniTask ChengeColorTask(string name, Color color, UnityAction<Color> unityEvent)
     {
-        var amount = 0.0f;
-        while (true)
+        float amount = 0.0f;
+        while (amount < 1)
         {
-            amount += 0.01f;
-            material.SetFloat(name, amount);
-            yield return new WaitForSeconds(0.001f);
-            if (amount >= 1)
+            amount += timeSpan;
+            _material.SetFloat(name, amount);
+            try
             {
-                unityEvent?.Invoke(color);
-                yield break;
+                await UniTask.Delay(TimeSpan.FromSeconds(timeSpan), cancellationToken: cancelTaken.Token);
+            }
+            catch
+            {
+                Debug.Log("Chenge Cancel");
+                break;
             }
         }
+        unityEvent?.Invoke(color);
+        Debug.Log("Chenge End");
     }
 }

@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Assets.Scripts.Game.OtherGameObject;
-using Assets.Scripts.Game.OtherGameObject.CheckingClothing;
-using Assets.Scripts.Game.OtherGameObject.CheckingClothing.ChestofDrawerType;
+
 /// <summary>
 /// playerがミシンなどのオブジェクトに触れたときの処理だけがあるクラス
 /// </summary>
@@ -37,7 +36,7 @@ public class PlayerAttackInput
 
         var otherobj = obj.GetComponent<OtherObject>();
 
-        if (otherobj==null) return;
+        if (otherobj == null) return;
 
         otherobj.ObjectAction(OwnedClothing);
     }

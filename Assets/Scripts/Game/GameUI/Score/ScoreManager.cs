@@ -34,6 +34,8 @@ namespace Assets.Scripts.Game.GameUI.Score
             if (ScorePoint < 0) ScorePoint = 0;
 
             ScoreChangeEvent?.Invoke(ScorePoint);
+
+            UnityEngine.Debug.Log($"Point = {point}");
         }
     }
 }

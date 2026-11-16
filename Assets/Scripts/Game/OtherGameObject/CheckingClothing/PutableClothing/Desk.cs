@@ -12,7 +12,22 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing.PutableClothingOb
         /// <param name="myclothe">playerの衣類のデータ</param>
         public override void ObjectAction(OwnedClothing myclothe)
         {
-            Check(myclothe);
+            //  服を所持しているか
+            if(HasClothes())
+            {
+                //  プレイヤーは服を所持しているか
+                if(!Check(myclothe))
+                {
+                    GetCloth(myclothe);
+                }   
+            }
+            else
+            {
+                if (Check(myclothe))
+                {
+                    PutCloth(myclothe);
+                }
+            }
         }
     }
 }

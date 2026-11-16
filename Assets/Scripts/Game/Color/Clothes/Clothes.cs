@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 
 /// <summary>
@@ -38,8 +39,6 @@ public class Clothes
         }
     }
 
-
-
     /// <summary>
     /// コンストラクタ　このクラスをnewしたとき初期値を設定する
     /// </summary>
@@ -58,7 +57,6 @@ public class Clothes
     public void PaintColorClothes(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
-
 
         Debug.Log(paintedColor);
     }

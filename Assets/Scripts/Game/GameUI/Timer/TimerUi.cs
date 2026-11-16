@@ -11,13 +11,15 @@ namespace Assets.Scripts.Game.GameUI.Timer
     {
         private Text TimeText;
 
-        private void OnValidate()
-        {
-            TimeText = GetComponent<Text>();
-        }
+        //  Buildで呼ばれていないためコメントアウト
+        //private void OnValidate()
+        //{
+        //    TimeText = GetComponent<Text>();
+        //}
 
         private void Start()
         {
+            TimeText = GetComponent<Text>();
             GameUiManager.Instance_.TimerManager.TimerChangeEvent += UpdateText;
         }
 

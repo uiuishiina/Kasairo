@@ -28,7 +28,6 @@ namespace Assets.Scripts.StaticObject
             Debug.Log($"SceneName = {scene.name}");
         }
 
-
         /* ===== 独自関数 ===== */
 
         /// <summary>

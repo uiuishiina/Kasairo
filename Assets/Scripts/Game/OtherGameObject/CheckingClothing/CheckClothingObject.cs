@@ -11,13 +11,9 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
         /// </summary>
         /// <param name="ownedClothing">player‚Ìˆß—Ş</param>
         /// <returns>‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©(‚Á‚Ä‚¢‚½‚çtrueA‚È‚©‚Á‚½‚çfalse)</returns>
-        protected virtual bool Check(OwnedClothing ownedClothing)
+        protected bool Check(OwnedClothing ownedClothing)
         {
-            Clothes it = ownedClothing.OwnedClothes;
-
-            return it != null;
+            return ownedClothing.Model != null;
         }
     }
 }
-
-

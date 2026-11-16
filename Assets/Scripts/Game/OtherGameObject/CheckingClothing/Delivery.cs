@@ -18,9 +18,7 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
 
             Debug.Log("”[•i‚µ‚Ü‚µ‚½");
 
-            Clothes = ownedClothing.Model;//player‚ªˆß—Þ‚ð“n‚·
-
-            OrderManager.Instance.Submission(Clothes.clothes);
+            OrderManager.Instance.Submission(ownedClothing.OwnedClothes);
 
             ownedClothing.RemoveClothing();
         }

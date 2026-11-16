@@ -1,45 +1,26 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections.Generic;
-using Assets.Scripts.StaticObject;
-using NUnit.Framework;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
+using Assets.Scripts.StaticObject;
 
 namespace Assets.Scripts.Audio
 {
     /// <summary>
     /// オーディオ管理
     /// </summary>
-    public class AudioManager : MonoBehaviour//StaticObject<AudioManager>....テスト用(実際はStaticObjectを継承する)
+    public class AudioManager : StaticObject<AudioManager>
     {
-        public static AudioManager Instance_;
-
         [SerializeField] AudioSource BGMAudioSource;//BGM再生用
 
         [SerializeField] AudioMixer AudioMixer;//AudioMixerの参照(全体の音量を制御できる)
 
         [SerializeField, Header("現在の音量データと曲が入っているScriptableObject")] private VolumeDeta VolumeDeta;//現在の音量データと曲が入っているScriptableObject
-        private Queue<int> SEAudioSourceIndexQueue = new Queue<int>();//SE再生用AudioSourceのインデックスを格納するキュー
 
         [SerializeField]private SEIndex[] SESource;//SE再生用AudioSourceとインデックス
 
-
-        private void Awake()
-        {
-
-            //テスト用(実際はStaticObjectを継承する)
-            if (Instance_ == null)
-            {
-                Instance_ = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
+        private Queue<int> SEAudioSourceIndexQueue = new Queue<int>();//SE再生用AudioSourceのインデックスを格納するキュー
 
         private void Start()
         {
@@ -67,11 +48,7 @@ namespace Assets.Scripts.Audio
         {
             if (clip == null) return;
             
-            if(!SEAudioSourceIndexQueue.TryDequeue(out int index))
-            {
-                return;
-            }
-            else
+            if(SEAudioSourceIndexQueue.TryDequeue(out int index))
             {
                 SESource[index].SEAudioSources.PlayOneShot(clip.Clip, clip.Volume);
                 //SE再生が終わるまで待機

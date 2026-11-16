@@ -15,13 +15,12 @@ namespace Assets.Scripts.Game.GameSystem
         /// </summary>
         public static OrderManager Instance { get; private set; }
 
-        private int MaxOrder = 4;
-
+        private const int MaxOrder = 4;
 
         [SerializeField] private List<ColorState> SetColor = new();
         [SerializeField] private List<ClothingType> SetClothing = new();
 
-        private List<Clothes> OrderList = new();
+        private List<Clothes> OrderList = new(MaxOrder);
 
         private void Awake()
         {
@@ -149,6 +148,11 @@ namespace Assets.Scripts.Game.GameSystem
 
                     GameUiManager.Instance_.ScoreManager.AddScorePoint(score);
                     GameUiManager.Instance_.OrderManager.RemoveOrder(i);
+
+
+                    //  整合性が取れない変な挙動したため追加
+                    //  おそらく削除する予定だと思うためRemove
+                    OrderList.RemoveAt(i);
                     return;
                 }
             }

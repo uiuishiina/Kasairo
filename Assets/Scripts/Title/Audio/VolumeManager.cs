@@ -1,8 +1,5 @@
-using Assets.Scripts.Audio;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
-
 
 namespace Assets.Scripts.Audio
 {
@@ -18,7 +15,6 @@ namespace Assets.Scripts.Audio
 
         [SerializeField, Header("SE音量")] private Slider SESlider;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             // 現在の音量をスライダーに反映させる
@@ -31,9 +27,6 @@ namespace Assets.Scripts.Audio
             BGMSlider.onValueChanged.AddListener(AudioManager.Instance_.SetBGMVolume);
             SESlider.onValueChanged.AddListener(AudioManager.Instance_.SetSEVolume);
         }
-
-
-
     }
 }
 
