@@ -60,10 +60,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6636569964863955296, guid: 93c58c547a032484b867b91c8ad9413d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4202cbbd9282da54eb94b2216c32b756, type: 2}
+    - target: {fileID: -3995272465676935165, guid: 93c58c547a032484b867b91c8ad9413d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4202cbbd9282da54eb94b2216c32b756, type: 2}
     - target: {fileID: 919132149155446097, guid: 93c58c547a032484b867b91c8ad9413d, type: 3}
       propertyPath: m_Name
       value: Desk
       objectReference: {fileID: 0}
+    - target: {fileID: 3550674622187927972, guid: 93c58c547a032484b867b91c8ad9413d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4202cbbd9282da54eb94b2216c32b756, type: 2}
+    - target: {fileID: 8885329061251328210, guid: 93c58c547a032484b867b91c8ad9413d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4202cbbd9282da54eb94b2216c32b756, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
