@@ -1,3 +1,4 @@
+using Assets.Scripts.Game.GameUI.Equipped;
 using System.Drawing;
 using UnityEngine;
 
@@ -57,6 +58,8 @@ public class Clothes
     public void PaintColorClothes(PrimaryColorState color)
     {
         paintedColor = ColorMixer.MixedColor(paintedColor, color);
+
+        EquippedUIManager.Instance.RightEquipped.ChangeClothes(this);
 
         Debug.Log(paintedColor);
     }

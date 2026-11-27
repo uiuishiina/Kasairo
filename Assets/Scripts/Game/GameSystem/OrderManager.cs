@@ -1,7 +1,6 @@
 using Assets.Scripts.Game.GameUI;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Game.GameSystem
 {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Game.GameUI.Equipped;
+using UnityEngine;
 
 /// <summary>
 /// 服の所持状況
@@ -46,6 +47,8 @@ public class OwnedClothing : MonoBehaviour
         //  マテリアル上書き
         _clothesRenderer.material = ownedClothes.Marerial;
 
+        EquippedUIManager.Instance.RightEquipped.ChangeClothes(OwnedClothes);
+
         return true;
     }
 
@@ -60,7 +63,8 @@ public class OwnedClothing : MonoBehaviour
 
         _clothesRenderer.material = NoneMaterial;
 
-        Debug.Log("削除");
+        EquippedUIManager.Instance.RightEquipped.ChangeClothes();
+
         return true;
     }
 
