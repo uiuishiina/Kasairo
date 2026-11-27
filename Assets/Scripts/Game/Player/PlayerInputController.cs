@@ -16,6 +16,10 @@ namespace Assets.Scripts.Game.Player
         /// PlayerMoveInputにJumpInputの中の関数を登録してもらうためのイベント変数
         /// </summary>
         public event Action OnJump;
+        /// <summary>
+        /// UmrellaにJumpInputの中の関数を登録してもらうためのイベント変数
+        /// </summary>
+        public event Action OnUmbrella;
 
         [SerializeField] float PlayerRange = 5.0f;
         
@@ -93,7 +97,7 @@ namespace Assets.Scripts.Game.Player
 
         void Umbrella(InputAction.CallbackContext cont)
         {
-            IsUmbrella = !IsUmbrella;
+            OnUmbrella?.Invoke();
         }
 
         private void OnDestroy()

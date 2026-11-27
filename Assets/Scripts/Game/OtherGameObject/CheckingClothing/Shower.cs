@@ -27,6 +27,17 @@ namespace Assets.Scripts.Game.OtherGameObject.CheckingClothing
 
         void OnTriggerEnter(Collider other)
         {
+            if(other.gameObject.TryGetComponent<Umbrella>(out var umbrella))
+            {
+                if(umbrella.IsUmbrella)
+                {
+                    Debug.Log("傘開いてる");
+                }
+                else
+                {
+                    Debug.Log("傘閉じてる");
+                }
+            }
             if (other.gameObject.TryGetComponent<PlayerMoveInput>(out var player))
             {
                 player.EnterWaterDebuff();
