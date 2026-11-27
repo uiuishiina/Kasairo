@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d439532b4aca8642bc7ae7c6edc0def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Game.Player.PlayerInputController
+  PlayerRange: 5
   Body: {fileID: 912322554}
 --- !u!54 &912322553
 Rigidbody:
@@ -683,6 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84b25f2609375f4face3602586bc799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OwnedClothing
+  NoneMaterial: {fileID: 0}
 --- !u!65 &912322556
 BoxCollider:
   m_ObjectHideFlags: 0
