@@ -31,6 +31,9 @@ namespace Assets.Scripts.Game.Player
         /// </summary>
         public Vector2 GetInputVer => InputVer;
 
+        [SerializeField]
+        bool IsUmbrella;
+
         /// <summary>
         /// Playerの判定する範囲
         /// </summary>
@@ -42,6 +45,8 @@ namespace Assets.Scripts.Game.Player
         private InputAction AttackAction;
 
         private InputAction JumpAction;
+
+        private InputAction UmbrellaAction;
 
         //-----Component取得-----
         PlayerAttackInput AttackInput;
@@ -58,6 +63,9 @@ namespace Assets.Scripts.Game.Player
             MoveAction = StaticInputManager.Instance_.GetInputAction(
                           MapName.Player, "Move");
 
+            UmbrellaAction = StaticInputManager.Instance_.GetInputAction(
+                          MapName.Player, "Interact");
+
             var Cloth = this.GetComponent<OwnedClothing>();
 
             // AttackInputのコンストラクタ
@@ -69,6 +77,8 @@ namespace Assets.Scripts.Game.Player
             //InputSystemのJumpのキーを押したときの処理にOnJumpイベントを登録する(こちらはMoveInput側でOnJumpに登録してもらった関数を登録している)
             //JumpAction.performed += _ => OnJump?.Invoke();
             JumpAction.performed += OnCallJumpAction;
+
+            UmbrellaAction.started += Umbrella;
         }
 
         private void OnCallAttack(InputAction.CallbackContext cont)
@@ -81,10 +91,16 @@ namespace Assets.Scripts.Game.Player
             OnJump?.Invoke();
         }
 
+        void Umbrella(InputAction.CallbackContext cont)
+        {
+            IsUmbrella = !IsUmbrella;
+        }
+
         private void OnDestroy()
         {
             AttackAction.performed -= OnCallAttack;
             JumpAction.performed -= OnCallJumpAction;
+            UmbrellaAction.started -= Umbrella;
         }
 
         void Update()
